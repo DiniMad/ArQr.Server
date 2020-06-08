@@ -8,4 +8,181 @@ body {
   font-size: 10px;
 }
 
+#home {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #092756;
+  background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -moz-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -webkit-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -o-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -ms-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), linear-gradient(to bottom, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), linear-gradient(135deg, #670d10 0%, #092756 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3E1D6D", endColorstr="#092756", GradientType=1);
+}
+#home #card-images-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+#home #card-images-wrapper #rotary-template {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 45%;
+}
+#home #card-images-wrapper #rotary-template-front {
+  z-index: 1;
+}
+#home #card-images-wrapper #rotary-template-back {
+  transform: rotateX(180deg);
+}
+#home #card-images-wrapper #rotary-template.turn #rotary-template-front {
+  z-index: 0;
+  transform: rotateX(-180deg);
+}
+#home #card-images-wrapper #rotary-template.turn #rotary-template-back {
+  transform: rotateX(0);
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  transition: all 1s;
+  background-color: transparent !important;
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container .card-template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container .card-template-img {
+  max-height: 100%;
+  max-width: 100%;
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container .card-template-marker {
+  position: absolute;
+  background: transparent;
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container .card-template-marker#marker-card-front {
+  left: 5%;
+  right: 81%;
+  top: 66%;
+  bottom: 9%;
+}
+#home #card-images-wrapper #rotary-template .rotary-template-container .card-template-marker#marker-card-back {
+  left: 84%;
+  right: 2%;
+  top: 72%;
+  bottom: 3%;
+}
+#home #forms {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: auto;
+  width: 50%;
+  z-index: 1;
+  transition: transform 3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+#home #forms-img {
+  width: 100%;
+}
+#home #forms-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  visibility: hidden;
+  opacity: 0;
+}
+#home #forms-container.display {
+  animation: displayForm 1s linear 1s 1 forwards;
+}
+@keyframes displayForm {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+#home #forms-container #form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1rem;
+  padding: 1rem;
+  height: 95%;
+  width: 60%;
+  background: #19191a;
+}
+#home #forms-container #form .form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 1rem;
+  width: 100%;
+  height: 95%;
+}
+#home #forms-container #form .form .input {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 95%;
+}
+#home #forms-container #form .form .input input[type=email],
+#home #forms-container #form .form .input input[type=password] {
+  color: #fff;
+  width: 100%;
+  padding: 0.4rem;
+  font-size: 1rem;
+  background: #222222;
+  outline: 0;
+  border: 0;
+  border-radius: 0.5rem;
+}
+#home #forms-container #form .form .input label {
+  direction: rtl;
+  text-align: center;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+}
+#home #forms-container #form .form input[type=submit] {
+  color: #fff;
+  padding: 0.3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #0184ff;
+  width: 90%;
+}
+#home #forms-container #form button {
+  color: #0184ff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  background: transparent;
+}
+
 /*# sourceMappingURL=style.css.map */

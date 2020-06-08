@@ -4,6 +4,228 @@
 	box-sizing: border-box;
 }
 
-body{
+body {
 	font-size: 10px;
+}
+
+#home {
+	$background-radial-gradient: 0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%;
+	$background-linear-gradient: top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%;
+	$background-linear-gradient2: -45deg, #670d10 0%, #092756 100%;
+	position: relative;
+	width: 100vw;
+	height: 100vh;
+	background: #092756;
+	background: -moz-radial-gradient($background-radial-gradient),
+	-moz-linear-gradient($background-linear-gradient),
+	-moz-linear-gradient($background-linear-gradient2);
+	background: -webkit-radial-gradient($background-radial-gradient),
+	-webkit-linear-gradient($background-linear-gradient),
+	-webkit-linear-gradient($background-linear-gradient2);
+	background: -o-radial-gradient($background-radial-gradient),
+	-o-linear-gradient($background-linear-gradient),
+	-o-linear-gradient($background-linear-gradient2);
+	background: -ms-radial-gradient($background-radial-gradient),
+	-ms-linear-gradient($background-linear-gradient),
+	-ms-linear-gradient($background-linear-gradient2);
+	background: -webkit-radial-gradient($background-radial-gradient),
+	linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%),
+	linear-gradient(135deg, #670d10 0%, #092756 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);
+
+	#card-images-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+
+		// Override some styles of card rotate template
+		#rotary-template {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 40%;
+			height: 45%;
+
+			&-front {
+				z-index: 1;
+			}
+
+			&-back {
+				transform: rotateX(180deg);
+			}
+
+			&.turn {
+				#rotary-template {
+					&-front {
+						z-index: 0;
+						transform: rotateX(-180deg);
+					}
+
+					&-back {
+						transform: rotateX(0);
+					}
+				}
+			}
+
+			.rotary-template-container {
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				width: 100%;
+				transition: all 1s;
+				background-color: transparent !important;
+
+				// card template styles
+				.card-template {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					position: relative;
+					width: 100%;
+
+					&-img {
+						max-height: 100%;
+						max-width: 100%;
+					}
+
+					&-marker {
+						position: absolute;
+						background: transparent;
+
+						&#marker-card-front {
+							left: 5%;
+							right: 81%;
+							top: 66%;
+							bottom: 9%;
+						}
+
+						&#marker-card-back {
+							left: 84%;
+							right: 2%;
+							top: 72%;
+							bottom: 3%;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	#forms {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin: auto;
+		width: 50%;
+		z-index: 1;
+		transition: transform 3s cubic-bezier(0.190, 1.000, 0.220, 1.000);
+
+		&-img {
+			width: 100%
+		}
+
+		&-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: absolute;
+			bottom: 0;
+			top: 0;
+			right: 0;
+			left: 0;
+			margin: auto;
+			width: 80%;
+			height: 80%;
+			visibility: hidden;
+			opacity: 0;
+
+			&.display {
+				animation: displayForm 1s linear 1s 1 forwards;
+
+			}
+
+			@keyframes displayForm {
+				to {
+					visibility: visible;
+					opacity: 1;
+				}
+			}
+
+			#form {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+				border-radius: 1rem;
+				padding: 1rem;
+				height: 95%;
+				width: 60%;
+				background: rgb(25, 25, 26);
+
+				.form {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-evenly;
+					align-items: center;
+					border-radius: 1rem;
+					width: 100%;
+					height: 95%;
+
+					.input {
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: center;
+						width: 95%;
+
+						input[type="email"],
+						input[type="password"] {
+							color: #fff;
+							width: 100%;
+							padding: .4rem;
+							font-size: 1rem;
+							background: rgb(34, 34, 34);
+							outline: 0;
+							border: 0;
+							border-radius: .5rem;
+						}
+
+						label {
+							direction: rtl;
+							text-align: center;
+							margin-top: .3rem;
+							font-size: .8rem;
+						}
+
+					
+					}	input[type="submit"] {
+							 color: #fff;
+							 padding: .3rem;
+							 font-size: 1rem;
+							 cursor: pointer;
+							 outline: 0;
+							 border: 0;
+							 border-radius: .5rem;
+							 background: #0184ff;
+							 width: 90%;
+						 }
+				}
+
+
+				button {
+					color: #0184ff;
+					font-size: .8rem;
+					cursor: pointer;
+					outline: 0;
+					border: 0;
+					background: transparent;
+				}
+			}
+		}
+	}
 }
