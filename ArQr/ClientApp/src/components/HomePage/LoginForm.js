@@ -3,26 +3,22 @@ import PropTypes from 'prop-types';
 
 import Form from './Form';
 
-const LoginForm = ({onChangeFormButtonClick}) => {
-    const initialValues = {
-        email: '',
-        password: ''
-    };
-
+const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
     const onSubmit = (data) => {
         // TODO: Send Request to the server
         console.log(data);
     };
 
     return (
-        <Form initialValues={initialValues} 
-              onSubmit={onSubmit} 
-              onChangeFormButtonClick={onChangeFormButtonClick}/>
+        <Form onSubmit={onSubmit}
+              onChangeFormButtonClick={onChangeFormButtonClick}
+              onFormError={onFormError}/>
     );
 };
 
 LoginForm.propTypes = {
     onChangeFormButtonClick: PropTypes.func.isRequired,
+    onFormError: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
