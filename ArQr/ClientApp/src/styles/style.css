@@ -23,7 +23,7 @@ body {
 #home #card-images-wrapper {
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 10%;
   height: 100%;
   width: 100%;
 }
@@ -90,12 +90,13 @@ body {
   top: 0;
   left: 0;
   margin: auto;
-  width: 50%;
+  height: 80%;
   z-index: 1;
   transition: transform 3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 #home #forms-img {
-  width: 100%;
+  height: 100%;
+  max-width: 100%;
 }
 #home #forms-container {
   display: flex;
@@ -107,8 +108,8 @@ body {
   right: 0;
   left: 0;
   margin: auto;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   visibility: hidden;
   opacity: 0;
 }
@@ -127,9 +128,9 @@ body {
   justify-content: space-between;
   align-items: center;
   border-radius: 1rem;
-  padding: 1rem;
-  height: 95%;
-  width: 60%;
+  padding: 0.4rem;
+  height: 40%;
+  width: 80%;
   background: #19191a;
 }
 #home #forms-container #form .form {
@@ -141,38 +142,38 @@ body {
   width: 100%;
   height: 95%;
 }
-#home #forms-container #form .form .input {
+#home #forms-container #form .form .inputs {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   width: 95%;
+  height: 100%;
 }
-#home #forms-container #form .form .input input[type=email],
-#home #forms-container #form .form .input input[type=password] {
+#home #forms-container #form .form .inputs input[type=email],
+#home #forms-container #form .form .inputs input[type=password] {
   color: #fff;
   width: 100%;
-  padding: 0.4rem;
-  font-size: 1rem;
+  padding: 0.3rem;
+  font-size: 0.9rem;
   background: #222222;
   outline: 0;
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
 }
-#home #forms-container #form .form .input label {
-  direction: rtl;
+#home #forms-container #form .form .inputs input[type=email][value=""],
+#home #forms-container #form .form .inputs input[type=password][value=""] {
   text-align: center;
-  margin-top: 0.3rem;
-  font-size: 0.8rem;
 }
 #home #forms-container #form .form input[type=submit] {
   color: #fff;
-  padding: 0.3rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
   cursor: pointer;
   outline: 0;
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: 0.3rem;
+  margin: 0.6rem 0;
+  padding: 0.3rem;
   background: #0184ff;
   width: 90%;
 }
@@ -183,6 +184,30 @@ body {
   outline: 0;
   border: 0;
   background: transparent;
+}
+#home #forms #phone-notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  direction: rtl;
+  font-size: 0.5rem;
+  top: 15px;
+  left: 0;
+  right: 0;
+  border-radius: 1.5rem;
+  opacity: 0;
+  margin: auto;
+  padding: 8% 4% 4%;
+  height: 0;
+  width: 90%;
+  background: #19191a;
+  z-index: -1;
+  transition: opacity 0.6s 0.2s, height 0.8s;
+}
+#home #forms #phone-notification.display {
+  opacity: 1;
+  height: 15%;
 }
 
 /*# sourceMappingURL=style.css.map */
