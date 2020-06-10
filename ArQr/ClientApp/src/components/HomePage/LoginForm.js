@@ -10,9 +10,11 @@ const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
     };
 
     return (
-        <Form onSubmit={onSubmit}
-              onChangeFormButtonClick={onChangeFormButtonClick}
-              onFormError={onFormError}/>
+        <div id="login">
+            <Form onSubmit={onSubmit}
+                  onChangeFormButtonClick={onChangeFormButtonClick}
+                  onFormError={onFormError}/>
+        </div>
     );
 };
 

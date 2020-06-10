@@ -36,24 +36,26 @@ const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) =>
             {({errors}) => {
                 onFormError(errors);
 
-                return (<div id='form'>
-                    <FormikForm className='form'>
-                        <div className='inputs'>
-                            <Field id='email' name='email' type='email' placeholder='ایمیل'/>
-                            <Field id='password' name='password' type='password' placeholder='رمز عبور'/>
-                            {registerMode &&
-                            <Field id='passwordConfirmation'
-                                   name='passwordConfirmation'
-                                   type='password'
-                                   placeholder='تکرار رمز عبور'/>
-                            }
-                        </div>
-                        <Field name='submit' type='submit' value={registerMode ? 'ایجاد حساب' : 'ورود'}/>
-                    </FormikForm>
-                    <button onClick={onChangeFormButtonClick} type='button'>
-                        {registerMode ? 'ورود به حساب کاربری' : 'ایجاد حساب کاربری'}
-                    </button>
-                </div>);
+                return (
+                    <>
+                        <FormikForm className='form'>
+                            <div className='inputs'>
+                                <Field id='email' name='email' type='email' placeholder='ایمیل'/>
+                                <Field id='password' name='password' type='password' placeholder='رمز عبور'/>
+                                {registerMode &&
+                                <Field id='passwordConfirmation'
+                                       name='passwordConfirmation'
+                                       type='password'
+                                       placeholder='تکرار رمز عبور'/>
+                                }
+                            </div>
+                            <Field name='submit' type='submit' value={registerMode ? 'ایجاد حساب' : 'ورود'}/>
+                        </FormikForm>
+                        <button onClick={onChangeFormButtonClick} type='button'>
+                            {registerMode ? 'ورود به حساب کاربری' : 'ایجاد حساب کاربری'}
+                        </button>
+                    </>
+                );
             }
             }
         </Formik>
