@@ -122,7 +122,7 @@ body {
     opacity: 1;
   }
 }
-#home #forms-container #form {
+#home #forms-container #login, #home #forms-container #register {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -133,7 +133,7 @@ body {
   width: 80%;
   background: #19191a;
 }
-#home #forms-container #form .form {
+#home #forms-container #login .form, #home #forms-container #register .form {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -142,7 +142,7 @@ body {
   width: 100%;
   height: 95%;
 }
-#home #forms-container #form .form .inputs {
+#home #forms-container #login .form .inputs, #home #forms-container #register .form .inputs {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -150,8 +150,9 @@ body {
   width: 95%;
   height: 100%;
 }
-#home #forms-container #form .form .inputs input[type=email],
-#home #forms-container #form .form .inputs input[type=password] {
+#home #forms-container #login .form .inputs input[type=email],
+#home #forms-container #login .form .inputs input[type=password], #home #forms-container #register .form .inputs input[type=email],
+#home #forms-container #register .form .inputs input[type=password] {
   color: #fff;
   width: 100%;
   padding: 0.3rem;
@@ -161,11 +162,12 @@ body {
   border: 0;
   border-radius: 0.3rem;
 }
-#home #forms-container #form .form .inputs input[type=email][value=""],
-#home #forms-container #form .form .inputs input[type=password][value=""] {
+#home #forms-container #login .form .inputs input[type=email][value=""],
+#home #forms-container #login .form .inputs input[type=password][value=""], #home #forms-container #register .form .inputs input[type=email][value=""],
+#home #forms-container #register .form .inputs input[type=password][value=""] {
   text-align: center;
 }
-#home #forms-container #form .form input[type=submit] {
+#home #forms-container #login .form input[type=submit], #home #forms-container #register .form input[type=submit] {
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
@@ -177,7 +179,7 @@ body {
   background: #0184ff;
   width: 90%;
 }
-#home #forms-container #form button {
+#home #forms-container #login button, #home #forms-container #register button {
   color: #0184ff;
   font-size: 0.8rem;
   cursor: pointer;
