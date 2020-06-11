@@ -40,11 +40,10 @@ const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) =>
                     <>
                         <FormikForm className='form'>
                             <div className='inputs'>
-                                <Field id='email' name='email' type='email' placeholder='ایمیل'/>
-                                <Field id='password' name='password' type='password' placeholder='رمز عبور'/>
+                                <Field name='email' type='email' placeholder='ایمیل'/>
+                                <Field name='password' type='password' placeholder='رمز عبور'/>
                                 {registerMode &&
-                                <Field id='passwordConfirmation'
-                                       name='passwordConfirmation'
+                                <Field name='passwordConfirmation'
                                        type='password'
                                        placeholder='تکرار رمز عبور'/>
                                 }
@@ -52,7 +51,7 @@ const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) =>
                             <Field name='submit' type='submit' value={registerMode ? 'ایجاد حساب' : 'ورود'}/>
                         </FormikForm>
                         <button onClick={onChangeFormButtonClick} type='button'>
-                            {registerMode ? 'ورود به حساب کاربری' : 'ایجاد حساب کاربری'}
+                            {registerMode ? 'ورود به حساب' : 'ایجاد حساب'}
                         </button>
                     </>
                 );
