@@ -1,114 +1,114 @@
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+	margin     : 0;
+	padding    : 0;
+	box-sizing : border-box;
 }
 
-body {
-	font-size: 10px;
+html, body {
+	font-size : 10px;
 }
 
 #home {
-	$background-radial-gradient: 0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%;
-	$background-linear-gradient: top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%;
-	$background-linear-gradient2: -45deg, #670d10 0%, #092756 100%;
-	position: relative;
-	width: 100vw;
-	height: 100vh;
-	background: #092756;
-	background: -moz-radial-gradient($background-radial-gradient),
+	$background-radial-gradient  : 0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%;
+	$background-linear-gradient  : top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%;
+	$background-linear-gradient2 : -45deg, #670d10 0%, #092756 100%;
+	position                     : relative;
+	width                        : 100vw;
+	height                       : 100vh;
+	background                   : #092756;
+	background                   : -moz-radial-gradient($background-radial-gradient),
 	-moz-linear-gradient($background-linear-gradient),
 	-moz-linear-gradient($background-linear-gradient2);
-	background: -webkit-radial-gradient($background-radial-gradient),
+	background                   : -webkit-radial-gradient($background-radial-gradient),
 	-webkit-linear-gradient($background-linear-gradient),
 	-webkit-linear-gradient($background-linear-gradient2);
-	background: -o-radial-gradient($background-radial-gradient),
+	background                   : -o-radial-gradient($background-radial-gradient),
 	-o-linear-gradient($background-linear-gradient),
 	-o-linear-gradient($background-linear-gradient2);
-	background: -ms-radial-gradient($background-radial-gradient),
+	background                   : -ms-radial-gradient($background-radial-gradient),
 	-ms-linear-gradient($background-linear-gradient),
 	-ms-linear-gradient($background-linear-gradient2);
-	background: -webkit-radial-gradient($background-radial-gradient),
+	background                   : -webkit-radial-gradient($background-radial-gradient),
 	linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%),
 	linear-gradient(135deg, #670d10 0%, #092756 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);
+	filter                       : progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);
 
 	#card-images-wrapper {
-		display: flex;
-		justify-content: center;
-		padding-top: 10%;
-		height: 100%;
-		width: 100%;
+		display         : flex;
+		justify-content : center;
+		padding-top     : 10%;
+		height          : 100%;
+		width           : 100%;
 
 		// Override some styles of card rotate template
 		#rotary-template {
-			position: relative;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 40%;
-			height: 45%;
+			position        : relative;
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			width           : 40%;
+			height          : 45%;
 
 			&-front {
-				z-index: 1;
+				z-index : 1;
 			}
 
 			&-back {
-				transform: rotateX(180deg);
+				transform : rotateX(180deg);
 			}
 
 			&.turn {
 				#rotary-template {
 					&-front {
-						z-index: 0;
-						transform: rotateX(-180deg);
+						z-index   : 0;
+						transform : rotateX(-180deg);
 					}
 
 					&-back {
-						transform: rotateX(0);
+						transform : rotateX(0);
 					}
 				}
 			}
 
 			.rotary-template-container {
-				position: absolute;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100%;
-				width: 100%;
-				transition: all 1s;
-				background-color: transparent !important;
+				position         : absolute;
+				display          : flex;
+				justify-content  : center;
+				align-items      : center;
+				height           : 100%;
+				width            : 100%;
+				transition       : all 1s;
+				background-color : transparent !important;
 
 				// card template styles
 				.card-template {
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					position: relative;
-					width: 100%;
+					display         : flex;
+					justify-content : center;
+					align-items     : center;
+					position        : relative;
+					width           : 100%;
 
 					&-img {
-						max-height: 100%;
-						max-width: 100%;
+						max-height : 100%;
+						max-width  : 100%;
 					}
 
 					&-marker {
-						position: absolute;
-						background: transparent;
+						position   : absolute;
+						background : transparent;
 
 						&#marker-card-front {
-							left: 5%;
-							right: 81%;
-							top: 66%;
-							bottom: 9%;
+							left   : 5%;
+							right  : 81%;
+							top    : 66%;
+							bottom : 9%;
 						}
 
 						&#marker-card-back {
-							left: 84%;
-							right: 2%;
-							top: 72%;
-							bottom: 3%;
+							left   : 84%;
+							right  : 2%;
+							top    : 72%;
+							bottom : 3%;
 						}
 					}
 				}
@@ -117,139 +117,143 @@ body {
 	}
 
 	#forms {
-		position: absolute;
-		top: 0;
-		left: 0;
-		margin: auto;
-		height: 80%;
-		z-index: 1;
-		transition: transform 3s cubic-bezier(0.190, 1.000, 0.220, 1.000);
+		position   : absolute;
+		top        : 0;
+		left       : 0;
+		margin     : auto;
+		height     : 80%;
+		z-index    : 1;
+		transition : transform 3s cubic-bezier(0.190, 1.000, 0.220, 1.000);
 
 		&-img {
-			height: 100%;
-			max-width: 100%;
+			height    : 100%;
+			max-width : 100%;
 		}
 
 		&-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: absolute;
-			bottom: 0;
-			top: 0;
-			right: 0;
-			left: 0;
-			margin: auto;
-			width: 100%;
-			height: 100%;
-			visibility: hidden;
-			opacity: 0;
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			position        : absolute;
+			bottom          : 0;
+			top             : 0;
+			right           : 0;
+			left            : 0;
+			margin          : auto;
+			width           : 100%;
+			height          : 100%;
+			visibility      : hidden;
+			opacity         : 0;
 
 			&.display {
-				animation: displayForm 1s linear 1s 1 forwards;
+				animation : displayForm 1s linear 1s 1 forwards;
 
 			}
 
 			@keyframes displayForm {
 				to {
-					visibility: visible;
-					opacity: 1;
+					visibility : visible;
+					opacity    : 1;
 				}
 			}
 
-			#login,#register {
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				align-items: center;
-				border-radius: 1rem;
-				padding: .4rem;
-				height: 40%;
-				width: 80%;
-				background: rgb(25, 25, 26);
+			#login, #register {
+				display         : flex;
+				flex-direction  : column;
+				justify-content : space-between;
+				align-items     : center;
+				border-radius   : 1.6rem;
+				padding         : .6rem;
+				height          : 40%;
+				width           : 80%;
+				background      : rgb(25, 25, 26);
 
 				.form {
-					display: flex;
-					flex-direction: column;
-					justify-content: space-evenly;
-					align-items: center;
-					border-radius: 1rem;
-					width: 100%;
-					height: 95%;
+					display         : flex;
+					flex-direction  : column;
+					justify-content : space-evenly;
+					align-items     : center;
+					border-radius   : 1.6rem;
+					width           : 100%;
+					height          : 95%;
 
 					.inputs {
-						display: flex;
-						flex-direction: column;
-						justify-content: space-evenly;
-						align-items: center;
-						width: 95%;
-						height: 100%;
+						display         : flex;
+						flex-direction  : column;
+						justify-content : space-evenly;
+						align-items     : center;
+						width           : 95%;
+						height          : 100%;
 
-						input[type="email"],
-						input[type="password"] {
-							color: #fff;
-							width: 100%;
-							padding: .3rem;
-							font-size: .9rem;
-							background: rgb(34, 34, 34);
-							outline: 0;
-							border: 0;
-							border-radius: .3rem;
+						input[type='email'],
+						input[type='password'] {
+							color         : #fff;
+							width         : 100%;
+							padding       : .8rem;
+							font-size     : 1.5rem;
+							background    : rgb(34, 34, 34);
+							outline       : 0;
+							border        : 0;
+							border-radius : .5rem;
 
-							&[value=""] {
-								text-align: center;
+							&[value=''] {
+								text-align : center;
 							}
 						}
 					}
 
-					input[type="submit"] {
-						color: #fff;
-						font-size: .9rem;
-						cursor: pointer;
-						outline: 0;
-						border: 0;
-						border-radius: .3rem;
-						margin: .6rem 0;
-						padding: .3rem;
-						background: #0184ff;
-						width: 90%;
+					input[type='submit'] {
+						color         : #fff;
+						font-size     : 1.5rem;
+						cursor        : pointer;
+						outline       : 0;
+						border        : 0;
+						border-radius : .5rem;
+						margin        : 1rem 0;
+						padding       : .5rem;
+						background    : #0184ff;
+						width         : 90%;
 					}
 				}
 
 				button {
-					color: #0184ff;
-					font-size: .8rem;
-					cursor: pointer;
-					outline: 0;
-					border: 0;
-					background: transparent;
+					color      : #0184ff;
+					font-size  : 1.5rem;
+					cursor     : pointer;
+					outline    : 0;
+					border     : 0;
+					background : transparent;
 				}
 			}
 		}
 
-		#phone-notification {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			position: absolute;
-			direction: rtl;
-			font-size: .5rem;
-			top: 15px;
-			left: 0;
-			right: 0;
-			border-radius: 1.5rem;
-			opacity: 0;
-			margin: auto;
-			padding: 8% 4% 4%;
-			height: 0;
-			width: 90%;
-			background: #19191a;
-			z-index: -1;
-			transition: opacity .6s .2s, height .8s;
-	
-			&.display{
-				opacity: 1;
-				height: 15%;
+		#notification {
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			position        : absolute;
+			direction       : rtl;
+			font-size       : 1.3rem;
+			top             : 15px;
+			left            : 0;
+			right           : 0;
+			border-radius   : 2.5rem;
+			opacity         : 0;
+			margin          : auto;
+			padding         : 8% 4% 4%;
+			height          : 0;
+			width           : 90%;
+			background      : #19191a;
+			z-index         : -1;
+			transition      : opacity .6s .2s, height .8s;
+
+			&.display {
+				opacity : 1;
+				height  : 14%;
+			}
+
+			button {
+				display : none;
 			}
 		}
 	}
