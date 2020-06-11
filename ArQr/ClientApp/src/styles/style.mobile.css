@@ -1,0 +1,216 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 10px;
+}
+
+#notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  direction: rtl;
+  top: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  border-bottom-left-radius: 1.6rem;
+  border-bottom-right-radius: 1.6rem;
+  opacity: 0;
+  margin: auto;
+  padding: 0 4rem;
+  height: 0;
+  width: 100%;
+  background: #19191a;
+  z-index: 99;
+  transition: opacity 0.6s 0.2s, height 0.8s;
+}
+#notification.display {
+  opacity: 1;
+  height: 6%;
+}
+#notification p {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+#notification button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  outline: none;
+  border: none;
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
+  background: #444;
+}
+
+#home {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background: #092756;
+  background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -moz-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -webkit-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -o-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), -ms-linear-gradient(top, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, 0.4) 10%, rgba(138, 114, 76, 0) 40%), linear-gradient(to bottom, rgba(57, 173, 219, 0.25) 0%, rgba(42, 60, 87, 0.4) 100%), linear-gradient(135deg, #670d10 0%, #092756 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3E1D6D", endColorstr="#092756", GradientType=1);
+}
+#home #header {
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 6vh;
+  height: 10vh;
+}
+#home #container {
+  display: flex;
+  margin-left: -100vw;
+  margin-top: 4vh;
+  width: 300vw;
+  height: 80vh;
+  transition: margin-left 1s;
+}
+#home #container.no-margin {
+  margin-left: 0;
+}
+#home #container #login, #home #container #register {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+  width: 100vw;
+}
+#home #container #login form, #home #container #register form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 85%;
+  width: 100%;
+}
+#home #container #login form .inputs, #home #container #register form .inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
+  height: 50%;
+  width: 100%;
+}
+#home #container #login form .inputs input[type=email],
+#home #container #login form .inputs input[type=password], #home #container #register form .inputs input[type=email],
+#home #container #register form .inputs input[type=password] {
+  color: #fff;
+  font-size: 2rem;
+  outline: 0;
+  border: 0;
+  border-radius: 1.5rem;
+  margin: 1rem 0;
+  padding: 1.5rem;
+  width: 100%;
+  background: #222222;
+}
+#home #container #login form .inputs input[type=email][value=""],
+#home #container #login form .inputs input[type=password][value=""], #home #container #register form .inputs input[type=email][value=""],
+#home #container #register form .inputs input[type=password][value=""] {
+  text-align: center;
+}
+#home #container #login form input[type=submit], #home #container #register form input[type=submit] {
+  color: #0184ff;
+  font-size: 2.4rem;
+  font-weight: bold;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem;
+  width: 50%;
+  background: #333;
+}
+#home #container #login button, #home #container #register button {
+  position: absolute;
+  bottom: 2rem;
+  color: #0184ff;
+  font-size: 1.6rem;
+  font-weight: bold;
+  overflow: hidden;
+  outline: none;
+  border: none;
+  max-width: 40%;
+  background: transparent;
+}
+#home #container #login button::before {
+  content: "<";
+  margin: 0 0.6rem;
+}
+#home #container #register button::after {
+  content: ">";
+  margin: 0 0.6rem;
+}
+#home #container #introduction {
+  width: 100vw;
+  transition: opacity 0.5s, width 1s;
+}
+#home #container #introduction.hide {
+  opacity: 0;
+  width: 0;
+}
+#home #container #introduction.hide #introduction-container {
+  width: 0;
+}
+#home #container #introduction-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100vw;
+  height: 100%;
+  transition: width 0s 1s;
+}
+#home #container #introduction-container #text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.6rem;
+  width: 100%;
+  height: 90%;
+  z-index: 2;
+}
+#home #container #introduction-container #text p {
+  font-size: 2.4rem;
+  text-align: center;
+}
+#home #container #introduction-container #navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 1.6rem;
+  width: 80%;
+  height: 6%;
+  background: #333;
+}
+#home #container #introduction-container #navigation button {
+  direction: rtl;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0184ff;
+  border: none;
+  outline: none;
+  margin: 1.6rem 0.8rem;
+  background: transparent;
+}
+#home #container #introduction-container #navigation button span {
+  margin: 0 0.3rem;
+}
+
+/*# sourceMappingURL=style.mobile.css.map */
