@@ -3,13 +3,14 @@ import React, {useState, useEffect, useRef} from 'react';
 import BusinessCard from './BusinessCard';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import Notification from '../Notification';
 import {Dom} from '../utilities';
 import {CardFront, CardBack, Phone} from '../../images';
 
 function Home() {
     const [displayRotaryFront, setDisplayRotaryFront] = useState(true);
     const [formsClasses, setFormsClasses] = useState(null);
-    const [firstErrorText, setFirstErrorText] = useState(null);
+    const [errorText, setErrorText] = useState(null);
 
     const formsElement = useRef(null);
     const markerFrontElement = useRef(null);
@@ -44,13 +45,14 @@ function Home() {
 
     const changeRotary = () => setDisplayRotaryFront(currentValue => !currentValue);
     const onFormError = errors => {
-        const errorKeys = Object.keys(errors);
-        if (errorKeys.length === 0) {
-            setFirstErrorText(null);
-            return;
-        }
-        const firstError = errors[errorKeys[0]];
-        setFirstErrorText(firstError);
+        if ('email' in errors)
+            setErrorText(errors['email']);
+        else if ('password' in errors)
+            setErrorText(errors['password']);
+        else if ('passwordConfirmation' in errors)
+            setErrorText(errors['passwordConfirmation']);
+        else
+            setErrorText(null);
     };
 
     const rotaryContainerClasses = displayRotaryFront ? null : 'turn';
@@ -71,11 +73,7 @@ function Home() {
                         <RegisterForm onChangeFormButtonClick={changeRotary} onFormError={onFormError}/>
                     }
                 </div>
-                <div id='phone-notification' className={firstErrorText && 'display'}>
-                    <h2>
-                        {firstErrorText}
-                    </h2>
-                </div>
+                <Notification text={errorText}/>
             </div>
         </main>
     );
