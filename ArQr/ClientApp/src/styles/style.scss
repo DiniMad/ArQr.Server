@@ -1,12 +1,4 @@
-* {
-	margin     : 0;
-	padding    : 0;
-	box-sizing : border-box;
-}
-
-html, body {
-	font-size : 10px;
-}
+@import 'common';
 
 #home {
 	$background-radial-gradient  : 0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%;
@@ -15,7 +7,7 @@ html, body {
 	position                     : relative;
 	width                        : 100vw;
 	height                       : 100vh;
-	background                   : #092756;
+	background                   : $darkBlue;
 	background                   : -moz-radial-gradient($background-radial-gradient),
 	-moz-linear-gradient($background-linear-gradient),
 	-moz-linear-gradient($background-linear-gradient2);
@@ -147,7 +139,6 @@ html, body {
 
 			&.display {
 				animation : displayForm 1s linear 1s 1 forwards;
-
 			}
 
 			@keyframes displayForm {
@@ -187,7 +178,7 @@ html, body {
 
 						input[type='email'],
 						input[type='password'] {
-							color         : #fff;
+							color         : white;
 							width         : 100%;
 							padding       : .8rem;
 							font-size     : 1.5rem;
@@ -203,7 +194,7 @@ html, body {
 					}
 
 					input[type='submit'] {
-						color         : #fff;
+						color         : white;
 						font-size     : 1.5rem;
 						cursor        : pointer;
 						outline       : 0;
@@ -211,13 +202,13 @@ html, body {
 						border-radius : .5rem;
 						margin        : 1rem 0;
 						padding       : .5rem;
-						background    : #0184ff;
+						background    : $blue;
 						width         : 90%;
 					}
 				}
 
 				button {
-					color      : #0184ff;
+					color      : $blue;
 					font-size  : 1.5rem;
 					cursor     : pointer;
 					outline    : 0;
@@ -243,7 +234,7 @@ html, body {
 			padding         : 8% 4% 4%;
 			height          : 0;
 			width           : 90%;
-			background      : #19191a;
+			background      : $black;
 			z-index         : -1;
 			transition      : opacity .6s .2s, height .8s;
 
@@ -255,6 +246,110 @@ html, body {
 			button {
 				display : none;
 			}
+		}
+	}
+}
+
+main {
+	display         : flex;
+	justify-content : space-between;
+	width           : 100vw;
+	height          : 100vh;
+
+	nav {
+		display         : flex;
+		flex-direction  : column;
+		justify-content : center;
+		align-items     : center;
+		position        : relative;
+		background      : $black;
+		width           : 6.5vw;
+		transition      : width .6s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+
+		&.expand {
+			width : 15vw;
+		}
+
+		.nav-item {
+			display         : flex;
+			justify-content : flex-end;
+			align-items     : center;
+			position        : relative;
+			color           : $lightGrey;
+			overflow        : hidden;
+			padding         : .8rem 1.5rem .8rem .5rem;
+			height          : 10%;
+			width           : 100%;
+			transition      : color 1s;
+
+			&:hover {
+				color : $darkWhite
+			}
+
+			.icon {
+				display         : flex;
+				justify-content : center;
+				align-items     : center;
+				width           : 4vw;
+			}
+
+			.text {
+				display         : flex;
+				justify-content : center;
+				align-items     : center;
+				position        : absolute;
+				right           : 7vw;
+				top             : 0;
+				bottom          : 0;
+				margin          : auto;
+				align-self      : flex-end;
+				direction       : rtl;
+				font-size       : 2rem;
+				font-weight     : bold;
+				text-align      : right;
+			}
+		}
+
+		#expand {
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			position        : absolute;
+			top             : 5%;
+			right           : 1.5rem;
+			width           : 4vw;
+			height          : 4vw;
+
+			&-button {
+				display         : flex;
+				justify-content : center;
+				align-items     : center;
+				color           : $lightGrey;
+				cursor          : pointer;
+				border          : .1rem solid $lightGrey;
+				border-radius   : .5rem;
+				width           : 3vw;
+				height          : 3vw;
+				background      : $black;
+				transition      : background-color .4s;
+
+				&:hover {
+					background : $grey;
+				}
+
+			}
+		}
+	}
+
+	#content {
+		width      : 85%;
+		background : blue;
+
+		#dashboard {
+			display : flex;
+			width   : 100%;
+			height  : 100%;
+
 		}
 	}
 }

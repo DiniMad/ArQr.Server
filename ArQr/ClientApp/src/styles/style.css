@@ -8,6 +8,10 @@ html, body {
   font-size: 10px;
 }
 
+a {
+  text-decoration: none;
+}
+
 #home {
   position: relative;
   width: 100vw;
@@ -153,7 +157,7 @@ html, body {
 #home #forms-container #login .form .inputs input[type=email],
 #home #forms-container #login .form .inputs input[type=password], #home #forms-container #register .form .inputs input[type=email],
 #home #forms-container #register .form .inputs input[type=password] {
-  color: #fff;
+  color: white;
   width: 100%;
   padding: 0.8rem;
   font-size: 1.5rem;
@@ -168,7 +172,7 @@ html, body {
   text-align: center;
 }
 #home #forms-container #login .form input[type=submit], #home #forms-container #register .form input[type=submit] {
-  color: #fff;
+  color: white;
   font-size: 1.5rem;
   cursor: pointer;
   outline: 0;
@@ -213,6 +217,97 @@ html, body {
 }
 #home #forms #notification button {
   display: none;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+}
+main nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #19191a;
+  width: 6.5vw;
+  transition: width 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+main nav.expand {
+  width: 15vw;
+}
+main nav .nav-item {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  color: #888;
+  overflow: hidden;
+  padding: 0.8rem 1.5rem 0.8rem 0.5rem;
+  height: 10%;
+  width: 100%;
+  transition: color 1s;
+}
+main nav .nav-item:hover {
+  color: #ddd;
+}
+main nav .nav-item .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4vw;
+}
+main nav .nav-item .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 7vw;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  align-self: flex-end;
+  direction: rtl;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: right;
+}
+main nav #expand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 5%;
+  right: 1.5rem;
+  width: 4vw;
+  height: 4vw;
+}
+main nav #expand-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #888;
+  cursor: pointer;
+  border: 0.1rem solid #888;
+  border-radius: 0.5rem;
+  width: 3vw;
+  height: 3vw;
+  background: #19191a;
+  transition: background-color 0.4s;
+}
+main nav #expand-button:hover {
+  background: #333;
+}
+main #content {
+  width: 85%;
+  background: blue;
+}
+main #content #dashboard {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
