@@ -258,55 +258,62 @@ main {
 
 	nav {
 		display         : flex;
-		flex-direction  : column;
-		justify-content : center;
-		align-items     : center;
-		position        : relative;
-		background      : $black;
-		width           : 6.5vw;
-		transition      : width .6s cubic-bezier(0.165, 0.840, 0.440, 1.000);
+		justify-content : flex-end;
+		width           : 15vw;
 
-		&.expand {
-			width : 15vw;
-		}
-
-		.nav-item {
+		#nav-menu {
 			display         : flex;
-			justify-content : flex-end;
+			flex-direction  : column;
+			justify-content : center;
 			align-items     : center;
 			position        : relative;
-			color           : $lightGrey;
-			overflow        : hidden;
-			padding         : .8rem 1.5rem .8rem .5rem;
-			height          : 10%;
-			width           : 100%;
-			transition      : color 1s;
+			background      : $black;
+			width           : 6.5vw;
+			height          : 100%;
+			transition      : width .6s cubic-bezier(0.165, 0.840, 0.440, 1.000);
 
-			&:hover {
-				color : $darkWhite
+			&.expand {
+				width : 15vw;
 			}
 
-			.icon {
+			.nav-item {
 				display         : flex;
-				justify-content : center;
+				justify-content : flex-end;
 				align-items     : center;
-				width           : 4vw;
-			}
+				position        : relative;
+				color           : $lightGrey;
+				overflow        : hidden;
+				padding         : .8rem 1.5rem .8rem .5rem;
+				height          : 10%;
+				width           : 100%;
+				transition      : color 1s;
 
-			.text {
-				display         : flex;
-				justify-content : center;
-				align-items     : center;
-				position        : absolute;
-				right           : 7vw;
-				top             : 0;
-				bottom          : 0;
-				margin          : auto;
-				align-self      : flex-end;
-				direction       : rtl;
-				font-size       : 2rem;
-				font-weight     : bold;
-				text-align      : right;
+				&:hover {
+					color : $darkWhite
+				}
+
+				.icon {
+					display         : flex;
+					justify-content : center;
+					align-items     : center;
+					width           : 4vw;
+				}
+
+				.text {
+					display         : flex;
+					justify-content : center;
+					align-items     : center;
+					position        : absolute;
+					right           : 7vw;
+					top             : 0;
+					bottom          : 0;
+					margin          : auto;
+					align-self      : flex-end;
+					direction       : rtl;
+					font-size       : 2rem;
+					font-weight     : bold;
+					text-align      : right;
+				}
 			}
 		}
 
