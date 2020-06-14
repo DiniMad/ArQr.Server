@@ -7,22 +7,24 @@ import NavBarItem from './NavBarItem';
 const NAVBAR_EXPAND_CLASS = 'expand';
 
 const NavBar = () => {
-    const navElement = useRef(null);
+    const navMenuElement = useRef(null);
 
     const handelExpandButton = () => {
-        const navBar = navElement.current;
-        if (!navBar) return;
+        const navMenu = navMenuElement.current;
+        if (!navMenu) return;
 
-        if (navBar.classList.contains(NAVBAR_EXPAND_CLASS))
-            navBar.classList.remove(NAVBAR_EXPAND_CLASS);
+        if (navMenu.classList.contains(NAVBAR_EXPAND_CLASS))
+            navMenu.classList.remove(NAVBAR_EXPAND_CLASS);
         else
-            navBar.classList.add(NAVBAR_EXPAND_CLASS);
+            navMenu.classList.add(NAVBAR_EXPAND_CLASS);
     };
     return (
-        <nav ref={navElement}>
-            <NavBarItem linkAddress='/dashboard' text='داشبورد' icon={faHome} iconSize='4x'/>
-            <NavBarItem linkAddress='/dashboard' text='پروفایل' icon={faUser} iconSize='4x'/>
-            <NavBarItem linkAddress='/dashboard' text='خروج' icon={faSignOutAlt} iconSize='4x'/>
+        <nav>
+            <div id="nav-menu" ref={navMenuElement}>
+                <NavBarItem linkAddress='/dashboard' text='داشبورد' icon={faHome} iconSize='4x'/>
+                <NavBarItem linkAddress='/dashboard' text='پروفایل' icon={faUser} iconSize='4x'/>
+                <NavBarItem linkAddress='/dashboard' text='خروج' icon={faSignOutAlt} iconSize='4x'/>
+            </div>
             <div id="expand">
                 <div id="expand-button" onClick={handelExpandButton}>
                     <FontAwesomeIcon icon={faBars} size='2x'/>
