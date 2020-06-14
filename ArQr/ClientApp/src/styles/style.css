@@ -221,14 +221,19 @@ a {
 
 main {
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
-  height: 100vh;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 100vh;
+  background: #282828;
 }
 main nav {
   display: flex;
   justify-content: flex-end;
+  position: fixed;
+  top: 0;
+  right: 0;
   width: 15vw;
+  height: 100vh;
 }
 main nav #nav-menu {
   display: flex;
@@ -308,12 +313,57 @@ main nav #expand-button:hover {
 }
 main #content {
   width: 85%;
-  background: blue;
 }
 main #content #dashboard {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
+}
+main #content #dashboard #products {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+}
+main #content #dashboard #products .product-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 1vw;
+  margin: 1vw;
+  padding: 2vw 0 1vw;
+  width: 16vw;
+  border: 0.2rem solid #333;
+  transition: background-color 0.5s;
+}
+main #content #dashboard #products .product-item:hover {
+  background: #333;
+}
+main #content #dashboard #products .product-item:hover .product-name {
+  color: #0184ff;
+}
+main #content #dashboard #products .product-item canvas, main #content #dashboard #products .product-item svg {
+  color: #888;
+  width: 12vw !important;
+  height: 12vw !important;
+}
+main #content #dashboard #products .product-item .product-name {
+  color: #ddd;
+  font-size: 2rem;
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 2vw;
+  width: 14vw;
+  transition: color 0.5s;
 }
 
 /*# sourceMappingURL=style.css.map */

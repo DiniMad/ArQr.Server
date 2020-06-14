@@ -252,14 +252,19 @@
 
 main {
 	display         : flex;
-	justify-content : space-between;
-	width           : 100vw;
-	height          : 100vh;
+	justify-content : flex-start;
+	width           : 100%;
+	min-height      : 100vh;
+	background      : $darkGrey;
 
 	nav {
 		display         : flex;
 		justify-content : flex-end;
+		position        : fixed;
+		top             : 0;
+		right           : 0;
 		width           : 15vw;
+		height          : 100vh;
 
 		#nav-menu {
 			display         : flex;
@@ -349,14 +354,64 @@ main {
 	}
 
 	#content {
-		width      : 85%;
-		background : blue;
+		width : 85%;
 
 		#dashboard {
-			display : flex;
-			width   : 100%;
-			height  : 100%;
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			width           : 100%;
+			height          : 100%;
 
+			#products {
+				display         : flex;
+				flex-direction  : row-reverse;
+				justify-content : center;
+				align-items     : center;
+				flex-wrap       : wrap;
+				width           : 100%;
+				height          : 100%;
+
+				.product-item {
+					display         : flex;
+					flex-direction  : column;
+					justify-content : center;
+					align-items     : center;
+					position        : relative;
+					border-radius   : 1vw;
+					margin          : 1vw;
+					padding         : 2vw 0 1vw;
+					width           : 16vw;
+					border          : .2rem solid $grey;
+					transition      : background-color .5s;
+
+					&:hover {
+						background : $grey;
+
+						.product-name {
+							color : $blue;
+						}
+					}
+
+					canvas, svg {
+						color  : $lightGrey;
+						width  : 12vw !important;
+						height : 12vw !important;
+					}
+
+					.product-name {
+						color         : $darkWhite;
+						font-size     : 2rem;
+						text-align    : center;
+						white-space   : nowrap;
+						text-overflow : ellipsis;
+						overflow      : hidden;
+						margin-top    : 2vw;
+						width         : 14vw;
+						transition    : color .5s;
+					}
+				}
+			}
 		}
 	}
 }
