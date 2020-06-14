@@ -1,5 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router';
+import {Switch} from 'react-router-dom';
+
 import Home from './components/HomePage';
 import Layout from './components/Layout';
 import Dashboard from './components/DashboardPage';
@@ -11,13 +13,13 @@ else
 
 const App = () => {
     return (
-        <>
+        <Switch>
             <Route exact path='/' component={Home}/>
             <Layout>
                 {/*TODO: Change the route components below into the authorize route */}
                 <Route path='/dashboard' component={Dashboard}/>
             </Layout>
-        </>
+        </Switch>
     );
 };
 
