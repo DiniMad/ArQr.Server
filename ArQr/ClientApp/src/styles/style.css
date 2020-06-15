@@ -222,6 +222,7 @@ a {
 main {
   display: flex;
   justify-content: flex-start;
+  overflow: hidden;
   width: 100%;
   min-height: 100vh;
   background: #282828;
@@ -262,6 +263,9 @@ main nav #nav-menu .nav-item {
   transition: color 1s;
 }
 main nav #nav-menu .nav-item:hover {
+  color: #ddd;
+}
+main nav #nav-menu .nav-item.selected {
   color: #ddd;
 }
 main nav #nav-menu .nav-item .icon {
@@ -330,31 +334,32 @@ main #content #dashboard #products {
   width: 100%;
   height: 100%;
 }
-main #content #dashboard #products .product-item {
+main #content #dashboard #products .product-item, main #content #dashboard #products .add-product {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
+  outline: none;
   border-radius: 1vw;
   margin: 1vw;
   padding: 2vw 0 1vw;
   width: 16vw;
   border: 0.2rem solid #333;
-  transition: background-color 0.5s;
 }
-main #content #dashboard #products .product-item:hover {
-  background: #333;
+main #content #dashboard #products .product-item:hover .product-overlay, main #content #dashboard #products .add-product:hover .product-overlay {
+  opacity: 1;
 }
-main #content #dashboard #products .product-item:hover .product-name {
-  color: #0184ff;
+main #content #dashboard #products .product-item:hover .product-overlay a, main #content #dashboard #products .add-product:hover .product-overlay a {
+  opacity: 1;
+  margin-bottom: 1rem !important;
 }
-main #content #dashboard #products .product-item canvas, main #content #dashboard #products .product-item svg {
+main #content #dashboard #products .product-item canvas, main #content #dashboard #products .product-item svg, main #content #dashboard #products .add-product canvas, main #content #dashboard #products .add-product svg {
   color: #888;
   width: 12vw !important;
   height: 12vw !important;
 }
-main #content #dashboard #products .product-item .product-name {
+main #content #dashboard #products .product-item .product-name, main #content #dashboard #products .add-product .product-name {
   color: #ddd;
   font-size: 2rem;
   text-align: center;
@@ -364,6 +369,72 @@ main #content #dashboard #products .product-item .product-name {
   margin-top: 2vw;
   width: 14vw;
   transition: color 0.5s;
+}
+main #content #dashboard #products .product-item .product-overlay, main #content #dashboard #products .add-product .product-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  border-radius: 1vw;
+  width: 100%;
+  height: 100%;
+  background: rgba(25, 25, 26, 0.9);
+  transition: opacity 0.8s;
+}
+main #content #dashboard #products .product-item .product-overlay a, main #content #dashboard #products .add-product .product-overlay a {
+  color: #ddd;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  padding: 0.5rem 0;
+  width: 80%;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(1), main #content #dashboard #products .add-product .product-overlay a:nth-of-type(1) {
+  margin-bottom: -20rem;
+  background: #0184ff;
+  transition: background-color 0.5s, opacity 0.5s, margin-bottom 0.4s;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(1):hover, main #content #dashboard #products .add-product .product-overlay a:nth-of-type(1):hover {
+  background: #0069d9;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(2), main #content #dashboard #products .add-product .product-overlay a:nth-of-type(2) {
+  margin-bottom: -10rem;
+  background: #282828;
+  transition: background-color 0.5s, opacity 0.5s, margin-bottom 0.6s;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(2):hover, main #content #dashboard #products .add-product .product-overlay a:nth-of-type(2):hover {
+  background: #222;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(3), main #content #dashboard #products .add-product .product-overlay a:nth-of-type(3) {
+  margin-bottom: -10rem;
+  background: #dc3545;
+  transition: background-color 0.5s, opacity 0.5s, margin-bottom 0.8s;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(3):hover, main #content #dashboard #products .add-product .product-overlay a:nth-of-type(3):hover {
+  background: #c82333;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(4), main #content #dashboard #products .add-product .product-overlay a:nth-of-type(4) {
+  margin-bottom: -10rem;
+  background: #28a745;
+  transition: background-color 0.5s, opacity 0.5s, margin-bottom 1s;
+}
+main #content #dashboard #products .product-item .product-overlay a:nth-of-type(4):hover, main #content #dashboard #products .add-product .product-overlay a:nth-of-type(4):hover {
+  background: #218838;
+}
+main #content #dashboard #products .add-product {
+  transition: background-color 0.6s, color 0.6s;
+}
+main #content #dashboard #products .add-product:hover {
+  background-color: #222;
+}
+main #content #dashboard #products .add-product:hover p {
+  color: #0184ff;
 }
 
 /*# sourceMappingURL=style.css.map */
