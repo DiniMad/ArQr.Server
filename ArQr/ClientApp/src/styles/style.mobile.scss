@@ -240,9 +240,10 @@
 }
 
 main {
+	overflow   : hidden;
 	width      : 100vw;
 	min-height : 100vh;
-	background : $darkGrey;
+	background : $greyDark;
 
 	nav {
 		display         : flex;
@@ -274,9 +275,13 @@ main {
 				flex-direction  : column-reverse;
 				justify-content : center;
 				align-items     : center;
-				color           : $lightGrey;
+				color           : $greyLight;
 				margin          : 1.5rem 0;
 				width           : 100%;
+
+				&.selected {
+					color : $whiteDark;
+				}
 
 				.text {
 					font-size   : 2rem;
@@ -298,8 +303,8 @@ main {
 			bottom          : 5%;
 			left            : 0;
 			right           : 0;
-			color           : $lightGrey;
-			border          : .1rem solid $lightGrey;
+			color           : $greyLight;
+			border          : .1rem solid $greyLight;
 			border-radius   : .5rem;
 			margin          : auto;
 			width           : 12vw;
@@ -327,51 +332,67 @@ main {
 				width           : 100%;
 				height          : 100%;
 
+				.add-product {
+					display         : flex;
+					flex-direction  : column;
+					justify-content : center;
+					align-items     : center;
+					position        : fixed;
+					bottom          : 5%;
+					left            : 7vw;
+					color           : #888;
+					border          : 0.1rem solid #888;
+					border-radius   : 0.5rem;
+					margin          : auto;
+					padding         : 0;
+					width           : 12vw;
+					height          : 12vw;
+					background      : $greyDark;
+					z-index         : 1;
+
+					svg {
+						color  : $greyLight;
+						width  : 90%;
+						height : 90%;
+					}
+
+					p {
+						display : none
+					}
+				}
+
 				.product-item {
 					display         : flex;
 					flex-direction  : column;
 					justify-content : center;
 					align-items     : center;
 					position        : relative;
+					outline         : none;
 					border-radius   : 1vw;
 					margin          : 4vw;
 					padding         : 4vw 0 2vw;
 					width           : 60vw;
 					border          : .2rem solid $grey;
 
-					&:first-of-type {
-						position      : fixed;
-						bottom        : 5%;
-						left          : 7vw;
-						color         : #888;
-						border        : 0.1rem solid #888;
-						border-radius : 0.5rem;
-						margin        : auto;
-						padding       : 0;
-						width         : 12vw;
-						height        : 12vw;
-						background    : $darkGrey;
-						z-index       : 1;
+					&.selected {
+						.product-overlay {
+							opacity : 1;
 
-						svg {
-							color  : $lightGrey;
-							width  : 90%;
-							height : 90%;
-						}
-
-						p {
-							display : none
+							a {
+								opacity       : 1;
+								margin-bottom : 1rem !important;
+							}
 						}
 					}
 
 					canvas {
-						color  : $lightGrey;
+						color  : $greyLight;
 						width  : 50vw !important;
 						height : 50vw !important;
 					}
 
 					.product-name {
-						color         : $darkWhite;
+						color         : $whiteDark;
 						font-size     : 2rem;
 						text-align    : center;
 						white-space   : nowrap;
@@ -379,6 +400,73 @@ main {
 						overflow      : hidden;
 						margin-top    : 2vw;
 						width         : 50vw;
+					}
+
+					.product-overlay {
+						display         : flex;
+						flex-direction  : column;
+						justify-content : center;
+						align-items     : center;
+						position        : absolute;
+						top             : 0;
+						opacity         : 0;
+						border-radius   : 1vw;
+						width           : 100%;
+						height          : 100%;
+						background      : rgba(25, 25, 26, .9);
+						transition      : opacity .8s;
+
+						a {
+							color         : $whiteDark;
+							font-size     : 1.6rem;
+							font-weight   : bold;
+							text-align    : center;
+							opacity       : 0;
+							border-radius : .5rem;
+							margin        : 1rem 0;
+							padding       : .5rem 0;
+							width         : 60%;
+
+							&:nth-of-type(1) {
+								margin-bottom : -20rem;
+								background    : $blue;
+								transition    : background-color .5s, opacity .5s, margin-bottom .4s;
+
+								&:hover {
+									background : $blueDark;
+								}
+							}
+
+							&:nth-of-type(2) {
+								margin-bottom : -10rem;
+								background    : $greyDark;
+								transition    : background-color .5s, opacity .5s, margin-bottom .6s;
+
+								&:hover {
+									background : $greyDarker;
+								}
+							}
+
+							&:nth-of-type(3) {
+								margin-bottom : -10rem;
+								background    : $red;
+								transition    : background-color .5s, opacity .5s, margin-bottom .8s;
+
+								&:hover {
+									background : $redDark;
+								}
+							}
+
+							&:nth-of-type(4) {
+								margin-bottom : -10rem;
+								background    : $green;
+								transition    : background-color .5s, opacity .5s, margin-bottom 1s;
+
+								&:hover {
+									background : $greenDark;
+								}
+							}
+						}
 					}
 				}
 			}
