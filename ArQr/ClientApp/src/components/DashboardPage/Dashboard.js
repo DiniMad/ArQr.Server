@@ -1,26 +1,32 @@
 import React from 'react';
 
 import ProductItem from './ProductItem';
+import AddProduct from './AddProduct';
 
-const TEST_PRODUCT_NAME = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, quos!';
-const TEST_QR_VALUE = 'http://facebook.github.io/react/';
+const PRODUCT_NAME = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, quos!';
+const QR_VALUE = 'http://facebook.github.io/react/';
 
-const Dashboard = () => {
+const Dashboard = ({handleButton}) => {
     return (
         <div id="dashboard">
             <div id="products">
-                <ProductItem link='#' qrValue='' productName='افزودن'/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
-                <ProductItem link='#' qrValue={TEST_QR_VALUE} productName={TEST_PRODUCT_NAME}/>
+                <AddProduct/>
+                {/*Render a message for mobile in empty product list*/}
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
+                <ProductItem id='#' qrValue={QR_VALUE} productName={PRODUCT_NAME} handleButton={handleButton}/>
             </div>
         </div>
     );
