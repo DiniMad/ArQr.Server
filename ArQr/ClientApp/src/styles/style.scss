@@ -500,6 +500,224 @@ main {
 				}
 			}
 		}
+
+		#product {
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+			height          : 100%;
+
+			#form {
+				display         : flex;
+				flex-direction  : column;
+				justify-content : center;
+				align-items     : center;
+				width           : 65%;
+				height          : 100%;
+
+				form {
+					display         : flex;
+					flex-direction  : column;
+					justify-content : space-evenly;
+					align-items     : center;
+					width           : 100%;
+					height          : 80%;
+
+					.text-input {
+						display         : flex;
+						flex-direction  : column;
+						justify-content : center;
+						align-items     : center;
+						color           : $whiteDark;
+
+						input, textarea {
+							direction        : rtl;
+							outline          : none;
+							border           : none;
+							resize           : none;
+							background-color : transparent;
+
+							&:focus + .text-input-marker div,
+							&:valid + .text-input-marker div {
+								width : 100%;
+							}
+						}
+
+						&-marker {
+							display          : flex;
+							justify-content  : center;
+							margin-top       : .4rem;
+							width            : 100%;
+							height           : .3rem;
+							background-color : $black;
+
+							div {
+								width            : 0;
+								height           : 100%;
+								background-color : $blue;
+								transition       : width .4s;
+							}
+						}
+					}
+
+					#product-content {
+						display         : flex;
+						flex-direction  : column;
+						justify-content : center;
+						align-items     : center;
+						width           : 80%;
+						height          : 20rem;
+
+						&-header {
+							align-self       : flex-end;
+							display          : flex;
+							flex-direction   : row-reverse;
+							justify-content  : flex-end;
+							align-items      : center;
+							position         : relative;
+							margin-right     : 2rem;
+							width            : fit-content;
+							height           : 20%;
+							background-color : $black;
+							transform        : skewX(-30deg);
+
+							&-marker {
+								position         : absolute;
+								right            : 0;
+								width            : 10rem;
+								height           : 100%;
+								background-color : $blue;
+								transition       : right .5s cubic-bezier(0.165, 0.840, 0.440, 1.000);;
+							}
+
+							.header-item {
+								display         : flex;
+								justify-content : center;
+								align-items     : center;
+								font-size       : 1.8rem;
+								outline         : none;
+								border          : none;
+								width           : 10rem;
+								height          : 100%;
+								background      : transparent;
+								transition      : background-color .5s;
+
+								&:hover {
+									background : $greyDark;
+								}
+
+								p {
+									color     : $whiteDark;
+									transform : skewX(30deg);
+								}
+							}
+						}
+
+						&-input {
+							display          : flex;
+							justify-content  : center;
+							align-items      : center;
+							padding          : 2rem;
+							width            : calc(100% - 6.5rem);
+							height           : 80%;
+							background-color : $grey;
+
+							input[type='file'] {
+								display : none;
+							}
+
+							.text-input {
+								width : 100%;
+
+								textarea {
+									color     : $whiteDark;
+									font-size : 1.6rem;
+									width     : 100%;
+								}
+							}
+
+							button {
+								display         : flex;
+								justify-content : center;
+								align-items     : center;
+								color           : $whiteDark;
+								font-size       : 4.5rem;
+								cursor          : pointer;
+								outline         : none;
+								border          : none;
+								border-radius   : 2rem;
+								box-shadow      : black;
+								width           : 8rem;
+								height          : 8rem;
+								background      : $greyDark;
+								transition      : background-color .5s, color .5s;
+
+								&:hover {
+									color      : $blue;
+									background : $greyDarker;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			#preview {
+				display         : flex;
+				justify-content : center;
+				align-items     : center;
+				width           : 35%;
+				height          : 100%;
+
+				&-container {
+					position : relative;
+
+					#content {
+						display         : flex;
+						justify-content : center;
+						align-items     : center;
+						position        : absolute;
+						top             : 0;
+						bottom          : 0;
+						left            : 0;
+						right           : 0;
+						margin          : auto;
+						width           : 80%;
+						height          : 60%;
+
+						#text {
+							overflow-y    : scroll;
+							border-radius : 1rem;
+							padding       : 1rem;
+							width         : 100%;
+							max-height    : 100%;
+							background    : $black;
+
+							&::-webkit-scrollbar {
+								display : none;
+							}
+
+							p {
+								direction  : rtl;
+								color      : $whiteDark;
+								font-size  : 1.5rem;
+								text-align : center;
+							}
+						}
+
+						img, video {
+							max-width  : 100%;
+							max-height : 100%;
+						}
+
+						svg {
+							color     : $whiteDark;
+							font-size : 10rem;
+						}
+					}
+				}
+			}
+		}
 	}
 }
 
