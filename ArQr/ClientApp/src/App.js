@@ -5,6 +5,7 @@ import {Switch} from 'react-router-dom';
 import Home from './components/HomePage';
 import Layout from './components/Layout';
 import Dashboard from './components/DashboardPage';
+import Product from './components/ProductPage';
 
 if (window.innerWidth >= 760)
     require('./styles/style.css');
@@ -18,6 +19,7 @@ const App = () => {
             <Layout>
                 {/*TODO: Change the route components below into the authorize route */}
                 <Route path='/dashboard' component={Dashboard}/>
+                <Route path='/product' component={Product}/>
             </Layout>
         </Switch>
     );
