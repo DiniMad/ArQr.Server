@@ -5,7 +5,7 @@ import {faPlusSquare} from '@fortawesome/free-solid-svg-icons';
 
 const AddProduct = () => {
     return (
-        <Link to='#' className="add-product">
+        <Link to='/product' className="add-product">
             <FontAwesomeIcon icon={faPlusSquare}/>
             <p className="product-name">افزودن</p>
         </Link>
