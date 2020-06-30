@@ -52,7 +52,9 @@ const Product = withContentManagingContext(() => {
                         </div>
                     </div>
                     <div id='form'>
-                        <h2>محصول جدید</h2>
+                        <div className="header">
+                            <h2>محصول جدید</h2>
+                        </div>
                         <Form>
                             <Field as={TextInput} name='title' placeholder='عنوان'/>
                             <Field as={TextInput} name='description' placeholder='توضیحات' lines={5}/>
