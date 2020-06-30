@@ -49,6 +49,10 @@ const Product = withContentManagingContext(() => {
                                      <FontAwesomeIcon icon={faVideo}/>)
                                 }
                             </div>
+                            <div id="detail">
+                                <p>{values.title || 'عنوان'}</p>
+                                <p>{values.description || 'توضیحات'}</p>
+                            </div>
                         </div>
                     </div>
                     <div id='form'>
