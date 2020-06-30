@@ -445,10 +445,24 @@ main #content #product {
 main #content #product #form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 65%;
   height: 100%;
+}
+main #content #product #form .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 15%;
+}
+main #content #product #form .header h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  width: 90%;
+  background: linear-gradient(to right, transparent, #19191a, transparent);
 }
 main #content #product #form form {
   display: flex;
@@ -456,7 +470,7 @@ main #content #product #form form {
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 80%;
+  height: 85%;
 }
 main #content #product #form form .text-input {
   display: flex;
@@ -464,16 +478,21 @@ main #content #product #form form .text-input {
   justify-content: center;
   align-items: center;
   color: #ddd;
+  width: 60%;
 }
 main #content #product #form form .text-input input, main #content #product #form form .text-input textarea {
   direction: rtl;
   outline: none;
   border: none;
   resize: none;
+  width: 100%;
   background-color: transparent;
 }
 main #content #product #form form .text-input input:focus + .text-input-marker div, main #content #product #form form .text-input input:valid + .text-input-marker div, main #content #product #form form .text-input textarea:focus + .text-input-marker div, main #content #product #form form .text-input textarea:valid + .text-input-marker div {
   width: 100%;
+}
+main #content #product #form form .text-input input::-webkit-scrollbar, main #content #product #form form .text-input textarea::-webkit-scrollbar {
+  display: none;
 }
 main #content #product #form form .text-input-marker {
   display: flex;
@@ -577,6 +596,19 @@ main #content #product #form form #product-content-input button:hover {
   color: #0184ff;
   background: #222;
 }
+main #content #product #form form input[type=submit] {
+  font-size: 2rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 5rem;
+  background: #0184ff;
+  transition: background-color 0.5s;
+}
+main #content #product #form form input[type=submit]:hover {
+  background: #0069d9;
+}
 main #content #product #preview {
   display: flex;
   justify-content: center;
@@ -624,6 +656,34 @@ main #content #product #preview-container #content img, main #content #product #
 main #content #product #preview-container #content svg {
   color: #ddd;
   font-size: 10rem;
+}
+main #content #product #preview-container #detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 2%;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 80%;
+  height: 15%;
+}
+main #content #product #preview-container #detail p {
+  text-align: center;
+  overflow: hidden;
+  padding: 2% 0;
+  width: 100%;
+}
+main #content #product #preview-container #detail p:first-of-type {
+  font-size: 2rem;
+  height: 38%;
+}
+main #content #product #preview-container #detail p:last-of-type {
+  font-size: 1.2rem;
+  margin-bottom: 5%;
+  height: 40%;
 }
 
 /*# sourceMappingURL=style.css.map */
