@@ -19,7 +19,8 @@ const Product = withContentManagingContext(() => {
         }
     };
 
-    const handelSubmit = () => {
+    const handelSubmit = (data) => {
+        console.log(data);
     };
 
     const {data: {isItText, isItPicture, isItVideo, file}} = useContext(ProductContentTypeContext);
@@ -63,6 +64,7 @@ const Product = withContentManagingContext(() => {
                             <Field as={TextInput} name='title' placeholder='عنوان'/>
                             <Field as={TextInput} name='description' placeholder='توضیحات' lines={5}/>
                             <ContentInput values={values} handelChange={handleChange}/>
+                            <input type="submit" value="ایجاد"/>
                         </Form>
                     </div>
                 </div>
