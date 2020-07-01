@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import {Field} from 'formik';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faImage, faVideo} from '@fortawesome/free-solid-svg-icons';
@@ -7,14 +7,7 @@ import TextInput from './TextInput';
 import ProductContentTypeContext from '../contexts/ProductContentTypeContext';
 
 const ContentInput = () => {
-    const [file, setFile] = useState({type: null, file: null});
-
-    const fileInputElement = useRef(null);
-
-    useEffect(() => {
-        if (!file.type) return;
-        selectContent(file.type, file.file);
-    }, [file]);
+    const inputFileElement = useRef(null);
 
     const {
         data: {markerRight, isItText, isItPicture, isItVideo},
@@ -27,27 +20,21 @@ const ContentInput = () => {
     const handleVideoButton = () => selectContent(VIDEO);
 
     const openFileDialog = accept => {
-        const fileInput = fileInputElement.current;
-        if (!fileInput) return;
-        fileInput.accept = accept;
-        fileInput.click();
-    };
-    const readFile = async image => {
-        if (!image) return;
-
-        const type = image.type.startsWith('image') ? PICTURE : VIDEO;
-        const reader = new FileReader();
-        reader.onload = async e => setFile({type, file: await e.target.result});
-        await reader.readAsDataURL(image);
+        const inputFile = inputFileElement.current;
+        if (!inputFile) return;
+        inputFile.accept = accept;
+        inputFile.click();
     };
 
     const handelSelectPictureButton = () => openFileDialog('.png,.jpg,.jpeg');
     const handelSelectVideoButton = () => openFileDialog('.mp4');
     const handleInputFileChange = async () => {
-        const fileInput = fileInputElement.current;
-        if (!fileInput || fileInput.files.length === 0) return;
-        await readFile(fileInput.files[0]);
-        fileInput.value = '';
+        const inputFile = inputFileElement.current && inputFileElement.current.files[0];
+        if (!inputFile) return;
+
+        const type = inputFile.type.startsWith('image') ? PICTURE : VIDEO;
+        const file = URL.createObjectURL(inputFile);
+        selectContent(type, file);
     };
 
     return (
@@ -59,7 +46,7 @@ const ContentInput = () => {
                 <button onClick={handleVideoButton} type='button' className='header-item'><p>ویدیو</p></button>
             </div>
             <div id='product-content-input'>
-                <input ref={fileInputElement} onChange={handleInputFileChange} type='file' name='file-input'
+                <input ref={inputFileElement} onChange={handleInputFileChange} type='file' name='file-input'
                        id='input'/>
                 {
                     isItText &&
