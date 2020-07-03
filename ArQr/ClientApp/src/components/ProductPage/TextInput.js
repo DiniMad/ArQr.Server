@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({name, placeholder, value, onChange, lines = 1}) => {
+const TextInput = ({name, register, placeholder, lines = 1}) => {
     return (
         <div className="text-input">
             {
                 lines > 1 ?
-                <textarea value={value}
-                          onChange={onChange}
-                          name={name}
-                          id={name}
+                <textarea name={name}
+                          ref={register}
                           placeholder={placeholder}
                           rows={lines}
                           required/> :
-                <input value={value}
-                       onChange={onChange}
-                       type="text"
+                <input type="text"
                        name={name}
+                       ref={register}
                        id={name}
                        placeholder={placeholder}
                        required/>
@@ -31,8 +28,7 @@ const TextInput = ({name, placeholder, value, onChange, lines = 1}) => {
 TextInput.propTypes = {
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
     lines: PropTypes.number
 };
 
