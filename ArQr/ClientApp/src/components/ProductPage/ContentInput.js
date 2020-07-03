@@ -1,19 +1,23 @@
-import React, {useContext, useRef} from 'react';
-import {Field} from 'formik';
+import React, {useEffect, useRef} from 'react';
+import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faImage, faVideo} from '@fortawesome/free-solid-svg-icons';
 
 import TextInput from './TextInput';
-import ProductContentTypeContext from '../contexts/ProductContentTypeContext';
+import useProductContentManager from '../hooks/useProductContentManager';
+import {PICTURE, TEXT, VIDEO} from './constants';
 
-const ContentInput = () => {
+const ContentInput = ({register, setValue}) => {
     const inputFileElement = useRef(null);
 
-    const {
-        data: {markerRight, isItText, isItPicture, isItVideo},
-        constant: {TEXT, PICTURE, VIDEO},
-        selectContent
-    } = useContext(ProductContentTypeContext);
+    const {data: {markerRight, contentType}, selectContent} = useProductContentManager();
+
+    useEffect(() => {
+        if (contentType !== TEXT) register({name: 'content.value'});
+        register({name: 'content.type'});
+        setValue('content.value', '');
+        setValue('content.type', contentType);
+    }, [contentType]);
 
     const handleTextButton = () => selectContent(TEXT);
     const handlePictureButton = () => selectContent(PICTURE);
@@ -29,12 +33,15 @@ const ContentInput = () => {
     const handelSelectPictureButton = () => openFileDialog('.png,.jpg,.jpeg');
     const handelSelectVideoButton = () => openFileDialog('.mp4');
     const handleInputFileChange = async () => {
-        const inputFile = inputFileElement.current && inputFileElement.current.files[0];
-        if (!inputFile) return;
+        const inputFile = inputFileElement.current;
+        const file = inputFileElement.current.files[0];
+        if (!(inputFile && file)) return;
 
-        const type = inputFile.type.startsWith('image') ? PICTURE : VIDEO;
-        const file = URL.createObjectURL(inputFile);
-        selectContent(type, file);
+        const media = URL.createObjectURL(file);
+        setValue('content.value', media);
+        setValue('content.type', contentType);
+
+        inputFile.value = '';
     };
 
     return (
@@ -49,17 +56,17 @@ const ContentInput = () => {
                 <input ref={inputFileElement} onChange={handleInputFileChange} type='file' name='file-input'
                        id='input'/>
                 {
-                    isItText &&
-                    <Field as={TextInput} name='content.text' placeholder='متن' lines={4}/>
+                    contentType === TEXT &&
+                    <TextInput name='content.value' register={register} placeholder='متن' lines={4}/>
                 }
                 {
-                    isItPicture &&
+                    contentType === PICTURE &&
                     <button onClick={handelSelectPictureButton} type='button'>
                         <FontAwesomeIcon icon={faImage}/>
                     </button>
                 }
                 {
-                    isItVideo &&
+                    contentType === VIDEO &&
                     <button onClick={handelSelectVideoButton} type='button'>
                         <FontAwesomeIcon icon={faVideo}/>
                     </button>
@@ -67,6 +74,11 @@ const ContentInput = () => {
             </div>
         </div>
     );
+};
+
+ContentInput.propTypes = {
+    register: PropTypes.func.isRequired,
+    setValue: PropTypes.func.isRequired
 };
 
 export default ContentInput;
