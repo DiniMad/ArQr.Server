@@ -1,15 +1,12 @@
 import {useReducer} from 'react';
+import {PICTURE, TEXT, VIDEO} from '../ProductPage/constants';
 
-const TEXT = 'TEXT', PICTURE = 'PICTURE', VIDEO = 'VIDEO';
 const INITIAL_VALUE = {
     markerRight: '0',
-    isItText: true,
-    isItPicture: false,
-    isItVideo: false,
-    file: null
+    contentType: TEXT,
 };
 
-const UseProductContentManager = () => {
+const useProductContentManager = () => {
     const reducer = (state, action) => {
         switch (action.type) {
             case TEXT:
@@ -17,33 +14,26 @@ const UseProductContentManager = () => {
             case PICTURE:
                 return {
                     markerRight: '10rem',
-                    isItText: false,
-                    isItPicture: true,
-                    isItVideo: false,
-                    file: action.payload.file
+                    contentType: PICTURE,
                 };
             case VIDEO:
                 return {
                     markerRight: '20rem',
-                    isItText: false,
-                    isItPicture: false,
-                    isItVideo: true,
-                    file: action.payload.file
+                    contentType: VIDEO,
                 };
             default:
                 throw new Error('Invalid Action Parameter.');
         }
     };
 
-    const [{markerRight, isItText, isItPicture, isItVideo, file}, dispatch] = useReducer(reducer, INITIAL_VALUE);
+    const [{markerRight, contentType}, dispatch] = useReducer(reducer, INITIAL_VALUE);
 
-    const selectContent = (contentType, file = null) => dispatch({type: contentType, payload: {file}});
+    const selectContent = (contentType) => dispatch({type: contentType});
 
     return {
-        data: {markerRight, isItText, isItPicture, isItVideo, file},
-        constant: {TEXT, PICTURE, VIDEO},
+        data: {markerRight, contentType},
         selectContent
     };
 };
 
-export default UseProductContentManager;
+export default useProductContentManager;
