@@ -1,76 +1,72 @@
-import React, {useContext} from 'react';
-import {Field, Form, Formik} from 'formik';
+import React from 'react';
+import {useForm} from 'react-hook-form';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faImage, faVideo} from '@fortawesome/free-solid-svg-icons';
 
-import withContentManagingContext from '../hocs/WithContentManagingContext';
 import TextInput from './TextInput';
 import ContentInput from './ContentInput';
-import ProductContentTypeContext from '../contexts/ProductContentTypeContext';
 import {Phone} from '../../images';
+import {PICTURE, TEXT, VIDEO} from './constants';
 
-const Product = withContentManagingContext(() => {
+const Product = () => {
     const initialValues = {
         title: '',
         description: '',
-        contentText: '',
         content: {
-            text: ''
+            type: TEXT,
+            value: ''
         }
     };
+
+    const {register, watch, setValue, handleSubmit: handleFormSubmit} = useForm({defaultValues: initialValues});
+    const {title, description, content} = watch(['title', 'description', 'content']);
 
     const handelSubmit = (data) => {
         console.log(data);
     };
 
-    const {data: {isItText, isItPicture, isItVideo, file}} = useContext(ProductContentTypeContext);
-
     return (
-        <Formik initialValues={initialValues} onSubmit={handelSubmit}>
-            {({values, handleChange}) =>
-                <div id='product'>
-                    <div id='preview'>
-                        <div id='preview-container'>
-                            <img src={Phone} alt='Phone'/>
-                            <div id="content">
-                                {
-                                    isItText &&
-                                    <div id="text"><p>{values.content.text || 'متن خود را وارد کنید.'}</p></div>
-                                }
-                                {
-                                    isItPicture &&
-                                    (file ?
-                                     <img src={file} alt='content'/> :
-                                     <FontAwesomeIcon icon={faImage}/>)
-                                }
-                                {
-                                    isItVideo &&
-                                    (file ?
-                                     <video src={file} controls/> :
-                                     <FontAwesomeIcon icon={faVideo}/>)
-                                }
-                            </div>
-                            <div id="detail">
-                                <p>{values.title || 'عنوان'}</p>
-                                <p>{values.description || 'توضیحات'}</p>
-                            </div>
-                        </div>
+        <div id='product'>
+            <div id='preview'>
+                <div id='preview-container'>
+                    <img src={Phone} alt='Phone'/>
+                    <div id="content">
+                        {
+                            content.type === TEXT &&
+                            <div id="text"><p>{content.value || 'متن خود را وارد کنید.'}</p></div>
+                        }
+                        {
+                            content.type === PICTURE &&
+                            (content.value ?
+                             <img src={content.value} alt='content'/> :
+                             <FontAwesomeIcon icon={faImage}/>)
+                        }
+                        {
+                            content.type === VIDEO &&
+                            (content.value ?
+                             <video src={content.value} controls/> :
+                             <FontAwesomeIcon icon={faVideo}/>)
+                        }
                     </div>
-                    <div id='form'>
-                        <div className="header">
-                            <h2>محصول جدید</h2>
-                        </div>
-                        <Form>
-                            <Field as={TextInput} name='title' placeholder='عنوان'/>
-                            <Field as={TextInput} name='description' placeholder='توضیحات' lines={5}/>
-                            <ContentInput values={values} handelChange={handleChange}/>
-                            <input type="submit" value="ایجاد"/>
-                        </Form>
+                    <div id="detail">
+                        <p>{title || 'عنوان'}</p>
+                        <p>{description || 'توضیحات'}</p>
                     </div>
                 </div>
-            }
-        </Formik>
+            </div>
+            <div id='form'>
+                <div className="header">
+                    <h2>محصول جدید</h2>
+                </div>
+                <form onSubmit={handleFormSubmit(handelSubmit)}>
+                    <TextInput name='title' register={register} placeholder='عنوان'/>
+                    <TextInput name='description' register={register} placeholder='توضیحات' lines={5}/>
+                    <ContentInput register={register} setValue={setValue} contentType={content.type}/>
+                    <input type="submit" value="ایجاد"/>
+                </form>
+            </div>
+        </div>
     );
-});
+};
 
 export default Product;
