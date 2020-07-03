@@ -44,16 +44,7 @@ function Home() {
     };
 
     const changeRotary = () => setDisplayRotaryFront(currentValue => !currentValue);
-    const onFormError = errors => {
-        if ('email' in errors)
-            setErrorText(errors['email']);
-        else if ('password' in errors)
-            setErrorText(errors['password']);
-        else if ('passwordConfirmation' in errors)
-            setErrorText(errors['passwordConfirmation']);
-        else
-            setErrorText(null);
-    };
+    const onFormError = error => setErrorText(error);
 
     const rotaryContainerClasses = displayRotaryFront ? null : 'turn';
     return (
