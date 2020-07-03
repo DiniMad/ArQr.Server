@@ -6,7 +6,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
-    "formik": "^2.1.4",
+    "@hookform/resolvers": "0.0.5",
     "jquery": "^3.5.1",
     "merge": "^1.2.1",
     "oidc-client": "^1.9.0",
