@@ -15,21 +15,10 @@ const HomeMobile = React.memo(() => {
         navigateTo
     } = useHomePageNavigation();
 
-    const setError = (condition, errors) => {
-        if (!condition) return;
+    const setError = (condition, error) => condition && setErrorText(error);
 
-        if ('email' in errors)
-            setErrorText(errors['email']);
-        else if ('password' in errors)
-            setErrorText(errors['password']);
-        else if ('passwordConfirmation' in errors)
-            setErrorText(errors['passwordConfirmation']);
-        else
-            setErrorText(null);
-    };
-
-    const onLoginFormError = errors => setError(isItLoginPage, errors);
-    const onRegisterFormError = errors => setError(isItRegisterPage, errors);
+    const onLoginFormError = error => setError(isItLoginPage, error);
+    const onRegisterFormError = error => setError(isItRegisterPage, error);
     const goToLoginPage = () => navigateTo(LOGIN_Page);
     const goToRegisterPage = () => navigateTo(REGISTER_PAGE);
 
