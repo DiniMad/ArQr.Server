@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Formik, Form as FormikForm, Field} from 'formik';
+import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers';
 import * as Yup from 'yup';
 
 const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) => {
@@ -31,33 +32,36 @@ const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) =>
     );
 
 
-    return (
-        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} regi>
-            {({errors}) => {
-                onFormError(errors);
+    const {register, handleSubmit, errors} = useForm({
+                                                         mode: 'onBlur',
+                                                         defaultValues: initialValues,
+                                                         resolver: yupResolver(validationSchema)
+                                                     });
 
-                return (
-                    <>
-                        <FormikForm className='form'>
-                            <div className='inputs'>
-                                <Field name='email' type='email' placeholder='ایمیل'/>
-                                <Field name='password' type='password' placeholder='رمز عبور'/>
-                                {registerMode &&
-                                <Field name='passwordConfirmation'
-                                       type='password'
-                                       placeholder='تکرار رمز عبور'/>
-                                }
-                            </div>
-                            <Field name='submit' type='submit' value={registerMode ? 'ایجاد حساب' : 'ورود'}/>
-                        </FormikForm>
-                        <button onClick={onChangeFormButtonClick} type='button'>
-                            {registerMode ? 'ورود به حساب' : 'ایجاد حساب'}
-                        </button>
-                    </>
-                );
-            }
-            }
-        </Formik>
+    useEffect(() => {
+        errors.email ? onFormError(errors.email.message) :
+        errors.password ? onFormError(errors.password.message) :
+        errors.passwordConfirmation ? onFormError(errors.passwordConfirmation.message) :
+        onFormError(null);
+    }, [Object.values(errors)]);
+
+    return (
+        <>
+            <form onSubmit={handleSubmit(onSubmit)} className='form'>
+                <div className='inputs'>
+                    <input name='email' ref={register} type='email' placeholder='ایمیل'/>
+                    <input name='password' ref={register} type='password' placeholder='رمز عبور'/>
+                    {
+                        registerMode &&
+                        <input name='passwordConfirmation' ref={register} type='password' placeholder='تکرار رمز عبور'/>
+                    }
+                </div>
+                <input name='submit' type='submit' value={registerMode ? 'ایجاد حساب' : 'ورود'}/>
+            </form>
+            <button onClick={onChangeFormButtonClick} type='button'>
+                {registerMode ? 'ورود به حساب' : 'ایجاد حساب'}
+            </button>
+        </>
     );
 };
 
