@@ -230,6 +230,7 @@ main nav {
   position: fixed;
   top: 0;
   right: 0;
+  pointer-events: none;
   width: 26vw;
   height: 100vh;
 }
@@ -238,6 +239,7 @@ main nav #nav-menu {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  pointer-events: fill;
   overflow: hidden;
   width: 0;
   height: 100%;
@@ -275,6 +277,7 @@ main nav #expand {
   bottom: 5%;
   left: 0;
   right: 0;
+  pointer-events: fill;
   color: #888;
   border: 0.1rem solid #888;
   border-radius: 0.5rem;
@@ -419,6 +422,180 @@ main #content #dashboard #products .product-item .product-overlay a:nth-of-type(
 }
 main #content #dashboard #products .product-item .product-overlay a:nth-of-type(4):hover {
   background: #218838;
+}
+main #content #product {
+  width: 100vw;
+  height: 100vh;
+}
+main #content #product #preview {
+  display: none;
+}
+main #content #product #form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+main #content #product #form .header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+main #content #product #form .header h2 {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  width: 90%;
+  background: linear-gradient(to right, transparent, #19191a, transparent);
+}
+main #content #product #form form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 90%;
+}
+main #content #product #form form .text-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ddd;
+  width: 60%;
+}
+main #content #product #form form .text-input input, main #content #product #form form .text-input textarea {
+  direction: rtl;
+  outline: none;
+  border: none;
+  resize: none;
+  width: 100%;
+  background-color: transparent;
+}
+main #content #product #form form .text-input input:focus + .text-input-marker div, main #content #product #form form .text-input input:valid + .text-input-marker div, main #content #product #form form .text-input textarea:focus + .text-input-marker div, main #content #product #form form .text-input textarea:valid + .text-input-marker div {
+  width: 100%;
+}
+main #content #product #form form .text-input input::-webkit-scrollbar, main #content #product #form form .text-input textarea::-webkit-scrollbar {
+  display: none;
+}
+main #content #product #form form .text-input-marker {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.4rem;
+  width: 100%;
+  height: 0.3rem;
+  background-color: #19191a;
+}
+main #content #product #form form .text-input-marker div {
+  width: 0;
+  height: 100%;
+  background-color: #0184ff;
+  transition: width 0.4s;
+}
+main #content #product #form form #product-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 30%;
+}
+main #content #product #form form #product-content-header {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  margin-right: 2rem;
+  width: fit-content;
+  height: 20%;
+  background-color: #19191a;
+  transform: skewX(-30deg);
+}
+main #content #product #form form #product-content-header-marker {
+  position: absolute;
+  right: 0;
+  width: 10rem;
+  height: 100%;
+  background-color: #0184ff;
+  transition: right 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+main #content #product #form form #product-content-header .header-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  outline: none;
+  border: none;
+  width: 10rem;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.5s;
+}
+main #content #product #form form #product-content-header .header-item:hover {
+  background: #282828;
+}
+main #content #product #form form #product-content-header .header-item p {
+  color: #ddd;
+  transform: skewX(30deg);
+}
+main #content #product #form form #product-content-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: calc(100% - 6.5rem);
+  height: 80%;
+  background-color: #333;
+}
+main #content #product #form form #product-content-input input[type=file] {
+  display: none;
+}
+main #content #product #form form #product-content-input .text-input {
+  width: 100%;
+}
+main #content #product #form form #product-content-input .text-input textarea {
+  color: #ddd;
+  font-size: 1.6rem;
+  width: 100%;
+}
+main #content #product #form form #product-content-input button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ddd;
+  font-size: 4.5rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 2rem;
+  box-shadow: black;
+  width: 8rem;
+  height: 8rem;
+  background: #282828;
+  transition: background-color 0.5s, color 0.5s;
+}
+main #content #product #form form #product-content-input button:hover {
+  color: #0184ff;
+  background: #222;
+}
+main #content #product #form form input[type=submit] {
+  font-size: 2rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem 5rem;
+  background: #0184ff;
+  transition: background-color 0.5s;
+}
+main #content #product #form form input[type=submit]:hover {
+  background: #0069d9;
 }
 
 /*# sourceMappingURL=style.mobile.css.map */
