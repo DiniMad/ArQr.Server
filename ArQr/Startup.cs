@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ArQr.Data;
+using ArQr.Infrastructure;
 using ArQr.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +35,8 @@ namespace ArQr
                     .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()
-                    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+                    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
+                    .AddInMemoryClients(IdentityServerConfiguration.GetClients());
 
             services.AddAuthentication()
                     .AddIdentityServerJwt();
