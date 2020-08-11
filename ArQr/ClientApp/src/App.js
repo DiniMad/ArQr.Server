@@ -5,6 +5,7 @@ import {Switch} from 'react-router-dom';
 import Home from './components/HomePage';
 import Dashboard from './components/DashboardPage';
 import Product from './components/ProductPage';
+import NotFound from './components/NotFoundPage';
 import withLayout from './components/HigherOrderComponent/withLayout';
 
 if (window.innerWidth >= 760)
@@ -19,6 +20,7 @@ const App = () => {
             {/*TODO: Change the route components below into the authorize route */}
             <Route path='/dashboard' component={withLayout(Dashboard)}/>
             <Route path='/product' component={withLayout(Product)}/>
+            <Route path='*' component={NotFound}/>
         </Switch>
     );
 };
