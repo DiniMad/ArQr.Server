@@ -289,9 +289,13 @@ main {
 				position        : relative;
 				color           : $greyLight;
 				overflow        : hidden;
+				cursor          : pointer;
+				border          : none;
+				outline         : none;
 				padding         : .8rem 1.5rem .8rem .5rem;
 				height          : 10%;
 				width           : 100%;
+				background      : transparent;
 				transition      : color 1s;
 
 				&:hover {
@@ -545,7 +549,7 @@ main {
 						justify-content : center;
 						align-items     : center;
 						color           : $whiteDark;
-						width            : 60%;
+						width           : 60%;
 
 
 						input, textarea {
