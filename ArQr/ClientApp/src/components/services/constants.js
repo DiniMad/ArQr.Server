@@ -1,7 +1,7 @@
 export const urls = {
-    homePage:'/',
-    dashboardPage:'/dashboard',
-    loginEndPoint: 'connect/token'
+    homePage: '/',
+    dashboardPage: '/dashboard',
+    tokenEndPoint: 'connect/token'
 };
 
 export const oidc = {
