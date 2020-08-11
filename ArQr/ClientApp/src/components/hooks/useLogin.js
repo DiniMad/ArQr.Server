@@ -15,7 +15,7 @@ const useLogin = () => {
         data.append('username', username);
         data.append('password', password);
 
-        const response = await http.post(urls.login, data);
+        const response = await http.post(urls.loginEndPoint, data);
         if (response.status === httpStatusCode.success) {
             setAccessToken(response.data.access_token);
             localStorage.setItem(oidc.refresh_token.key, response.data.refresh_token);
