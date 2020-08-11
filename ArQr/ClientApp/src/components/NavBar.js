@@ -3,11 +3,14 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faBars, faHome, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
 
 import NavBarItem from './NavBarItem';
+import useLogout from './hooks/useLogout';
 
 const NAVBAR_EXPAND_CLASS = 'expand';
 
 const NavBar = () => {
     const navMenuElement = useRef(null);
+    
+    const logout=useLogout();
 
     const handelExpandButton = () => {
         const navMenu = navMenuElement.current;
@@ -18,12 +21,13 @@ const NavBar = () => {
         else
             navMenu.classList.add(NAVBAR_EXPAND_CLASS);
     };
+    
     return (
         <nav>
             <div id="nav-menu" ref={navMenuElement}>
                 <NavBarItem linkAddress='/dashboard' text='داشبورد' icon={faHome} iconSize='4x'/>
                 <NavBarItem linkAddress='/profile' text='پروفایل' icon={faUser} iconSize='4x'/>
-                <NavBarItem linkAddress='/signout' text='خروج' icon={faSignOutAlt} iconSize='4x'/>
+                <NavBarItem linkAddress='/signout' onClick={logout} text='خروج' icon={faSignOutAlt} iconSize='4x'/>
             </div>
             <div id="expand">
                 <div id="expand-button" onClick={handelExpandButton}>
