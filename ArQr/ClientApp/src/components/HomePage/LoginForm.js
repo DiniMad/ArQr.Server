@@ -4,14 +4,20 @@ import {useHistory} from 'react-router-dom';
 
 
 import Form from './Form';
+import useLogin from '../hooks/useLogin';
 
 const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
     const history = useHistory();
 
-    const onSubmit = (data) => {
-        // TODO: Send Request to the server
-        console.log(data);
-        history.replace('/dashboard');
+    const login = useLogin();
+
+    const onSubmit = async (data) => {
+        const success = await login(data.email, data.password);
+        if (success)
+            history.replace('/dashboard');
+        else {
+            // TODO: Display login Error.
+        }
     };
 
     return (
