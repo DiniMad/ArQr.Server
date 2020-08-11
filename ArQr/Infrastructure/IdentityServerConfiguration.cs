@@ -20,6 +20,7 @@ namespace ArQr.Infrastructure
                         IdentityServerConstants.StandardScopes.Profile,
                         "ArQrAPI",
                     },
+                    AllowOfflineAccess = true
                 },
             };
     }
