@@ -25,6 +25,8 @@ function Home() {
         setFormsClasses(null);
 
         setTimeout(() => {
+            if (!formsElement.current) return;
+
             const phoneHeightByWidthRatio = 2;
 
             const markerElement = displayRotaryFront ?
