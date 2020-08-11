@@ -17,14 +17,14 @@ else
 
 const App = () => {
     return (
-        <Switch>
-            <AccessTokenProvider>
+        <AccessTokenProvider>
+            <Switch>
                 <Route exact path='/' component={Home}/>
                 <AuthorizeRoute path='/dashboard' component={withLayout(Dashboard)}/>
                 <AuthorizeRoute path='/product' component={withLayout(Product)}/>
                 <Route path='*' component={NotFound}/>
-            </AccessTokenProvider>
-        </Switch>
+            </Switch>
+        </AccessTokenProvider>
     );
 };
 
