@@ -6,7 +6,7 @@ import Home from './components/HomePage';
 import Dashboard from './components/DashboardPage';
 import Product from './components/ProductPage';
 import NotFound from './components/NotFoundPage';
-import withLayout from './components/HigherOrderComponent/withLayout';
+import withLayout from './components/higherOrderComponents/withLayout';
 
 if (window.innerWidth >= 760)
     require('./styles/style.css');
