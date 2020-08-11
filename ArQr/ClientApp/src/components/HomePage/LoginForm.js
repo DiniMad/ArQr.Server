@@ -1,25 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useHistory, useLocation} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 
 import Form from './Form';
 import useLogin from '../hooks/useLogin';
-import {queryParameters, urls} from '../services/constants';
+import {getRedirectPath} from '../services/url';
 
 const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
     const history = useHistory();
-    const location = useLocation();
 
     const login = useLogin();
 
     const onSubmit = async (data) => {
         const success = await login(data.email, data.password);
-        if (success) {
-            const searchParams = new URLSearchParams(location.search);
-            const redirectUrl = searchParams.get(queryParameters.returnPath) || urls.dashboardPage;
-            history.replace(redirectUrl);
-        }
+        if (success) history.replace(getRedirectPath());
         else {
             // TODO: Display login Error.
         }
