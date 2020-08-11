@@ -6,7 +6,7 @@ export const urls = {
 
 export const oidc = {
     client_id: {key: 'client_id', value: 'ArQr'},
-    grant_type: {key: 'grant_type', password: 'password'},
+    grant_type: {key: 'grant_type', password: 'password', refreshToken: 'refresh_token'},
     scope: {key: 'scope', value: 'ArQrAPI offline_access'},
     refresh_token: {key: 'refresh_token'}
 };
