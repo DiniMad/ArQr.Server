@@ -7,6 +7,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/react-fontawesome": "^0.1.10",
     "@hookform/resolvers": "0.0.5",
+    "axios": "^0.19.2",
     "jquery": "^3.5.1",
     "merge": "^1.2.1",
     "oidc-client": "^1.9.0",
