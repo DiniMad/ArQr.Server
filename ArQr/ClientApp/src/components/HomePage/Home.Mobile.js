@@ -5,9 +5,12 @@ import RegisterForm from './RegisterForm';
 import Introduction from './Introduction.Mobile';
 import useHomePageNavigation from '../hooks/useHomePageNavigation.Mobile';
 import Notification from '../Notification';
+import useSilentLogin from '../hooks/useSilentLogin';
 
 const HomeMobile = React.memo(() => {
     const [errorText, setErrorText] = useState(null);
+
+    useSilentLogin();
 
     const {
         data: {introductionClasses, containerClasses, isItLoginPage, isItRegisterPage},
