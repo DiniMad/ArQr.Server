@@ -1,5 +1,6 @@
 export const urls = {
-    login: 'connect/token'
+    homePage:'/',
+    loginEndPoint: 'connect/token'
 };
 
 export const oidc = {
