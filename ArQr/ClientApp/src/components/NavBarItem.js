@@ -27,11 +27,11 @@ const NavBarItem = ({linkAddress, onClick, text, icon, iconSize}) => {
 
 NavBarItem.propTypes =
     {
-        linkAddress: PropTypes.string.isRequired,
+        linkAddress: PropTypes.string,
+        onClick: PropTypes.func,
         text: PropTypes.string.isRequired,
         icon: PropTypes.object.isRequired,
         iconSize: PropTypes.string.isRequired,
-        onClick: PropTypes.func
     };
 
 export default NavBarItem;
