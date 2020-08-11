@@ -12,7 +12,7 @@ const useRefreshToken = () => {
 
     return async () => {
         const refreshToken = localStorage.getItem(oidc.refresh_token.key);
-        if (!refreshToken) return;
+        if (!refreshToken) return false;
         data.append(oidc.grant_type.refreshToken, refreshToken);
         const response = await http.post(urls.tokenEndPoint, data);
         if (response.status === httpStatusCode.success) {
