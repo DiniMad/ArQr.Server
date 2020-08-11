@@ -29,7 +29,7 @@ namespace ArQr
                                       .GetConnectionString("DefaultConnection"));
             });
 
-            services.AddDefaultIdentity<ApplicationUser>(options => 
+            services.AddDefaultIdentity<ApplicationUser>(options =>
                     {
                         options.SignIn.RequireConfirmedAccount  = false;
                         options.Password.RequireUppercase       = false;
@@ -44,8 +44,7 @@ namespace ArQr
             services.AddAuthentication()
                     .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddControllers();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
@@ -75,9 +74,7 @@ namespace ArQr
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(name: "default",
-                                             pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
