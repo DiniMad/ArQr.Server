@@ -5,7 +5,7 @@ import {httpStatusCode, oidc, urls} from '../services/constants';
 
 const data = new FormData();
 data.append(oidc.client_id.key, oidc.client_id.value);
-data.append(oidc.grant_type.key, oidc.grant_type.value);
+data.append(oidc.grant_type.key, oidc.grant_type.password);
 data.append(oidc.scope.key, oidc.scope.value);
 
 const useLogin = () => {
