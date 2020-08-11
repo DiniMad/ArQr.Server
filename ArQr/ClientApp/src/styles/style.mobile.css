@@ -255,8 +255,12 @@ main nav #nav-menu .nav-item {
   justify-content: center;
   align-items: center;
   color: #888;
+  cursor: pointer;
+  border: none;
+  outline: none;
   margin: 1.5rem 0;
   width: 100%;
+  background: transparent;
 }
 main nav #nav-menu .nav-item.selected {
   color: #ddd;
