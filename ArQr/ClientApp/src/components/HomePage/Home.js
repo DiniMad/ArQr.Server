@@ -6,6 +6,7 @@ import RegisterForm from './RegisterForm';
 import Notification from '../Notification';
 import {Dom} from '../utilities';
 import {CardFront, CardBack, Phone} from '../../images';
+import useSilentLogin from '../hooks/useSilentLogin';
 
 function Home() {
     const [displayRotaryFront, setDisplayRotaryFront] = useState(true);
@@ -15,6 +16,8 @@ function Home() {
     const formsElement = useRef(null);
     const markerFrontElement = useRef(null);
     const markerBackElement = useRef(null);
+
+    useSilentLogin();
 
     useEffect(() => {
         if (!(formsElement.current && markerFrontElement.current && markerBackElement.current)) return;
