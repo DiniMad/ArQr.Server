@@ -8,6 +8,7 @@ import Product from './components/ProductPage';
 import NotFound from './components/NotFoundPage';
 import withLayout from './components/higherOrderComponents/withLayout';
 import AccessTokenProvider from './components/contexts/AccessToken';
+import AuthorizeRoute from './components/AuthorizeRoute';
 
 if (window.innerWidth >= 760)
     require('./styles/style.css');
@@ -19,9 +20,8 @@ const App = () => {
         <Switch>
             <AccessTokenProvider>
                 <Route exact path='/' component={Home}/>
-                {/*TODO: Change the route components below into the authorize route */}
-                <Route path='/dashboard' component={withLayout(Dashboard)}/>
-                <Route path='/product' component={withLayout(Product)}/>
+                <AuthorizeRoute path='/dashboard' component={withLayout(Dashboard)}/>
+                <AuthorizeRoute path='/product' component={withLayout(Product)}/>
                 <Route path='*' component={NotFound}/>
             </AccessTokenProvider>
         </Switch>
