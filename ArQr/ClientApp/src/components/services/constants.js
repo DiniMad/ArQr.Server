@@ -1,5 +1,6 @@
 export const urls = {
     homePage:'/',
+    dashboardPage:'/dashboard',
     loginEndPoint: 'connect/token'
 };
 
@@ -13,3 +14,7 @@ export const oidc = {
 export const httpStatusCode = {
     success: 200
 };
+
+export const queryParameters={
+    returnPath:'returnPath'
+}
