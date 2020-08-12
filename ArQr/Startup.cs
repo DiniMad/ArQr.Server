@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ArQr.Data;
+using ArQr.IdentityServer;
 using ArQr.Infrastructure;
 using ArQr.Models;
 using AutoMapper;
@@ -40,7 +41,8 @@ namespace ArQr
 
             services.AddIdentityServer()
                     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>()
-                    .AddInMemoryClients(IdentityServerConfiguration.GetClients());
+                    .AddInMemoryClients(IdentityServerConfiguration.GetClients())
+                    .AddProfileService<ProfileService>();
 
             services.AddAuthentication()
                     .AddIdentityServerJwt();
