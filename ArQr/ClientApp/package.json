@@ -9,6 +9,7 @@
     "@hookform/resolvers": "0.0.5",
     "axios": "^0.19.2",
     "jquery": "^3.5.1",
+    "jwt-decode": "^2.2.0",
     "merge": "^1.2.1",
     "oidc-client": "^1.9.0",
     "qrcode.react": "^1.0.0",
