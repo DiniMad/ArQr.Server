@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using ArQr.Data;
 using ArQr.IdentityServer;
-using ArQr.Infrastructure;
 using ArQr.Models;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
