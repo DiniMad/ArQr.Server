@@ -25,7 +25,8 @@ const Form = ({onSubmit, onFormError, onChangeFormButtonClick, registerMode}) =>
                       .required('ایمیل وارد نشده است.'),
             password: Yup.string()
                          .required('پسورد وارد نشده است.')
-                         .min(4, 'پسورد نمی تواند کمتر از 4 کارکتر باشد.')
+                         .min(6, 'پسورد نمی تواند کمتر از 6 کارکتر باشد.')
+                         .matches(/\d/, 'پسورد باید شامل حداقل یک عدد باشد.')
                          .matches(/^[a-zA-Z0-9!@#$&*]*$/, 'کارکتر وارد شده در پسورد مجاز نمی باشد.'),
             passwordConfirmation: Yup.string().concat(passwordConfirmation),
         }
