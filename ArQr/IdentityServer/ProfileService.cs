@@ -25,11 +25,11 @@ namespace ArQr.IdentityServer
 
             var claims = new List<Claim>
             {
-                new Claim("UserName",             user.UserName),
-                new Claim("Email",                user.Email),
-                new Claim("EmailConfirmed",       user.EmailConfirmed.ToString()),
-                new Claim("PhoneNumber",          user.PhoneNumber ?? string.Empty),
-                new Claim("PhoneNumberConfirmed", user.PhoneNumberConfirmed.ToString())
+                new Claim("username",             user.UserName),
+                new Claim("email",                user.Email),
+                new Claim("emailConfirmed",       user.EmailConfirmed.ToString()),
+                new Claim("phoneNumber",          user.PhoneNumber ?? string.Empty),
+                new Claim("phoneNumberConfirmed", user.PhoneNumberConfirmed.ToString())
             };
 
             context.IssuedClaims = claims;
