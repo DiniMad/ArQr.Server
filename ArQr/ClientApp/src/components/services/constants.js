@@ -1,7 +1,8 @@
 export const urls = {
     homePage: '/',
     dashboardPage: '/dashboard',
-    tokenEndPoint: 'connect/token'
+    tokenEndPoint: 'connect/token',
+    registerEndPoint: 'account/register'
 };
 
 export const oidc = {
@@ -12,7 +13,8 @@ export const oidc = {
 };
 
 export const httpStatusCode = {
-    success: 200
+    success: 200,
+    created: 201
 };
 
 export const queryParameters = {
