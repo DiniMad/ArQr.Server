@@ -9,7 +9,7 @@ const withLayout = Component => props => (
 );
 
 withLayout.propTypes = {
-    Component: PropTypes.node
+    Component: PropTypes.element
 };
 
 export default withLayout;
