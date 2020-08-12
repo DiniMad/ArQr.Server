@@ -7,9 +7,8 @@ import Dashboard from './components/DashboardPage';
 import Product from './components/ProductPage';
 import NotFound from './components/NotFoundPage';
 import withLayout from './components/higherOrderComponents/withLayout';
-import AccessTokenProvider from './components/contexts/AccessTokenContext';
 import AuthorizeRoute from './components/AuthorizeRoute';
-import UserProvider from './components/contexts/UserContext';
+import ContextProviders from './components/ContextProviders';
 
 if (window.innerWidth >= 760)
     require('./styles/style.css');
@@ -18,16 +17,14 @@ else
 
 const App = () => {
     return (
-        <AccessTokenProvider>
-            <UserProvider>
-                <Switch>
-                    <Route exact path='/' component={Home}/>
-                    <AuthorizeRoute path='/dashboard' component={withLayout(Dashboard)}/>
-                    <AuthorizeRoute path='/product' component={withLayout(Product)}/>
-                    <Route path='*' component={NotFound}/>
-                </Switch>
-            </UserProvider>
-        </AccessTokenProvider>
+        <ContextProviders>
+            <Switch>
+                <Route exact path='/' component={Home}/>
+                <AuthorizeRoute path='/dashboard' component={withLayout(Dashboard)}/>
+                <AuthorizeRoute path='/product' component={withLayout(Product)}/>
+                <Route path='*' component={NotFound}/>
+            </Switch>
+        </ContextProviders>
     );
 };
 
