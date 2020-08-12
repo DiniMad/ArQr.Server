@@ -1,12 +1,12 @@
 import {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import {AccessToken} from '../contexts/AccessToken';
+import {AccessTokenContext} from '../contexts/AccessTokenContext';
 import {oidc, urls} from '../services/constants';
 
 const useLogout = () => {
     const history = useHistory();
 
-    const [, setAccessToken] = useContext(AccessToken);
+    const [, setAccessToken] = useContext(AccessTokenContext);
 
     return () => {
         localStorage.removeItem(oidc.refresh_token.key);

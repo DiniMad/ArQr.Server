@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import http from '../services/http';
-import {AccessToken} from '../contexts/AccessToken';
+import {AccessTokenContext} from '../contexts/AccessTokenContext';
 import {httpStatusCode, oidc, urls} from '../services/constants';
 
 const data = new FormData();
@@ -9,7 +9,7 @@ data.append(oidc.grant_type.key, oidc.grant_type.password);
 data.append(oidc.scope.key, oidc.scope.value);
 
 const useLogin = () => {
-    const [, setAccessToken] = useContext(AccessToken);
+    const [, setAccessToken] = useContext(AccessTokenContext);
 
     return async (username, password) => {
         data.append('username', username);

@@ -7,7 +7,7 @@ import Dashboard from './components/DashboardPage';
 import Product from './components/ProductPage';
 import NotFound from './components/NotFoundPage';
 import withLayout from './components/higherOrderComponents/withLayout';
-import AccessTokenProvider from './components/contexts/AccessToken';
+import AccessTokenProvider from './components/contexts/AccessTokenContext';
 import AuthorizeRoute from './components/AuthorizeRoute';
 
 if (window.innerWidth >= 760)

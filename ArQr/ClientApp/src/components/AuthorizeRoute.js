@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Redirect, Route} from 'react-router-dom';
 
-import {AccessToken} from './contexts/AccessToken';
+import {AccessTokenContext} from './contexts/AccessTokenContext';
 import {queryParameters, urls} from './services/constants';
 import useRefreshToken from './hooks/useRefreshToken';
 
@@ -14,7 +14,7 @@ const AuthorizeRoute = ({component: Component, ...rest}) => {
     const [isReady, setIsReady] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
 
-    const [accessToken] = useContext(AccessToken);
+    const [accessToken] = useContext(AccessTokenContext);
 
     const refreshToken = useRefreshToken();
 
