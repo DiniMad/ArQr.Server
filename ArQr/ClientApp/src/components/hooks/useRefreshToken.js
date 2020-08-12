@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {httpStatusCode, oidc, urls} from '../services/constants';
-import http from '../../http';
+import http from '../services/http';
 import {AccessToken} from '../contexts/AccessToken';
 
 const data = new FormData();

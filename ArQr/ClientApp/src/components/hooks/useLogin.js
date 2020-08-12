@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import http from '../../http';
+import http from '../services/http';
 import {AccessToken} from '../contexts/AccessToken';
 import {httpStatusCode, oidc, urls} from '../services/constants';
 
