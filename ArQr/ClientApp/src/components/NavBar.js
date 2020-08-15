@@ -25,9 +25,9 @@ const NavBar = () => {
     return (
         <nav>
             <div id="nav-menu" ref={navMenuElement}>
-                <NavBarItem linkAddress='/dashboard' text='داشبورد' icon={faHome} iconSize='4x'/>
-                <NavBarItem linkAddress='/profile' text='پروفایل' icon={faUser} iconSize='4x'/>
-                <NavBarItem onClick={logout} text='خروج' icon={faSignOutAlt} iconSize='4x'/>
+                <NavBarItem handleClick='/dashboard' text='داشبورد' icon={faHome} iconSize='4x'/>
+                <NavBarItem handleClick='/profile' text='پروفایل' icon={faUser} iconSize='4x'/>
+                <NavBarItem handleClick={logout} text='خروج' icon={faSignOutAlt} iconSize='4x'/>
             </div>
             <div id="expand">
                 <div id="expand-button" onClick={handelExpandButton}>
