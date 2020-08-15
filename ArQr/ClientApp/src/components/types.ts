@@ -1,6 +1,6 @@
-export type useStateType<T> = T | null;
+export type UseStateType<T> = T | null;
 
-export type createContextForUseStateType<T> = [
+export type CreateContextForUseStateType<T> = [
     T | null,
     (value: T | null) => void | ((value: T) => T)
 ] | null;
