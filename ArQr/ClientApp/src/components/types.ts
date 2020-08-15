@@ -5,7 +5,7 @@ export type CreateContextForUseState<T> = [
     (value: T | null) => void | ((value: T) => T)
 ] | null;
 
-export type UserType = {
+export type User = {
     id: string
     username: string
     email: string

@@ -1,14 +1,14 @@
 import React, {ReactChild, useState} from "react";
 
-import {CreateContextForUseState, UserType, UseState} from "../types";
+import {CreateContextForUseState, User, UseState} from "../types";
 
-export const UserContext = React.createContext<CreateContextForUseState<UserType>>(null);
+export const UserContext = React.createContext<CreateContextForUseState<User>>(null);
 
 type props = {
     children: ReactChild
 }
 const UserProvider = ({children}: props) => {
-    const [user, setAccessToken] = useState<UseState<UserType>>(null);
+    const [user, setAccessToken] = useState<UseState<User>>(null);
 
     return (
         <UserContext.Provider value={[user, setAccessToken]}>
