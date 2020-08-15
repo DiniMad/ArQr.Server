@@ -1,9 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {ReactChild} from "react";
+
 import AccessTokenProvider from './contexts/AccessTokenContext';
 import UserProvider from './contexts/UserContext';
 
-const ContextProviders = ({children}) => {
+type props = {
+    children: ReactChild;
+}
+const ContextProviders = ({children}:props) => {
     return (
         <AccessTokenProvider>
             <UserProvider>
@@ -11,11 +14,6 @@ const ContextProviders = ({children}) => {
             </UserProvider>
         </AccessTokenProvider>
     );
-};
-
-ContextProviders.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element,
-                                      PropTypes.arrayOf(PropTypes.element)]).isRequired
 };
 
 export default ContextProviders;
