@@ -1,1 +1,1 @@
-export {default as Dom} from './Dom';
+export {default as Dom} from './dom';
