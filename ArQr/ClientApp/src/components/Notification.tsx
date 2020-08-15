@@ -1,6 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
 
-const Notification = ({text}) => {
+type props = { 
+    text: string 
+};
+const Notification = ({text}: props) => {
     const [display, setDisplay] = useState(!!text);
 
     useEffect(() => {
@@ -10,13 +13,11 @@ const Notification = ({text}) => {
     const handleCloseButton = () => setDisplay(false);
 
     return (
-        <div id='notification' className={display ? 'display' : null}>
+        <div id='notification' className={display ? "display" : undefined}>
             <p>{text}</p>
             <button onClick={handleCloseButton}>X</button>
         </div>
     );
 };
-
-Notification.propTypes = {};
 
 export default Notification;
