@@ -1,16 +1,16 @@
-import React, {useRef} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBars, faHome, faSignOutAlt, faUser} from '@fortawesome/free-solid-svg-icons';
+import React, {useRef} from "react";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faHome, faSignOutAlt, faUser} from "@fortawesome/free-solid-svg-icons";
 
-import NavBarItem from './NavBarItem';
-import useLogout from './hooks/useLogout';
-
-const NAVBAR_EXPAND_CLASS = 'expand';
+import NavBarItem from "./NavBarItem";
+import useLogout from "./hooks/useLogout";
 
 const NavBar = () => {
-    const navMenuElement = useRef(null);
-    
-    const logout=useLogout();
+    const NAVBAR_EXPAND_CLASS = "expand";
+
+    const navMenuElement = useRef<HTMLDivElement>(null);
+
+    const logout = useLogout();
 
     const handelExpandButton = () => {
         const navMenu = navMenuElement.current;
@@ -21,7 +21,7 @@ const NavBar = () => {
         else
             navMenu.classList.add(NAVBAR_EXPAND_CLASS);
     };
-    
+
     return (
         <nav>
             <div id="nav-menu" ref={navMenuElement}>
