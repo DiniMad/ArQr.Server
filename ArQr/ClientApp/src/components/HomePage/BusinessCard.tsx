@@ -1,7 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {RefObject} from "react";
 
-const BusinessCard = ({name, cardImage, markerElement}) => {
+type Props={
+    name:string,
+    cardImage:string,
+    markerElement:RefObject<HTMLDivElement>
+}
+const BusinessCard = ({name, cardImage, markerElement}:Props) => {
     return (
         <div id={`rotary-template-${name}`} className="rotary-template-container">
             <div className="card-template">
@@ -12,12 +16,6 @@ const BusinessCard = ({name, cardImage, markerElement}) => {
             </div>
         </div>
     );
-};
-
-BusinessCard.propTypes = {
-    name: PropTypes.string.isRequired,
-    cardImage: PropTypes.string.isRequired,
-    markerElement: PropTypes.shape({current: PropTypes.instanceOf(Element)}).isRequired
 };
 
 export default BusinessCard;
