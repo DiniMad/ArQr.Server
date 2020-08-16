@@ -24,3 +24,8 @@ export type AdsProduct = {
         value: string
     }
 }
+
+export type UserIdentity = {
+    email: string,
+    password: string
+}
