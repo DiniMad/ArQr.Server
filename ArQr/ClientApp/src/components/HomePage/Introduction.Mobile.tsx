@@ -1,9 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-const IntroductionMobile = ({handleLoginButton, handleRegisterButton, ...className}) => {
+type Props = {
+    handleLoginButton: () => void,
+    handleRegisterButton: () => void,
+    className: string | undefined
+}
+const IntroductionMobile = ({handleLoginButton, handleRegisterButton, className}: Props) => {
     return (
-        <div id='introduction' {...className}>
+        <div id='introduction' className={className}>
             <div id="introduction-container">
                 <div id="text">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci nam quis quo veniam
@@ -17,22 +21,16 @@ const IntroductionMobile = ({handleLoginButton, handleRegisterButton, ...classNa
                 <div id="navigation">
                     <button onClick={handleRegisterButton}>
                         <span>ایجاد حساب</span>
-                        <span>{'>'}</span>
+                        <span>{">"}</span>
                     </button>
                     <button onClick={handleLoginButton}>
-                        <span>{'<'}</span>
+                        <span>{"<"}</span>
                         <span>ورود</span>
                     </button>
                 </div>
             </div>
         </div>
     );
-};
-
-IntroductionMobile.propTypes = {
-    handleLoginButton: PropTypes.func.isRequired,
-    handleRegisterButton: PropTypes.func.isRequired,
-    className: PropTypes.string
 };
 
 export default IntroductionMobile;
