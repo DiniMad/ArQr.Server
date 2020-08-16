@@ -2,10 +2,10 @@ import React, {ReactChild} from "react";
 
 import Navbar from "./NavBar";
 
-type props = {
+type Props = {
     children: ReactChild;
 }
-const Layout = ({children}: props) => {
+const Layout = ({children}: Props) => {
     return (
         <main>
             <div id="content">

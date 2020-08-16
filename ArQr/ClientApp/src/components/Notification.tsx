@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 
-type props = { 
+type Props = { 
     text: string 
 };
-const Notification = ({text}: props) => {
+const Notification = ({text}: Props) => {
     const [display, setDisplay] = useState(!!text);
 
     useEffect(() => {

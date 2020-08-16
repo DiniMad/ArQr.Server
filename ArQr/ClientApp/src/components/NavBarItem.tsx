@@ -3,13 +3,13 @@ import {Link, useLocation} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {IconProp, SizeProp} from "@fortawesome/fontawesome-svg-core";
 
-type props = {
+type Props = {
     handleClick: string | MouseEventHandler,
     text: string,
     icon: IconProp,
     iconSize: SizeProp
 }
-const NavBarItem = ({handleClick, text, icon, iconSize}: props) => {
+const NavBarItem = ({handleClick, text, icon, iconSize}: Props) => {
     const location = useLocation();
     const navClasses = location.pathname === handleClick ? "nav-item selected" : "nav-item";
 

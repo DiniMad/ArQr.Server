@@ -4,10 +4,10 @@ import {CreateContextForUseState, UseState} from "../types";
 
 export const AccessTokenContext = React.createContext<CreateContextForUseState<string>>(null);
 
-type props = {
+type Props = {
     children: ReactChild
 }
-const AccessTokenProvider = ({children}: props) => {
+const AccessTokenProvider = ({children}: Props) => {
     const [accessToken, setAccessToken] = useState<UseState<string>>(null);
     return (
         <AccessTokenContext.Provider value={[accessToken, setAccessToken]}>
