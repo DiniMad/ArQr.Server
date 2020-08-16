@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 
-type Props = { 
-    text: string 
+type Props = {
+    text: string | null
 };
 const Notification = ({text}: Props) => {
     const [display, setDisplay] = useState(!!text);
