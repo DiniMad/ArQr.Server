@@ -1,7 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-const TextInput = ({name, register, placeholder, lines = 1}) => {
+type Props = {
+    name: string,
+    register: (...args: any[]) => any,
+    placeholder: string,
+    lines?: number
+}
+const TextInput = ({name, register, placeholder, lines = 1}: Props) => {
     return (
         <div className="text-input">
             {
@@ -23,13 +28,6 @@ const TextInput = ({name, register, placeholder, lines = 1}) => {
             </div>
         </div>
     );
-};
-
-TextInput.propTypes = {
-    name: PropTypes.string.isRequired,
-    placeholder: PropTypes.string.isRequired,
-    register: PropTypes.func.isRequired,
-    lines: PropTypes.number
 };
 
 export default TextInput;
