@@ -14,7 +14,7 @@ const HomeMobile = React.memo(() => {
 
     const {
         data: {introductionClasses, containerClasses, isItLoginPage, isItRegisterPage},
-        constant: {LOGIN_Page, REGISTER_PAGE},
+        actionTypes: [LoginPage, RegisterPage],
         navigateTo
     } = useHomePageNavigation();
 
@@ -22,8 +22,8 @@ const HomeMobile = React.memo(() => {
 
     const onLoginFormError = error => setError(isItLoginPage, error);
     const onRegisterFormError = error => setError(isItRegisterPage, error);
-    const goToLoginPage = () => navigateTo(LOGIN_Page);
-    const goToRegisterPage = () => navigateTo(REGISTER_PAGE);
+    const goToLoginPage = () => navigateTo(LoginPage);
+    const goToRegisterPage = () => navigateTo(RegisterPage);
 
     return (
         <div id='home'>
