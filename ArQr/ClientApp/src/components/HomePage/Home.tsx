@@ -1,21 +1,22 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef} from "react";
 
-import BusinessCard from './BusinessCard';
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
-import Notification from '../Notification';
-import {Dom} from '../utilities';
-import {CardFront, CardBack, Phone} from '../../images';
-import useSilentLogin from '../hooks/useSilentLogin';
+import BusinessCard from "./BusinessCard";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import Notification from "../Notification";
+import {Dom} from "../utilities";
+import {CardFront, CardBack, Phone} from "../../images";
+import useSilentLogin from "../hooks/useSilentLogin";
+import {UseState} from "../types";
 
 function Home() {
-    const [displayRotaryFront, setDisplayRotaryFront] = useState(true);
-    const [formsClasses, setFormsClasses] = useState(null);
-    const [errorText, setErrorText] = useState(null);
+    const [displayRotaryFront, setDisplayRotaryFront] = useState<UseState<boolean>>(true);
+    const [formsClasses, setFormsClasses] = useState<UseState<string>>(null);
+    const [errorText, setErrorText] = useState<UseState<string>>(null);
 
-    const formsElement = useRef(null);
-    const markerFrontElement = useRef(null);
-    const markerBackElement = useRef(null);
+    const formsElement = useRef<HTMLDivElement>(null);
+    const markerFrontElement = useRef<HTMLDivElement>(null);
+    const markerBackElement = useRef<HTMLDivElement>(null);
 
     useSilentLogin();
 
@@ -28,7 +29,7 @@ function Home() {
         setFormsClasses(null);
 
         setTimeout(() => {
-            if (!formsElement.current) return;
+            if (!formsElement.current || !markerFrontElement.current || !markerBackElement.current) return;
 
             const phoneHeightByWidthRatio = 2;
 
@@ -44,14 +45,14 @@ function Home() {
                 `translate(${markerOffset.left - phoneWidth * .42}px,
                 ${markerOffset.top - phoneHeight / 2.5}px`;
 
-            setFormsClasses('display');
+            setFormsClasses("display");
         }, 1000);
     };
 
     const changeRotary = () => setDisplayRotaryFront(currentValue => !currentValue);
-    const onFormError = error => setErrorText(error);
+    const onFormError = (error: string|null) => setErrorText(error);
 
-    const rotaryContainerClasses = displayRotaryFront ? null : 'turn';
+    const rotaryContainerClasses = displayRotaryFront ? undefined : "turn";
     return (
         <main id='home'>
             <div id='card-images-wrapper'>
@@ -62,7 +63,7 @@ function Home() {
             </div>
             <div id='forms' ref={formsElement}>
                 <img id='forms-img' src={Phone} alt='Phone'/>
-                <div id='forms-container' className={formsClasses}>
+                <div id='forms-container' className={formsClasses||undefined}>
                     {
                         displayRotaryFront ?
                         <LoginForm onChangeFormButtonClick={changeRotary} onFormError={onFormError}/> :
