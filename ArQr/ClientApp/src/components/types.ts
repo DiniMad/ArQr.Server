@@ -13,3 +13,14 @@ export type User = {
     phoneNumber: string
     phoneNumberConfirmed: boolean
 }
+
+export type ProductContentType = "Text" | "Picture" | "Video";
+
+export type AdsProduct = {
+    title: string,
+    description: string,
+    content: {
+        type: ProductContentType,
+        value: string
+    }
+}
