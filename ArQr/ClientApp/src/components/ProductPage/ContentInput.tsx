@@ -1,47 +1,50 @@
-import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faImage, faVideo} from '@fortawesome/free-solid-svg-icons';
+import React, {useEffect, useRef} from "react";
+import PropTypes from "prop-types";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
 
-import TextInput from './TextInput';
-import useProductContentManager from '../hooks/useProductContentManager';
-import {PICTURE, TEXT, VIDEO} from './constants';
+import TextInput from "./TextInput";
+import useProductContentManager from "../hooks/useProductContentManager";
 
-const ContentInput = ({register, setValue}) => {
-    const inputFileElement = useRef(null);
+type Props = {
+    register: (...args: any[]) => any,
+    setValue: (...args: any[]) => any
+}
+const ContentInput = ({register, setValue}: Props) => {
+    const inputFileElement = useRef<HTMLInputElement>(null);
 
     const {data: {markerRight, contentType}, selectContent} = useProductContentManager();
 
     useEffect(() => {
-        if (contentType !== TEXT) register({name: 'content.value'});
-        register({name: 'content.type'});
-        setValue('content.value', '');
-        setValue('content.type', contentType);
+        if (contentType !== "Text") register({name: "content.value"});
+        register({name: "content.type"});
+        setValue("content.value", "");
+        setValue("content.type", contentType);
     }, [contentType]);
 
-    const handleTextButton = () => selectContent(TEXT);
-    const handlePictureButton = () => selectContent(PICTURE);
-    const handleVideoButton = () => selectContent(VIDEO);
+    const handleTextButton = () => selectContent("Text");
+    const handlePictureButton = () => selectContent("Picture");
+    const handleVideoButton = () => selectContent("Video");
 
-    const openFileDialog = accept => {
+    const openFileDialog = (accept: any) => {
         const inputFile = inputFileElement.current;
         if (!inputFile) return;
         inputFile.accept = accept;
         inputFile.click();
     };
 
-    const handelSelectPictureButton = () => openFileDialog('.png,.jpg,.jpeg');
-    const handelSelectVideoButton = () => openFileDialog('.mp4');
+    const handelSelectPictureButton = () => openFileDialog(".png,.jpg,.jpeg");
+    const handelSelectVideoButton = () => openFileDialog(".mp4");
     const handleInputFileChange = async () => {
         const inputFile = inputFileElement.current;
-        const file = inputFileElement.current.files[0];
-        if (!(inputFile && file)) return;
+        if (!inputFile || !inputFile.files || inputFile.files.length < 1) return;
+        const file = inputFile.files[0];
 
         const media = URL.createObjectURL(file);
-        setValue('content.value', media);
-        setValue('content.type', contentType);
+        setValue("content.value", media);
+        setValue("content.type", contentType);
 
-        inputFile.value = '';
+        inputFile.value = "";
     };
 
     return (
@@ -56,17 +59,17 @@ const ContentInput = ({register, setValue}) => {
                 <input ref={inputFileElement} onChange={handleInputFileChange} type='file' name='file-input'
                        id='input'/>
                 {
-                    contentType === TEXT &&
+                    contentType === "Text" &&
                     <TextInput name='content.value' register={register} placeholder='متن' lines={4}/>
                 }
                 {
-                    contentType === PICTURE &&
+                    contentType === "Picture" &&
                     <button onClick={handelSelectPictureButton} type='button'>
                         <FontAwesomeIcon icon={faImage}/>
                     </button>
                 }
                 {
-                    contentType === VIDEO &&
+                    contentType === "Video" &&
                     <button onClick={handelSelectVideoButton} type='button'>
                         <FontAwesomeIcon icon={faVideo}/>
                     </button>
