@@ -1,18 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
+import React, {MouseEventHandler} from "react";
+import {useHistory} from "react-router-dom";
 
 
-import Form from './Form';
-import useLogin from '../hooks/useLogin';
-import {getRedirectPath} from '../services/url';
+import Form from "./Form";
+import useLogin from "../hooks/useLogin";
+import {getRedirectPath} from "../services/url";
+import {UserIdentity} from "../types";
 
-const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
+type Props = {
+    onFormError: (error: string | null) => void,
+    onChangeFormButtonClick: MouseEventHandler,
+}
+const LoginForm = ({onChangeFormButtonClick, onFormError}: Props) => {
     const history = useHistory();
 
     const login = useLogin();
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: UserIdentity) => {
         const success = await login(data.email, data.password);
         if (success) history.replace(getRedirectPath());
         else {
@@ -27,11 +31,6 @@ const LoginForm = ({onChangeFormButtonClick, onFormError}) => {
                   onFormError={onFormError}/>
         </div>
     );
-};
-
-LoginForm.propTypes = {
-    onChangeFormButtonClick: PropTypes.func.isRequired,
-    onFormError: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
