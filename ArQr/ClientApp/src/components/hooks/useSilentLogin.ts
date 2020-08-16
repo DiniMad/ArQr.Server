@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
-import {getRedirectPath} from '../services/url';
 import {useHistory} from 'react-router-dom';
+
+import {getRedirectPath} from '../services/url';
 import useRefreshToken from './useRefreshToken';
 
 const useSilentLogin = () => {
