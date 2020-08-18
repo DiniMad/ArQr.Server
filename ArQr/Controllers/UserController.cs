@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using ArQr.Controllers.Resources;
-using ArQr.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ArQr.Infrastructure;
+using ArQr.Models.Repositories;
 
 namespace ArQr.Controllers
 {
@@ -14,28 +13,36 @@ namespace ArQr.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly IMapper              _mapper;
+        private readonly IApplicationUserRepository _userRepository;
+        private readonly IMapper                    _mapper;
 
-        public UserController(ApplicationDbContext dbContext, IMapper mapper)
+        public UserController(IApplicationUserRepository userRepository, IMapper mapper)
         {
-            _dbContext = dbContext;
-            _mapper    = mapper;
+            _userRepository = userRepository;
+            _mapper         = mapper;
         }
 
-        [HttpGet("{id?}")]
-        public async Task<ActionResult<UserResource>> GetUser(string id)
+        [HttpGet]
+        public async Task<IActionResult> GetUser()
+        {
+            var userId = HttpContext.GetUserId();
+
+            var existingUser = await _userRepository.GetUserAsync(userId);
+
+            return ApiResponse.Ok(_mapper.Map<UserResource>(existingUser));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser(string id)
         {
             var contextUserId = HttpContext.GetUserId();
-            if (id != null && contextUserId != id)
-                return Unauthorized("You dont have permission to access the user detail.");
+            if (contextUserId != id) return ApiResponse.UnAuthorize("شما دسترسی لازم را ندارید.");
 
-            var existingUser = await _dbContext.Users
-                                               .AsNoTracking()
-                                               .FirstOrDefaultAsync(user => user.Id == contextUserId);
+            var user = await _userRepository.GetUserAsync(id);
 
-            if (existingUser is null) return NotFound(id);
-            return _mapper.Map<UserResource>(existingUser);
+            if (user is {}) return ApiResponse.Ok(_mapper.Map<UserResource>(user));
+
+            return ApiResponse.NotFound("کابر وجود ندارد.");
         }
     }
 }
