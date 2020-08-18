@@ -25,7 +25,7 @@ namespace ArQr.Controllers
         {
             var user   = _mapper.Map<ApplicationUser>(model);
             var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) return BadRequest(result.Errors);
+            if (!result.Succeeded) return ApiResponse.BadRequest("خطایی در پروسه ساخت کاربر رخ داده است.");
 
             var location = Url.Action("GetUser", "User", new {id = user.Id});
             return ApiResponse.Created(location, _mapper.Map<UserResource>(user));
