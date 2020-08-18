@@ -1,5 +1,6 @@
 .idea/
 .vs/
+*.DotSettings.user
 **/bin/
 **/obj/
 **/*.db
