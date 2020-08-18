@@ -46,5 +46,25 @@ namespace ArQr.test.Controllers.UserControllerTests
 
             Assert.NotNull((UserResource) apiResponse.Data);
         }
+
+        [Fact]
+        public async Task OnCallWithUserIdDifferentFromHttpContextClaim_ReturnNull()
+        {
+            const string httpContextUserId     = "LATTERLY_ANY_USER_ID";
+            const string actionParameterUserId = "LATTERLY_ANY_OTHER_USER_ID";
+            UserRepository
+                .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
+                .ReturnsAsync(new ApplicationUser());
+
+            var controller = new UserController(UserRepository.Object, Mapper)
+            {
+                ControllerContext = {HttpContext = CreateHttpContext(httpContextUserId)}
+            };
+
+            var controllerResult = (UnauthorizedObjectResult) await controller.GetUser(actionParameterUserId);
+            var apiResponse      = (ApiResponse) controllerResult.Value;
+
+            Assert.Null((UserResource) apiResponse.Data);
+        }
     }
 }
