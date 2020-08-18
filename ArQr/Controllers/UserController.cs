@@ -40,9 +40,7 @@ namespace ArQr.Controllers
 
             var user = await _userRepository.GetUserAsync(id);
 
-            if (user is {}) return ApiResponse.Ok(_mapper.Map<UserResource>(user));
-
-            return ApiResponse.NotFound("کابر وجود ندارد.");
+            return ApiResponse.Ok(_mapper.Map<UserResource>(user));
         }
     }
 }
