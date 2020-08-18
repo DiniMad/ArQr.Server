@@ -32,6 +32,9 @@ namespace ArQr.Controllers.Resources
         private static ApiResponse Fail(int status, string error)
             => new ApiResponse(false, status, null, error);
 
+        public static BadRequestObjectResult BadRequest(string error)
+            => new BadRequestObjectResult(Fail(400, error));
+
         public static UnauthorizedObjectResult UnAuthorize(string error)
             => new UnauthorizedObjectResult(Fail(401, error));
 
