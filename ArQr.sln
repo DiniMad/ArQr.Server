@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArQr", "ArQr\ArQr.csproj", "{8CAFB5E5-2B30-46C5-898B-20461232A9FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArQr.test", "ArQr.test\ArQr.test.csproj", "{D21969B9-CAE3-4C25-936C-8B423767C632}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{8CAFB5E5-2B30-46C5-898B-20461232A9FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CAFB5E5-2B30-46C5-898B-20461232A9FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CAFB5E5-2B30-46C5-898B-20461232A9FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D21969B9-CAE3-4C25-936C-8B423767C632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21969B9-CAE3-4C25-936C-8B423767C632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21969B9-CAE3-4C25-936C-8B423767C632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21969B9-CAE3-4C25-936C-8B423767C632}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
