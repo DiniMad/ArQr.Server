@@ -77,6 +77,8 @@ namespace ArQr
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseLocalization();
+
             app.UseRouting();
 
             app.UseAuthentication();
