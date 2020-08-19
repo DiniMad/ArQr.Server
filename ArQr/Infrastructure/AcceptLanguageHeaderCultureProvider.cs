@@ -11,9 +11,11 @@ namespace ArQr.Infrastructure
         {
             var userLanguages = httpContext.Request.Headers["Accept-Language"].ToString();
             var firstLanguage = userLanguages.Split(',').FirstOrDefault();
-            return !string.IsNullOrWhiteSpace(firstLanguage)
-                       ? new ProviderCultureResult(firstLanguage, firstLanguage)
-                       : default;
+            var result = !string.IsNullOrWhiteSpace(firstLanguage)
+                             ? new ProviderCultureResult(firstLanguage, firstLanguage)
+                             : default;
+
+            return await Task.FromResult(result);
         }
     }
 }
