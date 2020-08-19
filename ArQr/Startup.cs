@@ -55,6 +55,9 @@ namespace ArQr
             services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/build");
 
             services.AddAutoMapper(typeof(Startup));
+
+            services.AddLocalization();
+            services.AddCultureProvider();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
