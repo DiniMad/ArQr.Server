@@ -30,7 +30,7 @@ namespace ArQr.test.Controllers.AccountControllerTests
                 .Setup(urlHelper => urlHelper.Action(It.IsAny<UrlActionContext>()))
                 .Returns(string.Empty);
 
-            var controller = new AccountController(UserManager.Object, Mapper)
+            var controller = new AccountController(UserManager.Object, Mapper,Localizer.Object)
             {
                 Url = _urlHelper.Object
             };
@@ -60,7 +60,7 @@ namespace ArQr.test.Controllers.AccountControllerTests
                 .Setup(manager => manager.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Failed(new IdentityError {Code = errorCode}));
 
-            var controller = new AccountController(UserManager.Object, Mapper);
+            var controller = new AccountController(UserManager.Object, Mapper, Localizer.Object);
 
             var registerUserResource =
                 new RegisterUserResource {Email = "LATTERLY_ANY_EMAIL", Password = "LATTERLY_ANY_PASSWORD"};
