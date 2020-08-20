@@ -54,7 +54,7 @@ namespace ArQr.test.Controllers.AccountControllerTests
         [InlineData("PasswordRequiresDigit")]
         [InlineData("PasswordRequiresLower")]
         [InlineData("PasswordTooShort")]
-        public async Task OnCallWithInvalidModel_ReturnNullAsData(string errorCode)
+        public async Task OnCreatingUserFailed_ReturnNullAsData(string errorCode)
         {
             UserManager
                 .Setup(manager => manager.CreateAsync(It.IsAny<ApplicationUser>(), It.IsAny<string>()))
