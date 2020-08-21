@@ -4,7 +4,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ArQr.Infrastructure;
+using ArQr.Localization;
+using ArQr.Localization.ErrorKeys;
 using ArQr.Models.Repositories;
+using Microsoft.Extensions.Localization;
 
 namespace ArQr.Controllers
 {
@@ -15,11 +18,15 @@ namespace ArQr.Controllers
     {
         private readonly IApplicationUserRepository _userRepository;
         private readonly IMapper                    _mapper;
+        private readonly IStringLocalizer<Resource> _localizer;
 
-        public UserController(IApplicationUserRepository userRepository, IMapper mapper)
+        public UserController(IApplicationUserRepository userRepository,
+                              IMapper                    mapper,
+                              IStringLocalizer<Resource> localizer)
         {
             _userRepository = userRepository;
             _mapper         = mapper;
+            _localizer      = localizer;
         }
 
         [HttpGet]
@@ -36,7 +43,7 @@ namespace ArQr.Controllers
         public async Task<IActionResult> GetUser(string id)
         {
             var contextUserId = HttpContext.GetUserId();
-            if (contextUserId != id) return ApiResponse.UnAuthorize("شما دسترسی لازم را ندارید.");
+            if (contextUserId != id) return ApiResponse.UnAuthorize(_localizer.GetUserError(UserErrors.UnAuthorize));
 
             var user = await _userRepository.GetUserAsync(id);
 
