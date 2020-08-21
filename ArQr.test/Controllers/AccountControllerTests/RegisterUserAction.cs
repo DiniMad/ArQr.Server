@@ -36,7 +36,7 @@ namespace ArQr.test.Controllers.AccountControllerTests
             };
 
             var registerUserResource =
-                new RegisterUserResource {Email = "LATTERLY_ANY_EMAIL", Password = "LATTERLY_ANY_PASSWORD"};
+                new RegisterUserResource {Email = "LITERALLY_ANY_EMAIL", Password = "LITERALLY_ANY_PASSWORD"};
 
             var controllerResult = (CreatedResult) await controller.RegisterUser(registerUserResource);
             var apiResponse      = (ApiResponse) controllerResult.Value;
@@ -63,7 +63,7 @@ namespace ArQr.test.Controllers.AccountControllerTests
             var controller = new AccountController(UserManager.Object, Mapper, Localizer.Object);
 
             var registerUserResource =
-                new RegisterUserResource {Email = "LATTERLY_ANY_EMAIL", Password = "LATTERLY_ANY_PASSWORD"};
+                new RegisterUserResource {Email = "LITERALLY_ANY_EMAIL", Password = "LITERALLY_ANY_PASSWORD"};
 
             var controllerResult = (BadRequestObjectResult) await controller.RegisterUser(registerUserResource);
             var apiResponse      = (ApiResponse) controllerResult.Value;

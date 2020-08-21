@@ -31,7 +31,7 @@ namespace ArQr.test.Controllers.UserControllerTests
         [Fact]
         public async Task OnCallWithUserIdSimilarToHttpContextClaim_ReturnApplicationUser()
         {
-            const string userId = "LATTERLY_ANY_USER_ID";
+            const string userId = "LITERALLY_ANY_USER_ID";
             UserRepository
                 .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
                 .ReturnsAsync(new ApplicationUser());
@@ -50,8 +50,8 @@ namespace ArQr.test.Controllers.UserControllerTests
         [Fact]
         public async Task OnCallWithUserIdDifferentFromHttpContextClaim_ReturnNull()
         {
-            const string httpContextUserId     = "LATTERLY_ANY_USER_ID";
-            const string actionParameterUserId = "LATTERLY_ANY_OTHER_USER_ID";
+            const string httpContextUserId     = "LITERALLY_ANY_USER_ID";
+            const string actionParameterUserId = "LITERALLY_ANY_OTHER_USER_ID";
             UserRepository
                 .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
                 .ReturnsAsync(new ApplicationUser());
