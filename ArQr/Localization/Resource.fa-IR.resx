@@ -44,4 +44,10 @@
     <data name="UserManagerCreate-PasswordTooShort" xml:space="preserve">
         <value>طول پسورد از حد مجاز کمتر است.</value>
     </data>
+    <data name="User-UnAuthorize" xml:space="preserve">
+        <value>شما اجازه دسترسی به اطلاعات این کاربر را ندارید.</value>
+    </data>
+    <data name="Product-NotFound" xml:space="preserve">
+        <value>محصولی پیدا نشد.</value>
+    </data>
 </root>
