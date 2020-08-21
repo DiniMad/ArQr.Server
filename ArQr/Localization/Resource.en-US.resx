@@ -39,4 +39,11 @@
     <data name="UserManagerCreate-PasswordTooShort" xml:space="preserve">
         <value>Password too short.</value>
     </data>
+
+    <data name="User-UnAuthorize" xml:space="preserve">
+        <value>You dont have the permission to access this user information.</value>
+    </data>
+    <data name="Product-NotFound" xml:space="preserve">
+        <value>No product found.</value>
+    </data>
 </root>
