@@ -12,6 +12,7 @@ namespace ArQr.Infrastructure
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             return services;
         }
