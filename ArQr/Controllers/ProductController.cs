@@ -21,14 +21,17 @@ namespace ArQr.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepository         _productRepository;
+        private readonly ApplicationDbContext       _dbContext;
         private readonly IMapper                    _mapper;
         private readonly IStringLocalizer<Resource> _localizer;
 
         public ProductController(IProductRepository         productRepository,
+                                 ApplicationDbContext       dbContext,
                                  IMapper                    mapper,
                                  IStringLocalizer<Resource> localizer)
         {
             _productRepository = productRepository;
+            _dbContext         = dbContext;
             _mapper            = mapper;
             _localizer         = localizer;
         }
@@ -54,6 +57,22 @@ namespace ArQr.Controllers
             if (!userProducts.Any()) return ApiResponse.NotFound(_localizer.GetProductError(ProductErrors.NotFound));
 
             return ApiResponse.Ok(userProducts);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ProductResource productResource)
+        {
+            var userId = HttpContext.GetUserId();
+
+            var product = _mapper.Map<Product>(productResource);
+            product.Id      = Guid.NewGuid().ToString();
+            product.OwnerId = userId;
+
+            await _productRepository.CreateAsync(product);
+            await _dbContext.SaveChangesAsync();
+
+            var location = Url.Action("GetProduct", "Product", new {id = product.Id});
+            return ApiResponse.Created(location, _mapper.Map<ProductResource>(product));
         }
     }
 }
