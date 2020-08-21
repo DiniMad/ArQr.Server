@@ -45,5 +45,15 @@ namespace ArQr.Controllers
 
             return ApiResponse.Ok(_mapper.Map<ProductResource>(product));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUserProducts(int take = 20, int after = 0)
+        {
+            var userId       = HttpContext.GetUserId();
+            var userProducts = await _productRepository.GetProductsByUserIdAsync(userId, take, after);
+            if (!userProducts.Any()) return ApiResponse.NotFound(_localizer.GetProductError(ProductErrors.NotFound));
+
+            return ApiResponse.Ok(userProducts);
+        }
     }
 }
