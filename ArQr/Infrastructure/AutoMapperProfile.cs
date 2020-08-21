@@ -12,8 +12,11 @@ namespace ArQr.Infrastructure
                 .ForMember(applicationUser => applicationUser.UserName,
                            expression => expression.MapFrom(userResource => userResource.Email));
 
-
             CreateMap<ApplicationUser, UserResource>();
+
+            CreateMap<ProductResource, Product>()
+                .ForMember(product => product.Id, expression => expression.Ignore())
+                .ReverseMap();
         }
     }
 }
