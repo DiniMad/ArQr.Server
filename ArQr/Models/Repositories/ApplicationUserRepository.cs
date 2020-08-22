@@ -1,23 +1,11 @@
-using System.Threading.Tasks;
 using ArQr.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace ArQr.Models.Repositories
 {
-    public class ApplicationUserRepository : IApplicationUserRepository
+    public class ApplicationUserRepository : Repository<ApplicationUser>, IApplicationUserRepository
     {
-        private readonly ApplicationDbContext _dbContext;
-
-        public ApplicationUserRepository(ApplicationDbContext dbContext)
+        public ApplicationUserRepository(ApplicationDbContext context) : base(context)
         {
-            _dbContext = dbContext;
-        }
-
-        public async Task<ApplicationUser> GetUserAsync(string userId)
-        {
-            return await _dbContext.Users
-                                   .AsNoTracking()
-                                   .FirstOrDefaultAsync(user => user.Id == userId);
         }
     }
 }
