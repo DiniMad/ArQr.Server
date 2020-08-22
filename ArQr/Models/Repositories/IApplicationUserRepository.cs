@@ -1,9 +1,7 @@
-using System.Threading.Tasks;
 
 namespace ArQr.Models.Repositories
 {
-    public interface IApplicationUserRepository
+    public interface IApplicationUserRepository : IRepository<ApplicationUser>
     {
-        Task<ApplicationUser> GetUserAsync(string userId);
     }
 }
