@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using ArQr.Data.UnitOfWork;
 using ArQr.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
@@ -13,6 +14,13 @@ namespace ArQr.Infrastructure
         {
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
+        {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
