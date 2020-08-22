@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using ArQr.Controllers.Resources;
+using ArQr.Data.UnitOfWork;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ArQr.Infrastructure;
 using ArQr.Localization;
 using ArQr.Localization.ErrorKeys;
-using ArQr.Models.Repositories;
 using Microsoft.Extensions.Localization;
 
 namespace ArQr.Controllers
@@ -16,17 +16,17 @@ namespace ArQr.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IApplicationUserRepository _userRepository;
+        private readonly IUnitOfWork                _unitOfWork;
         private readonly IMapper                    _mapper;
         private readonly IStringLocalizer<Resource> _localizer;
 
-        public UserController(IApplicationUserRepository userRepository,
+        public UserController(IUnitOfWork                unitOfWork,
                               IMapper                    mapper,
                               IStringLocalizer<Resource> localizer)
         {
-            _userRepository = userRepository;
-            _mapper         = mapper;
-            _localizer      = localizer;
+            _unitOfWork = unitOfWork;
+            _mapper     = mapper;
+            _localizer  = localizer;
         }
 
         [HttpGet]
@@ -34,7 +34,7 @@ namespace ArQr.Controllers
         {
             var userId = HttpContext.GetUserId();
 
-            var existingUser = await _userRepository.GetUserAsync(userId);
+            var existingUser = await _unitOfWork.Users.GetAsync(userId);
 
             return ApiResponse.Ok(_mapper.Map<UserResource>(existingUser));
         }
@@ -45,7 +45,7 @@ namespace ArQr.Controllers
             var contextUserId = HttpContext.GetUserId();
             if (contextUserId != id) return ApiResponse.UnAuthorize(_localizer.GetUserError(UserErrors.UnAuthorize));
 
-            var user = await _userRepository.GetUserAsync(id);
+            var user = await _unitOfWork.Users.GetAsync(id);
 
             return ApiResponse.Ok(_mapper.Map<UserResource>(user));
         }
