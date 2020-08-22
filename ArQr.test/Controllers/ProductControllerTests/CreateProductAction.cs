@@ -44,10 +44,32 @@ namespace ArQr.test.Controllers.ProductControllerTests
             };
 
             await controller.CreateProduct(productResource);
-            
+
 
             _productRepository.Verify(repository => repository.AddAsync(It.Is<Product>(p => p.OwnerId == userId)),
                                       Times.Once);
+        }
+
+        [Fact]
+        public async Task Always_CallCompleteMethodOfTheUnitOfWork()
+        {
+            UnitOfWork
+                .Setup(unitOfWork => unitOfWork.Products)
+                .Returns(_productRepository.Object);
+
+            _urlHelper
+                .Setup(urlHelper => urlHelper.Action(It.IsAny<UrlActionContext>()))
+                .Returns(string.Empty);
+
+            var controller = new ProductController(UnitOfWork.Object, Mapper, Localizer.Object)
+            {
+                ControllerContext = {HttpContext = CreateHttpContext()},
+                Url               = _urlHelper.Object
+            };
+
+            await controller.CreateProduct(new ProductResource());
+
+            UnitOfWork.Verify(unitOfWork => unitOfWork.Complete(), Times.Once);
         }
     }
 }
