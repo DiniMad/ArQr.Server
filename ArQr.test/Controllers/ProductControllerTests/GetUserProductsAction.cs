@@ -48,5 +48,31 @@ namespace ArQr.test.Controllers.ProductControllerTests
 
             Assert.NotEmpty(products);
         }
+
+        [Fact]
+        public async Task UserHasNoProduct_ReturnNull()
+        {
+            const string ownerId = "LITERALLY_ANY_USER_ID";
+
+            _productRepository
+                .Setup(repository => repository.GetProductsByUserIdAsync(ownerId, It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(new List<Product>());
+
+            UnitOfWork
+                .Setup(unitOfWork => unitOfWork.Products)
+                .Returns(_productRepository.Object);
+
+
+            var controller = new ProductController(UnitOfWork.Object, Mapper, Localizer.Object)
+            {
+                ControllerContext = {HttpContext = CreateHttpContext(ownerId)}
+            };
+
+            var controllerResult = (NotFoundObjectResult) await controller.GetUserProducts();
+            var apiResponse      = (ApiResponse) controllerResult.Value;
+            var products         = (IReadOnlyList<ProductResource>) apiResponse.Data;
+
+            Assert.Null(products);
+        }
     }
 }
