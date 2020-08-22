@@ -4,11 +4,13 @@ using System.Threading.Tasks;
 using ArQr.Controllers;
 using ArQr.Controllers.Resources;
 using ArQr.Infrastructure;
+using ArQr.Localization;
 using ArQr.Models;
 using ArQr.Models.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Moq;
 using Xunit;
 
@@ -18,6 +20,7 @@ namespace ArQr.test.Controllers.UserControllerTests
     {
         protected readonly Mock<IApplicationUserRepository> UserRepository;
         protected readonly IMapper                          Mapper;
+        protected readonly Mock<IStringLocalizer<Resource>> Localizer;
 
         protected UserControllerTests()
         {
@@ -25,6 +28,8 @@ namespace ArQr.test.Controllers.UserControllerTests
             var mockMapper = new MapperConfiguration(cfg
                                                          => cfg.AddProfile(new AutoMapperProfile()));
             Mapper = mockMapper.CreateMapper();
+            
+            Localizer = new Mock<IStringLocalizer<Resource>>();
         }
 
         protected static HttpContext CreateHttpContext(string userId = "")
