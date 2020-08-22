@@ -17,7 +17,7 @@ namespace ArQr.test.Controllers.UserControllerTests
                 .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
                 .ReturnsAsync(new ApplicationUser());
 
-            var controller = new UserController(UserRepository.Object, Mapper)
+            var controller = new UserController(UserRepository.Object, Mapper,Localizer.Object)
             {
                 ControllerContext = {HttpContext = CreateHttpContext()}
             };
@@ -36,7 +36,7 @@ namespace ArQr.test.Controllers.UserControllerTests
                 .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
                 .ReturnsAsync(new ApplicationUser());
 
-            var controller = new UserController(UserRepository.Object, Mapper)
+            var controller = new UserController(UserRepository.Object, Mapper,Localizer.Object)
             {
                 ControllerContext = {HttpContext = CreateHttpContext(userId)}
             };
@@ -56,7 +56,7 @@ namespace ArQr.test.Controllers.UserControllerTests
                 .Setup(repository => repository.GetUserAsync(It.IsAny<string>()))
                 .ReturnsAsync(new ApplicationUser());
 
-            var controller = new UserController(UserRepository.Object, Mapper)
+            var controller = new UserController(UserRepository.Object, Mapper,Localizer.Object)
             {
                 ControllerContext = {HttpContext = CreateHttpContext(httpContextUserId)}
             };
