@@ -32,6 +32,7 @@ namespace ArQr
             });
 
             services.AddRepositories();
+            services.AddUnitOfWork();
 
             services.AddDefaultIdentity<ApplicationUser>(options =>
                     {
