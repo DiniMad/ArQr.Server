@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using ArQr.Localization;
 using ArQr.Models;
 
 namespace ArQr.Controllers.Resources
@@ -9,11 +8,11 @@ namespace ArQr.Controllers.Resources
         public string Id { get; set; }
 
         [Required]
-        [StringLength(16)]
+        [StringLength(32)]
         public string Title { get; set; }
 
         [Required]
-        [StringLength(32)]
+        [StringLength(256)]
         public string Description { get; set; }
 
         [Required]
