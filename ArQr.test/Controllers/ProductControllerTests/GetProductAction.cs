@@ -49,12 +49,12 @@ namespace ArQr.test.Controllers.ProductControllerTests
 
             Assert.NotNull((ProductResource) apiResponse.Data);
         }
-        
+
         [Fact]
         public async Task GetTheProductNotBelongsToTheUser_ReturnNull()
         {
             const string productId = "LITERALLY_ANY_PRODUCT_ID";
-            const string ownerId = "LITERALLY_ANY_OWNER_ID";
+            const string ownerId   = "LITERALLY_ANY_OWNER_ID";
             const string userId    = "LITERALLY_ANY_USER_ID";
 
             var product = new Product
@@ -77,6 +77,29 @@ namespace ArQr.test.Controllers.ProductControllerTests
             };
 
             var controllerResult = (UnauthorizedObjectResult) await controller.GetProduct(productId);
+            var apiResponse      = (ApiResponse) controllerResult.Value;
+
+            Assert.Null((ProductResource) apiResponse.Data);
+        }
+
+        [Fact]
+        public async Task GetTheProductThatNotExist_ReturnNull()
+        {
+            _productRepository
+                .Setup(repository => repository.GetAsync(It.IsAny<string>()))
+                .ReturnsAsync((Product) null);
+
+            UnitOfWork
+                .Setup(unitOfWork => unitOfWork.Products)
+                .Returns(_productRepository.Object);
+
+
+            var controller = new ProductController(UnitOfWork.Object, Mapper, Localizer.Object)
+            {
+                ControllerContext = {HttpContext = CreateHttpContext()}
+            };
+
+            var controllerResult = (NotFoundObjectResult) await controller.GetProduct("LITERALLY_ANY_PRODUCT_ID");
             var apiResponse      = (ApiResponse) controllerResult.Value;
 
             Assert.Null((ProductResource) apiResponse.Data);
