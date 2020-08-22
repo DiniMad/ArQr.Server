@@ -49,5 +49,37 @@ namespace ArQr.test.Controllers.ProductControllerTests
 
             Assert.NotNull((ProductResource) apiResponse.Data);
         }
+        
+        [Fact]
+        public async Task GetTheProductNotBelongsToTheUser_ReturnNull()
+        {
+            const string productId = "LITERALLY_ANY_PRODUCT_ID";
+            const string ownerId = "LITERALLY_ANY_OWNER_ID";
+            const string userId    = "LITERALLY_ANY_USER_ID";
+
+            var product = new Product
+            {
+                Id      = productId,
+                OwnerId = ownerId
+            };
+            _productRepository
+                .Setup(repository => repository.GetAsync(productId))
+                .ReturnsAsync(product);
+
+            UnitOfWork
+                .Setup(unitOfWork => unitOfWork.Products)
+                .Returns(_productRepository.Object);
+
+
+            var controller = new ProductController(UnitOfWork.Object, Mapper, Localizer.Object)
+            {
+                ControllerContext = {HttpContext = CreateHttpContext(userId)}
+            };
+
+            var controllerResult = (UnauthorizedObjectResult) await controller.GetProduct(productId);
+            var apiResponse      = (ApiResponse) controllerResult.Value;
+
+            Assert.Null((ProductResource) apiResponse.Data);
+        }
     }
 }
