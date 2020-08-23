@@ -99,5 +99,22 @@ namespace ArQr.test.Controllers.Resources
 
             Assert.Equal(apiResponse.Status, status);
         }
+
+        [Fact]
+        public void ServerError_Always_ShouldReturnModelWithSuccessSetToFalse()
+        {
+            var apiResponse = ApiResponse.ServerError(string.Empty);
+
+            Assert.False(apiResponse.Success);
+        }
+
+        [Fact]
+        public void ServerError_Always_ShouldReturnModelWithStatusSetTo500()
+        {
+            const int status         = 500;
+            var apiResponse = ApiResponse.ServerError(string.Empty);
+
+            Assert.Equal(apiResponse.Status, status);
+        }
     }
 }
