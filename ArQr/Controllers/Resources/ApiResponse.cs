@@ -40,5 +40,7 @@ namespace ArQr.Controllers.Resources
 
         public static NotFoundObjectResult NotFound(string error)
             => new NotFoundObjectResult(Fail(404, error));
+
+        public static ApiResponse ServerError(string error) => Fail(500, error);
     }
 }
