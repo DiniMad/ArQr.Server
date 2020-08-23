@@ -70,7 +70,7 @@ namespace ArQr
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.ConfigureExceptionHandler();
                 app.UseHsts();
             }
 
