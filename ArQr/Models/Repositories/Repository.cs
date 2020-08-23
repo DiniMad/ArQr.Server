@@ -41,12 +41,12 @@ namespace ArQr.Models.Repositories
             await Context.Set<TEntity>().AddRangeAsync(entities);
         }
 
-        public void RemoveAsync(TEntity entity)
+        public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);
         }
 
-        public void RemoveRangeAsync(IList<TEntity> entities)
+        public void RemoveRange(IList<TEntity> entities)
         {
             Context.Set<TEntity>().RemoveRange(entities);
         }

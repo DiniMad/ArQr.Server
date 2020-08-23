@@ -14,7 +14,7 @@ namespace ArQr.Models.Repositories
         Task AddAsync(TEntity                   entity);
         Task AddRangeAsync(IList<TEntity> entities);
 
-        void RemoveAsync(TEntity                   entity);
-        void RemoveRangeAsync(IList<TEntity> entities);
+        void Remove(TEntity                   entity);
+        void RemoveRange(IList<TEntity> entities);
     }
 }
