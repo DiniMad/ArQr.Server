@@ -64,13 +64,10 @@ namespace ArQr.Controllers
             var previous = after < 1
                                ? null
                                : Url.Action("GetUserProducts", "Product", new {pageNumber = pageNumber - 1, pageSize});
-            var result = new
-            {
-                products = _mapper.Map<IReadOnlyList<ProductResource>>(userProducts),
-                next,
-                previous
-            };
 
+            var productResourceCollection = _mapper.Map<IReadOnlyList<ProductResource>>(userProducts);
+
+            var result = new PaginationData<ProductResource>(productResourceCollection, next, previous);
             return ApiResponse.Ok(result);
         }
 
