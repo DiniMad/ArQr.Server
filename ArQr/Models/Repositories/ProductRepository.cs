@@ -19,8 +19,8 @@ namespace ArQr.Models.Repositories
             return await DbContext.Products
                                   .AsNoTracking()
                                   .Where(product => product.OwnerId == ownerId)
-                                  .Take(take)
                                   .Skip(after)
+                                  .Take(take)
                                   .ToListAsync();
         }
     }
