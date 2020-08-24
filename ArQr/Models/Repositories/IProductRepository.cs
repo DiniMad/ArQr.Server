@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 
 namespace ArQr.Models.Repositories
 {
-    public interface IProductRepository: IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
         Task<IReadOnlyList<Product>> GetProductsByUserIdAsync(string ownerId, int take, int after);
+        Task<int>                    CountAsync();
     }
 }

@@ -23,5 +23,10 @@ namespace ArQr.Models.Repositories
                                   .Take(take)
                                   .ToListAsync();
         }
+
+        public async Task<int> CountAsync()
+        {
+            return await DbContext.Products.CountAsync();
+        }
     }
 }
