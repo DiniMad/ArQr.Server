@@ -47,13 +47,31 @@ namespace ArQr.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetUserProducts(int take = 20, int after = 0)
+        public async Task<IActionResult> GetUserProducts(int pageNumber = 1, int pageSize = 10)
         {
+            pageNumber = Math.Max(pageNumber, 1);
+            pageSize   = Math.Max(pageSize,   1);
+
+            var after        = (pageNumber - 1) * pageSize;
             var userId       = HttpContext.GetUserId();
-            var userProducts = await _unitOfWork.Products.GetProductsByUserIdAsync(userId, take, after);
+            var userProducts = await _unitOfWork.Products.GetProductsByUserIdAsync(userId, pageSize, after);
             if (!userProducts.Any()) return ApiResponse.NotFound(_localizer.GetProductError(ProductErrors.NotFound));
 
-            return ApiResponse.Ok(_mapper.Map<IReadOnlyList<ProductResource>>(userProducts));
+            var productCount = await _unitOfWork.Products.CountAsync();
+            var next = after + pageSize >= productCount
+                           ? null
+                           : Url.Action("GetUserProducts", "Product", new {pageNumber = pageNumber + 1, pageSize});
+            var previous = after < 1
+                               ? null
+                               : Url.Action("GetUserProducts", "Product", new {pageNumber = pageNumber - 1, pageSize});
+            var result = new
+            {
+                products = _mapper.Map<IReadOnlyList<ProductResource>>(userProducts),
+                next,
+                previous
+            };
+
+            return ApiResponse.Ok(result);
         }
 
         [HttpPost]
