@@ -44,9 +44,9 @@ namespace ArQr.test.Controllers.ProductControllerTests
 
             var controllerResult = (OkObjectResult) await controller.GetUserProducts();
             var apiResponse      = (ApiResponse) controllerResult.Value;
-            var products         = (IReadOnlyList<ProductResource>) apiResponse.Data;
+            var paginationData   = (PaginationData<ProductResource>) apiResponse.Data;
 
-            Assert.NotEmpty(products);
+            Assert.NotEmpty(paginationData.Collection);
         }
 
         [Fact]
