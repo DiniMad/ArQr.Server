@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArQr", "ArQr\ArQr.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArQr.test", "ArQr.test\ArQr.test.csproj", "{D21969B9-CAE3-4C25-936C-8B423767C632}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArQr.FileManagement", "ArQr.FileManagement\ArQr.FileManagement.csproj", "{5BF8C792-E286-4F37-9100-88171B6B5F3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D21969B9-CAE3-4C25-936C-8B423767C632}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D21969B9-CAE3-4C25-936C-8B423767C632}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D21969B9-CAE3-4C25-936C-8B423767C632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF8C792-E286-4F37-9100-88171B6B5F3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF8C792-E286-4F37-9100-88171B6B5F3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF8C792-E286-4F37-9100-88171B6B5F3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF8C792-E286-4F37-9100-88171B6B5F3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
