@@ -4,3 +4,4 @@
 **/bin/
 **/obj/
 **/*.db
+/ArQr.FileManagement/Storage/
