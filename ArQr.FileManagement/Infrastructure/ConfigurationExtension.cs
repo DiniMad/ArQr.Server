@@ -12,7 +12,7 @@ namespace ArQr.FileManagement.Infrastructure
         public static long GetVideoMaxSizeInByte(this IConfiguration configuration)
             => long.Parse(configuration["VideoMaxSizeInMb"]) * MbCoefficient;
 
-        public static string GetAllowedOrigin(this IConfiguration configuration)
-            => configuration["AllowedOrigin"];
+        public static string GetArQrApiEndpoint(this IConfiguration configuration)
+            => configuration["ArQrApiEndpoint"];
     }
 }
