@@ -1,10 +1,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ArQr.FileManagement.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArQr.FileManagement.Controllers
 {
+    [Authorize]
     [Route("/")]
     public class FileController : ControllerBase
     {
