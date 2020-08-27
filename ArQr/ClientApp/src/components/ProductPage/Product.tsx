@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
@@ -7,6 +7,8 @@ import TextInput from "./TextInput";
 import ContentInput from "./ContentInput";
 import {Phone} from "../../images";
 import {AdsProduct} from "../types";
+import * as Yup from "yup";
+import {yupResolver} from "@hookform/resolvers";
 
 const Product = () => {
     const initialValues: AdsProduct = {
@@ -17,14 +19,40 @@ const Product = () => {
             value: ""
         }
     };
+    const validationSchema = Yup.object(
+        {
+            title      : Yup.string()
+                            .required("عنوان وارد نشده است.")
+                            .max(32, "حداکثر 32 کاکتر برای عنوان."),
+            description: Yup.string()
+                            .required("توضیحات وارد نشده است.")
+                            .max(256, "حداکثر 256 کاکتر برای توضیحات."),
+            content    : Yup.object(
+                {
+                    value: Yup.string()
+                              .required("محتوا وارد نشده است.")
+                              .max(256, "حداکثر 256 کاکتر. برای محتوا")
+                }
+            )
+        }
+    );
 
-    const {register, watch, setValue, handleSubmit: handleFormSubmit} = useForm({defaultValues:initialValues});
+    const {
+        register,
+        watch,
+        setValue,
+        handleSubmit: handleFormSubmit,
+        errors
+    } = useForm({defaultValues: initialValues, resolver: yupResolver(validationSchema)});
     const {title, description, content} = watch<keyof AdsProduct>(["title", "description", "content"]);
-    
-    const handelSubmit = (product: AdsProduct) => {
+
+    useEffect(() => {
+        console.log(errors);
+    }, [errors]);
+
+    const handelSubmit =(product: AdsProduct) => {
         console.log(product);
     };
-
     return (
         <div id='product'>
             <div id='preview'>
