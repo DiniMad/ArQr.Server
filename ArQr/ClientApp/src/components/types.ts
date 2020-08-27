@@ -29,3 +29,11 @@ export type UserIdentity = {
     email: string,
     password: string
 }
+
+export type MediaConfiguration = {
+    chunkSizeInByte: number,
+    fileSizeLimitInByte: {
+        "image": number,
+        "video": number,
+    },
+}
