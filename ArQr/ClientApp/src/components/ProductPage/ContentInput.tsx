@@ -6,11 +6,15 @@ import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
 import TextInput from "./TextInput";
 import useProductContentManager from "../hooks/useProductContentManager";
 
+const MB_COEFFICIENT = 1024 * 1024;
+
 type Props = {
     register: (...args: any[]) => any,
-    setValue: (...args: any[]) => any
+    setValue: (...args: any[]) => any,
+    pictureMaxSize: number,
+    videoMaxSize: number
 }
-const ContentInput = ({register, setValue}: Props) => {
+const ContentInput = ({register, setValue, pictureMaxSize, videoMaxSize}: Props) => {
     const inputFileElement = useRef<HTMLInputElement>(null);
 
     const {data: {markerRight, contentType}, selectContent} = useProductContentManager();
@@ -39,6 +43,15 @@ const ContentInput = ({register, setValue}: Props) => {
         const inputFile = inputFileElement.current;
         if (!inputFile || !inputFile.files || inputFile.files.length < 1) return;
         const file = inputFile.files[0];
+
+        if (contentType === "Picture" && file.size > pictureMaxSize) {
+            console.log(`Maximum size of picture is ${pictureMaxSize / MB_COEFFICIENT} MB`);
+            return;
+        }
+        if (contentType === "Video" && file.size > videoMaxSize) {
+            console.log(`Maximum size of video is ${videoMaxSize / MB_COEFFICIENT} MB`);
+            return;
+        }
 
         const media = URL.createObjectURL(file);
         setValue("content.value", media);
