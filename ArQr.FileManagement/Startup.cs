@@ -31,10 +31,18 @@ namespace ArQr.FileManagement
 
             services.AddCors(options => options.AddDefaultPolicy(builder =>
             {
-                builder.WithOrigins(Configuration.GetAllowedOrigin())
+                builder.WithOrigins(Configuration.GetArQrApiEndpoint())
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+
+            services.AddAuthentication("Bearer")
+                    .AddJwtBearer("Bearer",
+                                  options =>
+                                  {
+                                      options.Authority = Configuration.GetArQrApiEndpoint();
+                                      options.Audience  = "ArQrAPI";
+                                  });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -50,6 +58,7 @@ namespace ArQr.FileManagement
 
             app.UseCors();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
