@@ -1,15 +1,22 @@
+const fileManagementRootEndPoint = "https://localhost:5003/";
+
 export const urls = {
-    homePage: '/',
-    dashboardPage: '/dashboard',
-    tokenEndPoint: 'connect/token',
-    registerEndPoint: 'account/register'
+    homePage        : "/",
+    dashboardPage   : "/dashboard",
+    tokenEndPoint   : "connect/token",
+    registerEndPoint: "account/register",
+    fileManagement  : {
+        configuration: fileManagementRootEndPoint + "configuration/",
+        createSession: fileManagementRootEndPoint + "create/",
+        upload       : fileManagementRootEndPoint + "upload/"
+    }
 };
 
 export const oidc = {
-    client_id: {key: 'client_id', value: 'ArQr'},
-    grant_type: {key: 'grant_type', password: 'password', refreshToken: 'refresh_token'},
-    scope: {key: 'scope', value: 'ArQrAPI offline_access'},
-    refresh_token: {key: 'refresh_token'}
+    client_id    : {key: "client_id", value: "ArQr"},
+    grant_type   : {key: "grant_type", password: "password", refreshToken: "refresh_token"},
+    scope        : {key: "scope", value: "ArQrAPI offline_access"},
+    refresh_token: {key: "refresh_token"}
 };
 
 export const httpStatusCode = {
@@ -18,5 +25,5 @@ export const httpStatusCode = {
 };
 
 export const queryParameters = {
-    returnPath: 'returnPath'
+    returnPath: "returnPath"
 };
