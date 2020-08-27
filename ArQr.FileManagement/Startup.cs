@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using ArQr.FileManagement.Infrastructure;
+using ArQr.FileManagement.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +21,13 @@ namespace ArQr.FileManagement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var fileSizeLimit = new Dictionary<string, long>
+            {
+                {"image", Configuration.GetImageMaxSizeInByte()},
+                {"video", Configuration.GetVideoMaxSizeInByte()}
+            };
+            services.AddFileService(new FileServiceOption(fileSizeLimitInByte: fileSizeLimit));
 
             services.AddCors(o => o.AddPolicy("MyPolicy",
                                               builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
