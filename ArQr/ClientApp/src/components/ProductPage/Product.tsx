@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,9 @@ import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
 import TextInput from "./TextInput";
 import ContentInput from "./ContentInput";
 import {Phone} from "../../images";
-import {AdsProduct} from "../types";
+import {AdsProduct, MediaConfiguration, UseState} from "../types";
+import useAuthenticatedHttp from "../hooks/useAuthenticatedHttp";
+import {httpStatusCode, urls} from "../services/constants";
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers";
 
@@ -37,6 +39,8 @@ const Product = () => {
         }
     );
 
+    const [mediaConfiguration, setMediaConfiguration] = useState<UseState<MediaConfiguration>>(null);
+
     const {
         register,
         watch,
@@ -45,12 +49,23 @@ const Product = () => {
         errors
     } = useForm({defaultValues: initialValues, resolver: yupResolver(validationSchema)});
     const {title, description, content} = watch<keyof AdsProduct>(["title", "description", "content"]);
+    const {get} = useAuthenticatedHttp();
+
+    useEffect(() => {
+        fetchConfiguration();
+    }, []);
 
     useEffect(() => {
         console.log(errors);
     }, [errors]);
 
-    const handelSubmit =(product: AdsProduct) => {
+    const fetchConfiguration = async () => {
+        const {status, data: configuration} = await get<MediaConfiguration>(urls.fileManagement.configuration);
+        if (status !== httpStatusCode.success) throw Error("Can not fetch configuration");
+        setMediaConfiguration(configuration);
+    };
+
+    const handelSubmit = (product: AdsProduct) => {
         console.log(product);
     };
     return (
@@ -89,7 +104,10 @@ const Product = () => {
                 <form onSubmit={handleFormSubmit(handelSubmit)}>
                     <TextInput name='title' register={register} placeholder='عنوان'/>
                     <TextInput name='description' register={register} placeholder='توضیحات' lines={5}/>
-                    <ContentInput register={register} setValue={setValue}/>
+                    <ContentInput register={register}
+                                  setValue={setValue}
+                                  pictureMaxSize={mediaConfiguration?.fileSizeLimitInByte.image || 0}
+                                  videoMaxSize={mediaConfiguration?.fileSizeLimitInByte.video || 0}/>
                     <input type="submit" value="ایجاد"/>
                 </form>
             </div>
