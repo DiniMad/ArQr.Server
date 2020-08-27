@@ -29,8 +29,12 @@ namespace ArQr.FileManagement
             };
             services.AddFileService(new FileServiceOption(fileSizeLimitInByte: fileSizeLimit));
 
-            services.AddCors(o => o.AddPolicy("MyPolicy",
-                                              builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins(Configuration.GetAllowedOrigin())
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,8 +47,8 @@ namespace ArQr.FileManagement
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            
-            app.UseCors("MyPolicy");
+
+            app.UseCors();
 
             app.UseAuthorization();
 
