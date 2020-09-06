@@ -1,0 +1,126 @@
+@import '../../styles/common';
+
+.upload-box {
+	display          : flex;
+	justify-content  : center;
+	align-items      : center;
+	border-radius    : 2rem;
+	width            : 60vw;
+	height           : 30vh;
+	background-color : $grey;
+
+	.not-supported {
+		display         : flex;
+		flex-direction  : column;
+		justify-content : center;
+		align-items     : center;
+
+		&__text {
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+
+			h2 {
+				direction : rtl;
+				color     : $whiteDark;
+				font-size : 2rem;
+				margin    : 2rem;
+			}
+
+			svg {
+				color : $redDark;
+			}
+		}
+
+		&__button {
+			margin-top : 5rem;
+
+			button {
+				color            : $whiteDark;
+				font-size        : 2rem;
+				cursor           : pointer;
+				border-radius    : 1rem;
+				width            : 10rem;
+				height           : 4rem;
+				background-color : $greyDarker;
+				transition       : background-color .5s;
+
+				&:hover {
+					background-color : $black;
+				}
+			}
+		}
+	}
+
+	.upload {
+		display         : flex;
+		flex-direction  : column;
+		justify-content : space-around;
+		align-items     : center;
+		width           : 90%;
+		height          : 90%;
+
+		&__status h2 {
+			font-size : 2rem;
+			direction : rtl;
+		}
+
+		.progress-bar {
+			position         : relative;
+			overflow         : hidden;
+			border-radius    : .6rem;
+			height           : 2rem;
+			width            : 80%;
+			background-color : $black;
+
+			&__pointer {
+				height           : 100%;
+				background-color : $blue;
+			}
+
+			&__percentage {
+				display         : flex;
+				justify-content : center;
+				align-items     : center;
+				position        : absolute;
+				left            : 0;
+				right           : 0;
+				bottom          : 0;
+				top             : 0;
+				font-size       : 1.5rem;
+			}
+		}
+
+		&__buttons {
+			display         : flex;
+			justify-content : center;
+			align-items     : center;
+
+			button {
+				font-size     : 1.8rem;
+				cursor        : pointer;
+				border-radius : .4rem;
+				margin        : 1rem;
+				width         : 10rem;
+				height        : 3rem;
+				transition    : background-color .5s;
+
+				&.pause-resume {
+					background-color : $blue;
+
+					&:hover {
+						background-color : $blueDark;
+					}
+				}
+
+				&.cancel {
+					background-color : $red;
+
+					&:hover {
+						background-color : $redDark;
+					}
+				}
+			}
+		}
+	}
+}
