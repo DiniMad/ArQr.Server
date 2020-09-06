@@ -5,8 +5,8 @@ import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
 
 import TextInput from "./TextInput";
 import ContentInput from "./ContentInput";
-import {Phone} from "../../images";
-import {AdsProduct, MediaConfiguration, UseState} from "../types";
+import Modal from "../Modal";
+import UploadMediaPopup from "./UploadMediaPopup";
 import useAuthenticatedHttp from "../hooks/useAuthenticatedHttp";
 import {httpStatusCode, urls} from "../services/constants";
 import * as Yup from "yup";
@@ -40,6 +40,8 @@ const Product = () => {
     );
 
     const [mediaConfiguration, setMediaConfiguration] = useState<UseState<MediaConfiguration>>(null);
+    const [modalVisibility, setModalVisibility] = useState(false);
+    const [mediaInfo, setMediaInfo] = useState<UseState<{ file: File, sessionId: string }>>(null);
 
     const {
         register,
@@ -68,50 +70,78 @@ const Product = () => {
     const handelSubmit = (product: AdsProduct) => {
         console.log(product);
     };
+    const handleUploadMediaCanceled = async () => {
+        // TODO: Display a notification
+        setModalVisibility(false);
+        await endTheUploadSession();
+    };
+
+
+    const renderPreview = () => {
+        return <div id='preview'>
+            <div id='preview-container'>
+                <img src={Phone} alt='Phone'/>
+                <div id="content">
+                    {
+                        content.type === "Text" &&
+                        <div id="text"><p>{content.value || "متن خود را وارد کنید."}</p></div>
+                    }
+                    {
+                        content.type === "Picture" &&
+                        (content.value ?
+                         <img src={content.value} alt='content'/> :
+                         <FontAwesomeIcon icon={faImage}/>)
+                    }
+                    {
+                        content.type === "Video" &&
+                        (content.value ?
+                         <video src={content.value} controls autoPlay/> :
+                         <FontAwesomeIcon icon={faVideo}/>)
+                    }
+                </div>
+                <div id="detail">
+                    <p>{title || "عنوان"}</p>
+                    <p>{description || "توضیحات"}</p>
+                </div>
+            </div>
+        </div>;
+    };
+    const renderForm = () => {
+        return <div id='form'>
+            <div className="header">
+                <h2>محصول جدید</h2>
+            </div>
+            <form onSubmit={handleFormSubmit(handelSubmit)}>
+                <TextInput name='title' register={register} placeholder='عنوان'/>
+                <TextInput name='description' register={register} placeholder='توضیحات' lines={5}/>
+                <ContentInput register={register}
+                              setValue={setValue}
+                              pictureMaxSize={mediaConfiguration?.fileSizeLimitInByte.image || 0}
+                              videoMaxSize={mediaConfiguration?.fileSizeLimitInByte.video || 0}/>
+                <input type="submit" value="ایجاد"/>
+            </form>
+        </div>;
+    };
+    const renderUploadPopup = () => {
+        return (
+            <Modal isVisible={modalVisibility}>
+                <UploadMediaPopup file={mediaInfo?.file}
+                                  sessionId={mediaInfo?.sessionId}
+                                  chunkSize={mediaConfiguration?.chunkSizeInByte}
+                                  onUploadCompleted={handleUploadMediaCompleted}
+                                  onUploadCanceled={handleUploadMediaCanceled}
+                />
+            </Modal>
+        );
+    };
     return (
-        <div id='product'>
-            <div id='preview'>
-                <div id='preview-container'>
-                    <img src={Phone} alt='Phone'/>
-                    <div id="content">
-                        {
-                            content.type === "Text" &&
-                            <div id="text"><p>{content.value || "متن خود را وارد کنید."}</p></div>
-                        }
-                        {
-                            content.type === "Picture" &&
-                            (content.value ?
-                             <img src={content.value} alt='content'/> :
-                             <FontAwesomeIcon icon={faImage}/>)
-                        }
-                        {
-                            content.type === "Video" &&
-                            (content.value ?
-                             <video src={content.value} controls autoPlay/> :
-                             <FontAwesomeIcon icon={faVideo}/>)
-                        }
-                    </div>
-                    <div id="detail">
-                        <p>{title || "عنوان"}</p>
-                        <p>{description || "توضیحات"}</p>
-                    </div>
-                </div>
+        <>
+            <div id='product'>
+                {renderPreview()}
+                {renderForm()}
             </div>
-            <div id='form'>
-                <div className="header">
-                    <h2>محصول جدید</h2>
-                </div>
-                <form onSubmit={handleFormSubmit(handelSubmit)}>
-                    <TextInput name='title' register={register} placeholder='عنوان'/>
-                    <TextInput name='description' register={register} placeholder='توضیحات' lines={5}/>
-                    <ContentInput register={register}
-                                  setValue={setValue}
-                                  pictureMaxSize={mediaConfiguration?.fileSizeLimitInByte.image || 0}
-                                  videoMaxSize={mediaConfiguration?.fileSizeLimitInByte.video || 0}/>
-                    <input type="submit" value="ایجاد"/>
-                </form>
-            </div>
-        </div>
+            {renderUploadPopup()}
+        </>
     );
 };
 
