@@ -9,6 +9,7 @@
     "@hookform/resolvers": "0.0.5",
     "axios": "^0.19.2",
     "jwt-decode": "^2.2.0",
+    "node-sass": "^4.14.1",
     "qrcode.react": "^1.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -16,6 +17,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^3.4.0",
+    "resumablejs": "^1.1.0",
     "rimraf": "^3.0.2",
     "yup": "^0.29.1"
   },
