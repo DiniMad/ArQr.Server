@@ -5,10 +5,14 @@ export const urls = {
     dashboardPage   : "/dashboard",
     tokenEndPoint   : "connect/token",
     registerEndPoint: "account/register",
+    apis: {
+        product: "/product"
+    },
     fileManagement  : {
         configuration: fileManagementRootEndPoint + "configuration/",
         createSession: fileManagementRootEndPoint + "create/",
-        upload       : fileManagementRootEndPoint + "upload/"
+        upload       : fileManagementRootEndPoint + "upload/",
+        end          : fileManagementRootEndPoint + "end/"
     }
 };
 
