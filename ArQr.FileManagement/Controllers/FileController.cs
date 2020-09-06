@@ -33,7 +33,7 @@ namespace ArQr.FileManagement.Controllers
             return Ok(session.Id);
         }
 
-        [HttpPut("upload/{sessionId}/")]
+        [HttpPut("upload/{sessionId}")]
         public async Task<IActionResult> UploadFileChunk(string sessionId, int chunkNumber)
         {
             if (chunkNumber < 1) return BadRequest("Invalid chunk number");
@@ -56,7 +56,7 @@ namespace ArQr.FileManagement.Controllers
             return Ok();
         }
 
-        [HttpPost("end/{sessionId}/")]
+        [HttpPost("end")]
         public IActionResult EndSession(string sessionId)
         {
             _fileService.RemoveSession(sessionId);
