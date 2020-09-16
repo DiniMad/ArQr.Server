@@ -1,5 +1,6 @@
 import React, {MouseEventHandler} from "react";
 import {useHistory} from "react-router-dom";
+import {useToasts} from "react-toast-notifications";
 
 
 import Form from "./Form";
@@ -13,14 +14,14 @@ type Props = {
 }
 const LoginForm = ({onChangeFormButtonClick, onFormError}: Props) => {
     const history = useHistory();
-
     const login = useLogin();
+    const {addToast}=useToasts()
 
     const onSubmit = async (data: UserIdentity) => {
         const success = await login(data.email, data.password);
         if (success) history.replace(getRedirectPath());
         else {
-            // TODO: Display login Error.
+            addToast("نام کاربری یا رمز عبور اشتباه است.",{appearance:"error"})
         }
     };
 
