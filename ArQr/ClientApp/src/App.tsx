@@ -11,9 +11,9 @@ import AuthorizeRoute from './components/AuthorizeRoute';
 import ContextProviders from './components/ContextProviders';
 
 if (window.innerWidth >= 760)
-    require('./styles/style.css');
+    require('./styles/style.scss');
 else
-    require('./styles/style.mobile.css');
+    require('./styles/style.mobile.scss');
 
 const App = () => {
     return (
