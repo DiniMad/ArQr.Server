@@ -4,6 +4,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faImage, faVideo} from "@fortawesome/free-solid-svg-icons";
 import * as Yup from "yup";
 import {yupResolver} from "@hookform/resolvers";
+import {useToasts} from "react-toast-notifications";
+import {useHistory} from "react-router";
 
 import TextInput from "./TextInput";
 import ContentInput from "./ContentInput";
@@ -46,6 +48,8 @@ const Product = () => {
     const [modalVisibility, setModalVisibility] = useState(false);
     const [mediaInfo, setMediaInfo] = useState<UseState<{ file: File, sessionId: string }>>(null);
 
+    const history=useHistory();
+    const {addToast} = useToasts();
     const {
         register,
         watch,
@@ -97,8 +101,9 @@ const Product = () => {
     const addProduct = async (product: AdsProduct) => {
         const data = convertToServerModel(product);
         const response = await post(urls.apis.product, data);
-        if (response.status === httpStatusCode.success) {
-            // TODO: Display a notification
+        if (response.status === httpStatusCode.created) {
+            addToast("با موفقیت انجام شد.", {appearance: "success"});
+            history.replace(urls.dashboardPage);
         }
     };
 
@@ -131,7 +136,7 @@ const Product = () => {
     const handleUploadMediaCompleted = async () => {
         setModalVisibility(false);
         if (!await endTheUploadSession()) {
-            // TODO: Display a notification
+            addToast("محتوا با موفقیت بارگذاری شد.", {appearance: "success"});
             return;
         }
         const product: AdsProduct = {
@@ -142,7 +147,7 @@ const Product = () => {
         await addProduct(product);
     };
     const handleUploadMediaCanceled = async () => {
-        // TODO: Display a notification
+        addToast("بارگذاری متوقف شد.", {appearance: "info"});
         setModalVisibility(false);
         await endTheUploadSession();
     };
