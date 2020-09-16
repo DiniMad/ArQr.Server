@@ -1,5 +1,6 @@
 import React, {MouseEventHandler} from "react";
 import {useHistory} from "react-router-dom";
+import {useToasts} from "react-toast-notifications";
 
 import Form from "./Form";
 import http from "../services/http";
@@ -14,8 +15,8 @@ type Props = {
 }
 const RegisterForm = ({onChangeFormButtonClick, onFormError}: Props) => {
     const history = useHistory();
-
     const login = useLogin();
+    const {addToast}=useToasts();
 
     const onSubmit = async (data: UserIdentity) => {
         const response = await http.post(urls.registerEndPoint, data);
@@ -25,7 +26,7 @@ const RegisterForm = ({onChangeFormButtonClick, onFormError}: Props) => {
         }
         else {
             // Dont reveal ether user is exist or not
-            // TODO: Display something went wrong.
+            addToast("مشکلی رُخ داده است.",{appearance:"error"})
         }
     };
 
