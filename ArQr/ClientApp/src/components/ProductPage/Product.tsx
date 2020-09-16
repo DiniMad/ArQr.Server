@@ -56,8 +56,14 @@ const Product = () => {
     const {title, description, content} = watch<keyof AdsProduct>(["title", "description", "content"]);
     const {get, post} = useAuthenticatedHttp();
 
+    const endTheUploadSessionIfItsExists = async () => {
+        if (mediaInfo?.sessionId)
+            await endTheUploadSession();
+    };
+
     useEffect(() => {
         fetchConfiguration();
+        return () => {endTheUploadSessionIfItsExists();};
     }, []);
 
     useEffect(() => {
