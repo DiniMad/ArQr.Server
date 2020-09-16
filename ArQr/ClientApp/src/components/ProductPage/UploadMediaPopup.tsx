@@ -45,10 +45,6 @@ const UploadMediaPopup = ({file, sessionId, chunkSize, onUploadCompleted, onUplo
         const percentage: number = (file.progress() * 100);
         setPercentage(percentage);
     };
-    const handleUploadError = () => {
-        // TODO: Display a notification
-        onUploadCanceled();
-    };
 
     const configResumable = () => {
         resumable.opts.target = urls.fileManagement.upload + sessionId;
@@ -56,7 +52,7 @@ const UploadMediaPopup = ({file, sessionId, chunkSize, onUploadCompleted, onUplo
         console.log(resumable.files);
         resumable.on("chunkingComplete", handleChunkingComplete);
         resumable.on("fileProgress", handleUploadProgress);
-        resumable.on("fileError", handleUploadError);
+        resumable.on("fileError", onUploadCanceled);
         resumable.on("fileSuccess", onUploadCompleted);
     };
 
