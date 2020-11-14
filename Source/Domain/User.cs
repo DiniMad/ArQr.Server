@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Base;
 
 namespace Domain
 {
-    public class User: IdentityUser
+    public class User : BaseDomain
     {
+
     }
 }
