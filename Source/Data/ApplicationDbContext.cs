@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
     internal class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+        public DbSet<User> Users { get; set; }
+
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         {
         }
     }
