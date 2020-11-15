@@ -19,12 +19,14 @@ namespace Data.Repository.Base
 
         public async Task<TEntity> GetAsync(Guid id)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await Context.Set<TEntity>()
+                                .AsNoTracking()
+                                .FirstOrDefaultAsync(domain => domain.Id == id);
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
         }
 
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
