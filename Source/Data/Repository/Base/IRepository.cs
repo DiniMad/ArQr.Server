@@ -11,11 +11,11 @@ namespace Data.Repository.Base
         Task<TDomain>              GetAsync(Guid id);
         Task<IEnumerable<TDomain>> GetAllAsync();
         Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>>  predicate);
-        Task                       InsertAsync(TDomain                        entity);
-        Task                       InsertCollectionAsync(IEnumerable<TDomain> entities);
-        void                       Update(TDomain                             entity);
-        void                       UpdateCollection(IEnumerable<TDomain>      entities);
-        void                       Remove(TDomain                             entity);
-        void                       RemoveCollection(IEnumerable<TDomain>      entities);
+        Task                       InsertAsync(TDomain                        domain);
+        Task                       InsertCollectionAsync(IEnumerable<TDomain> domains);
+        void                       Update(TDomain                             domain);
+        void                       UpdateCollection(IEnumerable<TDomain>      domains);
+        void                       Remove(TDomain                             domain);
+        void                       RemoveCollection(IEnumerable<TDomain>      domains);
     }
 }

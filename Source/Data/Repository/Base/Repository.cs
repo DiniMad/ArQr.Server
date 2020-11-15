@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository.Base
 {
-    public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseDomain
+    public abstract class Repository<TDomain> : IRepository<TDomain> where TDomain : BaseDomain
     {
         protected readonly DbContext Context;
 
@@ -17,51 +17,51 @@ namespace Data.Repository.Base
             Context = context;
         }
 
-        public async Task<TEntity> GetAsync(Guid id)
+        public async Task<TDomain> GetAsync(Guid id)
         {
-            return await Context.Set<TEntity>()
+            return await Context.Set<TDomain>()
                                 .AsNoTracking()
                                 .FirstOrDefaultAsync(domain => domain.Id == id);
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TDomain>> GetAllAsync()
         {
-            return await Context.Set<TEntity>().AsNoTracking().ToListAsync();
+            return await Context.Set<TDomain>().AsNoTracking().ToListAsync();
         }
 
-        public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>> predicate)
         {
-            return await Context.Set<TEntity>().Where(predicate).ToListAsync();
+            return await Context.Set<TDomain>().Where(predicate).ToListAsync();
         }
 
-        public async Task InsertAsync(TEntity entity)
+        public async Task InsertAsync(TDomain domain)
         {
-            await Context.Set<TEntity>().AddAsync(entity);
+            await Context.Set<TDomain>().AddAsync(domain);
         }
 
-        public async Task InsertCollectionAsync(IEnumerable<TEntity> entities)
+        public async Task InsertCollectionAsync(IEnumerable<TDomain> domains)
         {
-            await Context.Set<TEntity>().AddRangeAsync(entities);
+            await Context.Set<TDomain>().AddRangeAsync(domains);
         }
 
-        public void Update(TEntity entity)
+        public void Update(TDomain domain)
         {
-            Context.Set<TEntity>().Update(entity);
+            Context.Set<TDomain>().Update(domain);
         }
 
-        public void UpdateCollection(IEnumerable<TEntity> entities)
+        public void UpdateCollection(IEnumerable<TDomain> domains)
         {
-            Context.Set<TEntity>().UpdateRange(entities);
+            Context.Set<TDomain>().UpdateRange(domains);
         }
 
-        public void Remove(TEntity entity)
+        public void Remove(TDomain domain)
         {
-            Context.Set<TEntity>().Remove(entity);
+            Context.Set<TDomain>().Remove(domain);
         }
 
-        public void RemoveCollection(IEnumerable<TEntity> entities)
+        public void RemoveCollection(IEnumerable<TDomain> domains)
         {
-            Context.Set<TEntity>().RemoveRange(entities);
+            Context.Set<TDomain>().RemoveRange(domains);
         }
     }
 }
