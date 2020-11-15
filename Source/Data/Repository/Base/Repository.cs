@@ -17,7 +17,7 @@ namespace Data.Repository.Base
             Context = context;
         }
 
-        public async Task<TEntity> GetAsync(string id)
+        public async Task<TEntity> GetAsync(Guid id)
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
