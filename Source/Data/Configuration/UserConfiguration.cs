@@ -9,10 +9,10 @@ namespace Data.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasIndex(user => user.Phone).IsUnique();
+            builder.HasIndex(user => user.PhoneNumber).IsUnique();
             builder.HasIndex(user => user.Email).IsUnique();
 
-            builder.Property(user => user.Phone)
+            builder.Property(user => user.PhoneNumber)
                    .HasMaxLength(10)
                    .IsFixedLength();
 
