@@ -10,9 +10,11 @@ namespace Data
         public ApplicationDbContext CreateDbContext(string[] args)
         {
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json").Build();
-            var connectionString = configuration.GetConnectionString("Default");
+                                .SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.json")
+                                .Build();
+
+            var connectionString = args.Length > 0 ? args[0] : configuration.GetConnectionString("Default");
 
             var optionBuilder = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer(connectionString);
             return new ApplicationDbContext(optionBuilder.Options);
