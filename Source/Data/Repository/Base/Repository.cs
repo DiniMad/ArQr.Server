@@ -44,6 +44,16 @@ namespace Data.Repository.Base
             await Context.Set<TEntity>().AddRangeAsync(entities);
         }
 
+        public void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Update(entity);
+        }
+
+        public void UpdateCollection(IEnumerable<TEntity> entities)
+        {
+            Context.Set<TEntity>().UpdateRange(entities);
+        }
+
         public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);

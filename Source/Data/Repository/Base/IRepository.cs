@@ -13,6 +13,8 @@ namespace Data.Repository.Base
         Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>>  predicate);
         Task                       InsertAsync(TDomain                        entity);
         Task                       InsertCollectionAsync(IEnumerable<TDomain> entities);
+        void                       Update(TDomain                             entity);
+        void                       UpdateCollection(IEnumerable<TDomain>      entities);
         void                       Remove(TDomain                             entity);
         void                       RemoveCollection(IEnumerable<TDomain>      entities);
     }
