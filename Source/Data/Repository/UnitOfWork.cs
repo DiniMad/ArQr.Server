@@ -9,10 +9,10 @@ namespace Data.Repository
         private ApplicationDbContext DbContext      { get; }
         public  IUserRepository      UserRepository { get; }
 
-        public UnitOfWork(string connectionString)
+        public UnitOfWork()
         {
             var dbContextFactory = new DesignTimeDbContextFactory();
-            DbContext = dbContextFactory.CreateDbContext(new[] {connectionString});
+            DbContext = dbContextFactory.CreateDbContext(Array.Empty<string>());
 
             UserRepository = new UserRepository(DbContext);
         }

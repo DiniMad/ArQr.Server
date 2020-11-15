@@ -8,7 +8,7 @@ namespace ArQr.Helper
     {
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services, string connectionString)
         {
-            return services.AddScoped<IUnitOfWork, UnitOfWork>(_ => new UnitOfWork(connectionString));
+            return services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }
