@@ -17,7 +17,7 @@ namespace Data.Repository.Base
             Context = context;
         }
 
-        public async Task<TDomain> GetAsync(Guid id)
+        public async Task<TDomain?> GetAsync(Guid id)
         {
             return await Context.Set<TDomain>()
                                 .AsNoTracking()
