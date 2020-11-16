@@ -21,6 +21,8 @@ namespace ArQr
             services.AddControllers();
 
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
+
+            services.AddJwtAuthentication(Configuration.GetJwtSigningKey());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,6 +33,9 @@ namespace ArQr
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
