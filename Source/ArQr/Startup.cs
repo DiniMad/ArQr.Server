@@ -1,4 +1,5 @@
 using ArQr.Helper;
+using ArQr.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ namespace ArQr
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
 
             services.AddJwtAuthentication(Configuration.GetTokenOption());
+            
+            services.AddScoped<ITokenService, TokenService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
