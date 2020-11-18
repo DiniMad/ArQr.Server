@@ -19,7 +19,8 @@ namespace ArQr
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                    .AddTheFluentValidation();
 
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
 
