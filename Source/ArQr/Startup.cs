@@ -1,5 +1,6 @@
 using ArQr.Helper;
 using ArQr.Interface;
+using ArQr.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,8 @@ namespace ArQr
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseLocalization();
 
             app.UseRouting();
 
