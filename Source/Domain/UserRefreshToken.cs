@@ -7,5 +7,6 @@ namespace Domain
     {
         public string   Token      { get; set; }
         public DateTime ExpireDate { get; set; }
+        public bool     IsExpired  => DateTime.UtcNow > ExpireDate;
     }
 }
