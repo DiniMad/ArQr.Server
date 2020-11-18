@@ -1,4 +1,5 @@
 using System.Text;
+using ArQr.Model;
 using Data.Repository;
 using Data.Repository.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,7 +15,7 @@ namespace ArQr.Helper
             return services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, string signingKey)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, TokenOption tokenOption)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
@@ -23,7 +24,7 @@ namespace ArQr.Helper
                         ValidateAudience         = false,
                         ValidateLifetime         = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey         = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
+                        IssuerSigningKey         = tokenOption.GetSecurityKey()
                     });
 
             return services;

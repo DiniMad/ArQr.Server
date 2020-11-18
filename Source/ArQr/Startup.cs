@@ -22,7 +22,7 @@ namespace ArQr
 
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
 
-            services.AddJwtAuthentication(Configuration.GetJwtSigningKey());
+            services.AddJwtAuthentication(Configuration.GetTokenOption());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
