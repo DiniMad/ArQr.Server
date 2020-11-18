@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ArQr.Interface;
-using ArQr.Model;
+using ArQr.Models;
 using Data.Repository.Base;
 using Domain;
 using Microsoft.Extensions.Configuration;

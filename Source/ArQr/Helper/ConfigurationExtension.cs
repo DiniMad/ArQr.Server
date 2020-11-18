@@ -1,4 +1,4 @@
-using ArQr.Model;
+using ArQr.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace ArQr.Helper

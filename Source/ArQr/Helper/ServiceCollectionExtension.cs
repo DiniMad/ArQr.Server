@@ -1,5 +1,5 @@
 using System.Text;
-using ArQr.Model;
+using ArQr.Models;
 using Data.Repository;
 using Data.Repository.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

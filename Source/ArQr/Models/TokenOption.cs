@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ArQr.Model
+namespace ArQr.Models
 {
     public class TokenOption
     {
