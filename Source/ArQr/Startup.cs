@@ -2,8 +2,10 @@ using ArQr.Helper;
 using ArQr.Interface;
 using ArQr.Middlewares;
 using AutoMapper;
+using Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +31,7 @@ namespace ArQr
             services.AddJwtAuthentication(Configuration.GetTokenOption());
 
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
             services.AddAutoMapper(typeof(Startup));
         }
