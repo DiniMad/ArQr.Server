@@ -9,6 +9,7 @@ namespace ArQr.Helper
         public MapperProfile()
         {
             CreateMap<UserRegisterResource, User>();
+            CreateMap<User, UserResource>();
         }
     }
 }
