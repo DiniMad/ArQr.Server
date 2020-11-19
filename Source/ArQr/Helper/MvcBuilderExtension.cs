@@ -10,7 +10,8 @@ namespace ArQr.Helper
         {
             mvcBuilder.AddFluentValidation(configuration =>
             {
-                configuration.RegisterValidatorsFromAssemblyContaining<UserRegisterValidation>();
+                configuration.RegisterValidatorsFromAssemblyContaining<UserRegisterValidation>(lifetime: ServiceLifetime
+                    .Singleton);
                 configuration.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
             });
 
