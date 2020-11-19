@@ -34,7 +34,7 @@ namespace ArQr.Core
         public async Task<LoginUserResult> Handle(LoginUserRequest request, CancellationToken cancellationToken)
         {
             var loginResource = request.LoginResource;
-            var user          = await _unitOfWork.UserRepository.GetAsync(loginResource.PhoneNumber);
+            var user          = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(loginResource.PhoneNumber);
             if (user is null) return new(StatusCodes.Status404NotFound, "User Not Found.");
 
             try
@@ -50,8 +50,15 @@ namespace ArQr.Core
                 return new(StatusCodes.Status404NotFound, "Wrong Password.");
             }
 
-            var refreshToken = _tokenService.GenerateRefreshToken();
-            user.RefreshToken = refreshToken;
+            var newRefreshToken = _tokenService.GenerateRefreshToken();
+            if (user.RefreshToken is null)
+                user.RefreshToken = newRefreshToken;
+            else
+            {
+                user.RefreshToken.Token      = newRefreshToken.Token;
+                user.RefreshToken.ExpireDate = newRefreshToken.ExpireDate;
+            }
+
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.CompleteAsync();
 
