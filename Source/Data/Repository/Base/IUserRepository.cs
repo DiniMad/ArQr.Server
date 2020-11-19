@@ -5,6 +5,6 @@ namespace Data.Repository.Base
 {
     public interface IUserRepository : IRepository<User>
     {
-        Task<User?> GetAsync(string phoneNumber);
+        Task<User?> GetIncludeRefreshTokenAsync(string phoneNumber);
     }
 }

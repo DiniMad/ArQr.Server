@@ -11,10 +11,11 @@ namespace Data.Repository
         {
         }
 
-        public async Task<User?> GetAsync(string phoneNumber)
+        public async Task<User?> GetIncludeRefreshTokenAsync(string phoneNumber)
         {
             return await Context.Set<User>()
                                 .AsNoTracking()
+                                .Include(user => user.RefreshToken)
                                 .FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
         }
     }
