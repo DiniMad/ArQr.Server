@@ -3,6 +3,7 @@ using ArQr.Interface;
 using ArQr.Middlewares;
 using AutoMapper;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -27,13 +28,13 @@ namespace ArQr
                     .AddTheFluentValidation();
 
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
-
             services.AddJwtAuthentication(Configuration.GetTokenOption());
-
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(Startup));
+            
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
-            services.AddAutoMapper(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
