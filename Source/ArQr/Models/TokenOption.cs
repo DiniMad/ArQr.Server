@@ -3,15 +3,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ArQr.Models
 {
-    public class TokenOption
+    public record TokenOption
     {
-        public string JwtSigningKey                    { get; set; }
-        public int    JwtExpireIntervalInMinutes       { get; set; }
-        public int    RefreshTokenExpireIntervalInDays { get; set; }
+        public string JwtSigningKey                    { get; init; }
+        public int    JwtExpireIntervalInMinutes       { get; init; }
+        public int    RefreshTokenExpireIntervalInDays { get; init; }
 
         public SymmetricSecurityKey GetSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtSigningKey));
+            return new(Encoding.UTF8.GetBytes(JwtSigningKey));
         }
     }
 }
