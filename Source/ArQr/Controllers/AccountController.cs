@@ -1,13 +1,15 @@
 using System;
 using System.Threading.Tasks;
+using ArQr.Core;
 using ArQr.Helper;
 using ArQr.Interface;
 using AutoMapper;
 using Data.Repository.Base;
 using Domain;
+using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Resource.Api.Resources;
 
 namespace ArQr.Controllers
@@ -18,39 +20,25 @@ namespace ArQr.Controllers
     {
         private readonly IUnitOfWork           _unitOfWork;
         private readonly ITokenService         _tokenService;
-        private readonly IMapper               _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IMediator             _mediator;
 
         public AccountController(IUnitOfWork           unitOfWork,
                                  ITokenService         tokenService,
-                                 IMapper               mapper,
-                                 IPasswordHasher<User> passwordHasher)
+                                 IPasswordHasher<User> passwordHasher,
+                                 IMediator             mediator)
         {
             _unitOfWork     = unitOfWork;
             _tokenService   = tokenService;
-            _mapper         = mapper;
             _passwordHasher = passwordHasher;
+            _mediator       = mediator;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserRegisterResource registerResource)
         {
-            var user = _mapper.Map<User>(registerResource);
-            user.PasswordHash = _passwordHasher.HashPassword(user, registerResource.Password);
-
-            await _unitOfWork.UserRepository.InsertAsync(user);
-            try
-            {
-                await _unitOfWork.CompleteAsync();
-            }
-            catch (Exception e)
-            {
-                return (e.InnerException as SqlException)?.Number == 2601
-                           ? BadRequest("Phone Number already taken.")
-                           : Problem("Unhandled Exception.");
-            }
-
-            return Created("", user);
+            var (statusCode, value) = await _mediator.Send(new RegisterUserRequest(registerResource));
+            return statusCode == StatusCodes.Status201Created ? Created("", value) : StatusCode(statusCode, value);
         }
 
         [HttpPost("login")]
