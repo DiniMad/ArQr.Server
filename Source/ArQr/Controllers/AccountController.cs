@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using ArQr.Helper;
 using ArQr.Interface;
@@ -13,7 +12,6 @@ using Resource.Api.Resources;
 
 namespace ArQr.Controllers
 {
-
     [ApiController]
     [Route("Account")]
     public class AccountController : ControllerBase
@@ -58,10 +56,7 @@ namespace ArQr.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login(UserLoginResource loginResource)
         {
-            var searchResult =
-                await _unitOfWork.UserRepository
-                                 .FindAsync(u => u.PhoneNumber == loginResource.PhoneNumber);
-            var user = searchResult.ToList().FirstOrDefault();
+            var user = await _unitOfWork.UserRepository.GetAsync(loginResource.PhoneNumber);
             if (user is null) return NotFound();
 
             try
