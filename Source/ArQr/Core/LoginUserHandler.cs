@@ -13,11 +13,9 @@ using Resource.Api.Resources;
 
 namespace ArQr.Core
 {
-    public sealed record LoginUserRequest(UserLoginResource LoginResource) : IRequest<LoginUserResult>;
+    public sealed record LoginUserRequest(UserLoginResource LoginResource) : IRequest<ActionHandlerResult>;
 
-    public sealed record LoginUserResult(int StatusCode, object Value);
-
-    public class LoginUserHandler : IRequestHandler<LoginUserRequest, LoginUserResult>
+    public class LoginUserHandler : IRequestHandler<LoginUserRequest, ActionHandlerResult>
     {
         private readonly IUnitOfWork           _unitOfWork;
         private readonly IPasswordHasher<User> _passwordHasher;
@@ -35,7 +33,7 @@ namespace ArQr.Core
             _mapper         = mapper;
         }
 
-        public async Task<LoginUserResult> Handle(LoginUserRequest request, CancellationToken cancellationToken)
+        public async Task<ActionHandlerResult> Handle(LoginUserRequest request, CancellationToken cancellationToken)
         {
             var loginResource = request.LoginResource;
             var user          = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(loginResource.PhoneNumber);
