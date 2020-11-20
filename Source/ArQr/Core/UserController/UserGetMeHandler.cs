@@ -5,7 +5,9 @@ using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.UserController
 {
@@ -13,14 +15,19 @@ namespace ArQr.Core.UserController
 
     public class UserGetMeHandler : IRequestHandler<UserGetMeRequest, ActionHandlerResult>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork          _unitOfWork;
-        private readonly IMapper              _mapper;
+        private readonly IHttpContextAccessor                   _httpContextAccessor;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IMapper                                _mapper;
 
-        public UserGetMeHandler(IHttpContextAccessor httpContextAccessor, IUnitOfWork unitOfWork, IMapper mapper)
+        public UserGetMeHandler(IHttpContextAccessor                   httpContextAccessor,
+                                IUnitOfWork                            unitOfWork,
+                                IStringLocalizer<HttpResponseMessages> responseMessages,
+                                IMapper                                mapper)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
+            _responseMessages    = responseMessages;
             _mapper              = mapper;
         }
 
@@ -30,8 +37,10 @@ namespace ArQr.Core.UserController
 
             var user = await _unitOfWork.UserRepository.GetAsync(userId);
             return user is null
-                       ? new(StatusCodes.Status404NotFound, "User Not Found")
-                       : new(StatusCodes.Status200OK, _mapper.Map<UserResource>(user));
+                       ? new(StatusCodes.Status404NotFound,
+                             _responseMessages[HttpResponseMessages.UserNotFound])
+                       : new(StatusCodes.Status200OK,
+                             _mapper.Map<UserResource>(user));
         }
     }
 }
