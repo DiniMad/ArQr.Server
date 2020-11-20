@@ -26,8 +26,7 @@ namespace ArQr.Core.UserController
 
         public async Task<ActionHandlerResult> Handle(UserGetMeRequest request, CancellationToken cancellationToken)
         {
-            var (isAuthenticated, userId) = _httpContextAccessor.HttpContext!.GetUserAuthentication();
-            if (isAuthenticated is false) return new(StatusCodes.Status401Unauthorized, "Unauthorized.");
+            var (_, userId) = _httpContextAccessor.HttpContext!.GetUserAuthentication();
 
             var user = await _unitOfWork.UserRepository.GetAsync(userId);
             return user is null
