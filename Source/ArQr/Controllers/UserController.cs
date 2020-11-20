@@ -22,8 +22,8 @@ namespace ArQr.Controllers
         [HttpGet("me")]
         public async Task<ActionResult<User>> GetMe()
         {
-            var (statusCode, result) = await _mediator.Send(new UserGetMeRequest());
-            return StatusCode(statusCode, result);
+            var (statusCode, value) = await _mediator.Send(new UserGetMeRequest());
+            return StatusCode(statusCode, value);
         }
     }
 }
