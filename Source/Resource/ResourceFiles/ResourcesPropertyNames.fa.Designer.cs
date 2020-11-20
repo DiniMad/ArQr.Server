@@ -77,5 +77,23 @@ namespace Resource.ResourceFiles {
                 return ResourceManager.GetString("PhoneNumber", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رفرش توکن.
+        /// </summary>
+        internal static string RefreshToken {
+            get {
+                return ResourceManager.GetString("RefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه کاربر.
+        /// </summary>
+        internal static string UserId {
+            get {
+                return ResourceManager.GetString("UserId", resourceCulture);
+            }
+        }
     }
 }

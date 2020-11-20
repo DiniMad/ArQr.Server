@@ -17,4 +17,10 @@
     <data name="Password" xml:space="preserve">
         <value>Password</value>
     </data>
+    <data name="UserId" xml:space="preserve">
+        <value>User ID</value>
+    </data>
+    <data name="RefreshToken" xml:space="preserve">
+        <value>Refresh Token</value>
+    </data>
 </root>

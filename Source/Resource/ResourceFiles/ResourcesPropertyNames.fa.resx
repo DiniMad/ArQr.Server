@@ -24,4 +24,10 @@
     <data name="Password" xml:space="preserve">
         <value>رمز عبور</value>
     </data>
+    <data name="UserId" xml:space="preserve">
+        <value>شناسه کاربر</value>
+    </data>
+    <data name="RefreshToken" xml:space="preserve">
+        <value>رفرش توکن</value>
+    </data>
 </root>
