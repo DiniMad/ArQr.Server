@@ -34,5 +34,12 @@ namespace ArQr.Controllers
             var (statusCode, value) = await _mediator.Send(new LoginUserRequest(loginResource));
             return StatusCode(statusCode, value);
         }
+
+        [HttpPost("refresh_token")]
+        public async Task<ActionResult<string>> RefreshToken(RefreshTokenResource refreshTokenResource)
+        {
+            var (statusCode, result) = await _mediator.Send(new RefreshTokenRequest(refreshTokenResource));
+            return StatusCode(statusCode, result);
+        }
     }
 }
