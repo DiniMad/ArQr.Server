@@ -1,6 +1,5 @@
 using ArQr.Helper;
 using ArQr.Interface;
-using ArQr.Middlewares;
 using AutoMapper;
 using Domain;
 using MediatR;
@@ -45,7 +44,7 @@ namespace ArQr
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseLocalization();
+            app.UseRequestLocalization();
 
             app.UseRouting();
 
