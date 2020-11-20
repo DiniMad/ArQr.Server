@@ -52,11 +52,13 @@ namespace ArQr.Core.AccountController
                                                                            user.PasswordHash,
                                                                            loginResource.Password);
                 if (isPasswordValid == PasswordVerificationResult.Failed)
-                    return new(StatusCodes.Status400BadRequest, "Wrong Password.");
+                    return new(StatusCodes.Status400BadRequest,
+                               _responseMessages[HttpResponseMessages.IncorrectPassword].Value);
             }
             catch (FormatException)
             {
-                return new(StatusCodes.Status400BadRequest, "Wrong Password.");
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.IncorrectPassword].Value);
             }
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
