@@ -38,13 +38,13 @@ namespace ArQr.Core.AccountController
             var user = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(refreshTokenResource.UserId);
             if (user is null)
                 return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.UserNotFound]);
+                           _responseMessages[HttpResponseMessages.UserNotFound].Value);
 
             var isRefreshTokenValid = user.RefreshToken.IsExpired is false &&
                                       user.RefreshToken.Token == refreshTokenResource.RefreshToken;
             if (isRefreshTokenValid is false)
                 return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.IncorrectRefreshToken]);
+                           _responseMessages[HttpResponseMessages.IncorrectRefreshToken].Value);
 
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
