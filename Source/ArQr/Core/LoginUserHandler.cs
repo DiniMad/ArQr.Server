@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
 using ArQr.Interface;
+using AutoMapper;
 using Data.Repository.Base;
 using Domain;
 using MediatR;
@@ -21,14 +22,17 @@ namespace ArQr.Core
         private readonly IUnitOfWork           _unitOfWork;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly ITokenService         _tokenService;
+        private readonly IMapper               _mapper;
 
         public LoginUserHandler(IUnitOfWork           unitOfWork,
                                 IPasswordHasher<User> passwordHasher,
-                                ITokenService         tokenService)
+                                ITokenService         tokenService,
+                                IMapper               mapper)
         {
             _unitOfWork     = unitOfWork;
             _passwordHasher = passwordHasher;
             _tokenService   = tokenService;
+            _mapper         = mapper;
         }
 
         public async Task<LoginUserResult> Handle(LoginUserRequest request, CancellationToken cancellationToken)
@@ -51,13 +55,9 @@ namespace ArQr.Core
             }
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
-            if (user.RefreshToken is null)
-                user.RefreshToken = newRefreshToken;
-            else
-            {
-                user.RefreshToken.Token      = newRefreshToken.Token;
-                user.RefreshToken.ExpireDate = newRefreshToken.ExpireDate;
-            }
+            user.RefreshToken = user.RefreshToken is null
+                                    ? newRefreshToken
+                                    : _mapper.Map(newRefreshToken, user.RefreshToken);
 
             _unitOfWork.UserRepository.Update(user);
             await _unitOfWork.CompleteAsync();
