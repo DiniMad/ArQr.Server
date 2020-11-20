@@ -24,4 +24,7 @@
     <data name="UserNotFound" xml:space="preserve">
         <value>کاربر پیدا نشد.</value>
     </data>
+    <data name="IncorrectPassword" xml:space="preserve">
+        <value>رمز عبور نادرست است.</value>
+    </data>
 </root>
