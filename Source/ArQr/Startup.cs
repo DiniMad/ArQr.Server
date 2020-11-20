@@ -27,6 +27,7 @@ namespace ArQr
             services.AddControllers()
                     .AddTheFluentValidation();
 
+            services.AddHttpContextAccessor();
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
             services.AddJwtAuthentication(Configuration.GetTokenOption());
             services.AddAutoMapper(typeof(Startup));
