@@ -9,4 +9,19 @@
       <PackageReference Include="FluentValidation" Version="9.3.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="ResourceFiles\ResourcesPropertyNames.fa.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ResourcesPropertyNames.fa.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="ResourceFiles\ResourcesPropertyNames.fa.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ResourcesPropertyNames.fa.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
