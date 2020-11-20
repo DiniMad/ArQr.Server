@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Data.Repository.Base;
 using Domain;
@@ -17,6 +18,14 @@ namespace Data.Repository
                                 .AsNoTracking()
                                 .Include(user => user.RefreshToken)
                                 .FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<User?> GetIncludeRefreshTokenAsync(Guid userId)
+        {
+            return await Context.Set<User>()
+                                .AsNoTracking()
+                                .Include(user => user.RefreshToken)
+                                .FirstOrDefaultAsync(user => user.Id == userId);
         }
     }
 }
