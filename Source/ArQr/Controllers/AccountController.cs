@@ -23,7 +23,9 @@ namespace ArQr.Controllers
         public async Task<ActionResult<User>> Register(UserRegisterResource registerResource)
         {
             var (statusCode, value) = await _mediator.Send(new RegisterUserRequest(registerResource));
-            return statusCode == StatusCodes.Status201Created ? Created("", value) : StatusCode(statusCode, value);
+            return statusCode == StatusCodes.Status201Created
+                       ? CreatedAtAction("GetMe", "User", null, value)
+                       : StatusCode(statusCode, value);
         }
 
         [HttpPost("login")]
