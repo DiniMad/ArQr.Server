@@ -19,7 +19,7 @@ namespace ArQr.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("Me")]
+        [HttpGet("me")]
         public async Task<ActionResult<User>> GetMe()
         {
             var (statusCode, result) = await _mediator.Send(new UserGetMeRequest());
