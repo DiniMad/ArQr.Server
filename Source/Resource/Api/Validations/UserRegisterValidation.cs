@@ -12,7 +12,6 @@ namespace Resource.Api.Validations
         {
             RuleFor(resource => resource.PhoneNumber)
                 .NotNull()
-                .NotEmpty()
                 .Length(10)
                 .WithName(_ => propertyNames[ResourcesPropertyNames.PhoneNumber]);
             RuleFor(resource => resource.Password)
