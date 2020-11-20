@@ -70,6 +70,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رفرش توکن نادرست است..
+        /// </summary>
+        internal static string IncorrectRefreshToken {
+            get {
+                return ResourceManager.GetString("IncorrectRefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شما اجازه دسترسی به محتوای خواسته شده را ندارید..
         /// </summary>
         internal static string Unauthorized {

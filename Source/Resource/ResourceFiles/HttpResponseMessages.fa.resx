@@ -27,4 +27,7 @@
     <data name="IncorrectPassword" xml:space="preserve">
         <value>رمز عبور نادرست است.</value>
     </data>
+    <data name="IncorrectRefreshToken" xml:space="preserve">
+        <value>رفرش توکن نادرست است.</value>
+    </data>
 </root>
