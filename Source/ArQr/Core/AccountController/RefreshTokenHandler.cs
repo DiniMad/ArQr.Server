@@ -42,7 +42,10 @@ namespace ArQr.Core.AccountController
 
             var isRefreshTokenValid = user.RefreshToken.IsExpired is false &&
                                       user.RefreshToken.Token == refreshTokenResource.RefreshToken;
-            if (isRefreshTokenValid is false) return new(StatusCodes.Status401Unauthorized, "Unauthorized.");
+            if (isRefreshTokenValid is false)
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.IncorrectRefreshToken]);
+
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
             user.RefreshToken = _mapper.Map(newRefreshToken, user.RefreshToken);
