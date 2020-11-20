@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Resource.Api.Resources;
 
-namespace ArQr.Core
+namespace ArQr.Core.AccountController
 {
     public sealed record LoginUserRequest(UserLoginResource LoginResource) : IRequest<ActionHandlerResult>;
 

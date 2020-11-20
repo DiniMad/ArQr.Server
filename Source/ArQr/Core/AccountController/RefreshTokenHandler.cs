@@ -8,7 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Resource.Api.Resources;
 
-namespace ArQr.Core
+namespace ArQr.Core.AccountController
 {
     public sealed record RefreshTokenRequest(RefreshTokenResource RefreshTokenResource) : IRequest<ActionHandlerResult>;
 

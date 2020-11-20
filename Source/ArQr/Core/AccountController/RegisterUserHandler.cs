@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Resource.Api.Resources;
 
-namespace ArQr.Core
+namespace ArQr.Core.AccountController
 {
     public sealed record RegisterUserRequest(UserRegisterResource RegisterResource) : IRequest<ActionHandlerResult>;
 
