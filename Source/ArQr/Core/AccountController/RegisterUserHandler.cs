@@ -8,7 +8,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountController
 {
@@ -16,15 +18,20 @@ namespace ArQr.Core.AccountController
 
     public class RegisterUserHandler : IRequestHandler<RegisterUserRequest, ActionHandlerResult>
     {
-        private readonly IMapper               _mapper;
-        private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly IUnitOfWork           _unitOfWork;
+        private readonly IMapper                                _mapper;
+        private readonly IPasswordHasher<User>                  _passwordHasher;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
 
-        public RegisterUserHandler(IMapper mapper, IPasswordHasher<User> passwordHasher, IUnitOfWork unitOfWork)
+        public RegisterUserHandler(IMapper                                mapper,
+                                   IPasswordHasher<User>                  passwordHasher,
+                                   IUnitOfWork                            unitOfWork,
+                                   IStringLocalizer<HttpResponseMessages> responseMessages)
         {
-            _mapper         = mapper;
-            _passwordHasher = passwordHasher;
-            _unitOfWork     = unitOfWork;
+            _mapper           = mapper;
+            _passwordHasher   = passwordHasher;
+            _unitOfWork       = unitOfWork;
+            _responseMessages = responseMessages;
         }
 
         public async Task<ActionHandlerResult> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
@@ -41,7 +48,8 @@ namespace ArQr.Core.AccountController
             catch (Exception e)
             {
                 return (e.InnerException as SqlException)?.Number == 2601
-                           ? new(StatusCodes.Status409Conflict, "Phone Number already taken.")
+                           ? new(StatusCodes.Status409Conflict,
+                                 _responseMessages[HttpResponseMessages.DuplicatePhoneNumber].Value)
                            : new(StatusCodes.Status500InternalServerError, "Unhandled Exception.");
             }
 
