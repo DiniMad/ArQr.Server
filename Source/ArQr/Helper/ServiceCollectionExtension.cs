@@ -46,6 +46,8 @@ namespace ArQr.Helper
                 options.AddSupportedCultures(supportedCultures);
                 options.AddSupportedUICultures(supportedCultures);
             });
+            
+            services.AddLocalization();
 
             return services;
         }
