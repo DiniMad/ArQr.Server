@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
@@ -29,8 +28,10 @@ namespace ArQr.Core
 
         public async Task<UserGetMeResult> Handle(UserGetMeRequest request, CancellationToken cancellationToken)
         {
-            var userId = (_httpContextAccessor.HttpContext ?? throw new NullReferenceException()).GetUserId();
-            var user   = await _unitOfWork.UserRepository.GetAsync(userId);
+            var (isAuthenticated, userId) = _httpContextAccessor.HttpContext!.GetUserAuthentication();
+            if (isAuthenticated is false) return new(StatusCodes.Status401Unauthorized, "Unauthorized.");
+
+            var user = await _unitOfWork.UserRepository.GetAsync(userId);
             return user is null
                        ? new(StatusCodes.Status404NotFound, "User Not Found")
                        : new(StatusCodes.Status200OK, _mapper.Map<UserResource>(user));
