@@ -14,4 +14,7 @@
     <data name="Unauthorized" xml:space="preserve">
         <value>Your not authorize to access the requested contents.</value>
     </data>
+    <data name="UserNotFound" xml:space="preserve">
+        <value>User not found.</value>
+    </data>
 </root>

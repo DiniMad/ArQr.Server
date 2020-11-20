@@ -68,5 +68,14 @@ namespace Resource.ResourceFiles {
                 return ResourceManager.GetString("Unauthorized", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کاربر پیدا نشد..
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
     }
 }

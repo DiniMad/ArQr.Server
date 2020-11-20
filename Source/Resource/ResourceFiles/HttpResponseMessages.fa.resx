@@ -21,4 +21,7 @@
     <data name="Unauthorized" xml:space="preserve">
         <value>شما اجازه دسترسی به محتوای خواسته شده را ندارید.</value>
     </data>
+    <data name="UserNotFound" xml:space="preserve">
+        <value>کاربر پیدا نشد.</value>
+    </data>
 </root>
