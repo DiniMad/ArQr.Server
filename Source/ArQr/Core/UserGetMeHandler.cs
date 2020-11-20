@@ -9,11 +9,9 @@ using Resource.Api.Resources;
 
 namespace ArQr.Core
 {
-    public sealed record UserGetMeRequest : IRequest<UserGetMeResult>;
+    public sealed record UserGetMeRequest : IRequest<ActionHandlerResult>;
 
-    public sealed record UserGetMeResult(int StatusCode, object Value);
-
-    public class UserGetMeHandler : IRequestHandler<UserGetMeRequest, UserGetMeResult>
+    public class UserGetMeHandler : IRequestHandler<UserGetMeRequest, ActionHandlerResult>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUnitOfWork          _unitOfWork;
@@ -26,7 +24,7 @@ namespace ArQr.Core
             _mapper              = mapper;
         }
 
-        public async Task<UserGetMeResult> Handle(UserGetMeRequest request, CancellationToken cancellationToken)
+        public async Task<ActionHandlerResult> Handle(UserGetMeRequest request, CancellationToken cancellationToken)
         {
             var (isAuthenticated, userId) = _httpContextAccessor.HttpContext!.GetUserAuthentication();
             if (isAuthenticated is false) return new(StatusCodes.Status401Unauthorized, "Unauthorized.");
