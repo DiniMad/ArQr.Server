@@ -50,7 +50,8 @@ namespace ArQr.Core.AccountController
                 return (e.InnerException as SqlException)?.Number == 2601
                            ? new(StatusCodes.Status409Conflict,
                                  _responseMessages[HttpResponseMessages.DuplicatePhoneNumber].Value)
-                           : new(StatusCodes.Status500InternalServerError, "Unhandled Exception.");
+                           : new(StatusCodes.Status500InternalServerError,
+                                 _responseMessages[HttpResponseMessages.UnhandledException].Value);
             }
 
             return new(StatusCodes.Status201Created, _mapper.Map<UserResource>(user));
