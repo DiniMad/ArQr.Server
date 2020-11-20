@@ -45,11 +45,11 @@ namespace ArQr.Core.AccountController
                                                                            user.PasswordHash,
                                                                            loginResource.Password);
                 if (isPasswordValid == PasswordVerificationResult.Failed)
-                    return new(StatusCodes.Status404NotFound, "Wrong Password.");
+                    return new(StatusCodes.Status400BadRequest, "Wrong Password.");
             }
             catch (FormatException)
             {
-                return new(StatusCodes.Status404NotFound, "Wrong Password.");
+                return new(StatusCodes.Status400BadRequest, "Wrong Password.");
             }
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
