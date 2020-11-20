@@ -32,10 +32,10 @@ namespace ArQr
             services.AddJwtAuthentication(Configuration.GetTokenOption());
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
-            
+            services.AddTheLocalization();
+
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
