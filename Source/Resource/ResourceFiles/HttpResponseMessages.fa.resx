@@ -33,4 +33,7 @@
     <data name="DuplicatePhoneNumber" xml:space="preserve">
         <value>شماره تماس موجود می باشد.</value>
     </data>
+    <data name="UnhandledException" xml:space="preserve">
+        <value>خطایی غیر منتظره رخ داده است.</value>
+    </data>
 </root>

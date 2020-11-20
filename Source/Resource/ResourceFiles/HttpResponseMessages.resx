@@ -26,4 +26,7 @@
     <data name="DuplicatePhoneNumber" xml:space="preserve">
         <value>The phone number already exists.</value>
     </data>
+    <data name="UnhandledException" xml:space="preserve">
+        <value>An unhandled exception has occurred.</value>
+    </data>
 </root>
