@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using ArQr.Models;
 using Data.Repository;
@@ -17,6 +18,8 @@ namespace ArQr.Helper
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, TokenOption tokenOption)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
                     {
