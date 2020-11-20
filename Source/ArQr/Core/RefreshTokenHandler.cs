@@ -10,11 +10,9 @@ using Resource.Api.Resources;
 
 namespace ArQr.Core
 {
-    public sealed record RefreshTokenRequest(RefreshTokenResource RefreshTokenResource) : IRequest<RefreshTokenResult>;
+    public sealed record RefreshTokenRequest(RefreshTokenResource RefreshTokenResource) : IRequest<ActionHandlerResult>;
 
-    public sealed record RefreshTokenResult(int StatusCode, object Value);
-
-    public class RefreshTokenHandler : IRequestHandler<RefreshTokenRequest, RefreshTokenResult>
+    public class RefreshTokenHandler : IRequestHandler<RefreshTokenRequest, ActionHandlerResult>
     {
         private readonly IUnitOfWork   _unitOfWork;
         private readonly ITokenService _tokenService;
@@ -27,7 +25,7 @@ namespace ArQr.Core
             _mapper       = mapper;
         }
 
-        public async Task<RefreshTokenResult> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
+        public async Task<ActionHandlerResult> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
         {
             var refreshTokenResource = request.RefreshTokenResource;
             var user = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(refreshTokenResource.UserId);
