@@ -1,9 +1,9 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using ArQr.Models;
 using Data.Repository;
 using Data.Repository.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,6 +29,23 @@ namespace ArQr.Helper
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey         = tokenOption.GetSecurityKey()
                     });
+
+            return services;
+        }
+
+
+        public static IServiceCollection AddTheLocalization(this IServiceCollection services)
+        {
+            const string englishCulture    = "en-US";
+            const string persianCulture    = "fa-IR";
+            string[]     supportedCultures = {englishCulture, persianCulture};
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.SetDefaultCulture(englishCulture);
+                options.AddSupportedCultures(supportedCultures);
+                options.AddSupportedUICultures(supportedCultures);
+            });
 
             return services;
         }
