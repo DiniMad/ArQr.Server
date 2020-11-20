@@ -9,7 +9,9 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountController
 {
@@ -17,27 +19,32 @@ namespace ArQr.Core.AccountController
 
     public class LoginUserHandler : IRequestHandler<LoginUserRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork           _unitOfWork;
-        private readonly IPasswordHasher<User> _passwordHasher;
-        private readonly ITokenService         _tokenService;
-        private readonly IMapper               _mapper;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IPasswordHasher<User>                  _passwordHasher;
+        private readonly ITokenService                          _tokenService;
+        private readonly IMapper                                _mapper;
 
-        public LoginUserHandler(IUnitOfWork           unitOfWork,
-                                IPasswordHasher<User> passwordHasher,
-                                ITokenService         tokenService,
-                                IMapper               mapper)
+        public LoginUserHandler(IUnitOfWork                            unitOfWork,
+                                IStringLocalizer<HttpResponseMessages> responseMessages,
+                                IPasswordHasher<User>                  passwordHasher,
+                                ITokenService                          tokenService,
+                                IMapper                                mapper)
         {
-            _unitOfWork     = unitOfWork;
-            _passwordHasher = passwordHasher;
-            _tokenService   = tokenService;
-            _mapper         = mapper;
+            _unitOfWork       = unitOfWork;
+            _responseMessages = responseMessages;
+            _passwordHasher   = passwordHasher;
+            _tokenService     = tokenService;
+            _mapper           = mapper;
         }
 
         public async Task<ActionHandlerResult> Handle(LoginUserRequest request, CancellationToken cancellationToken)
         {
             var loginResource = request.LoginResource;
             var user          = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(loginResource.PhoneNumber);
-            if (user is null) return new(StatusCodes.Status404NotFound, "User Not Found.");
+            if (user is null)
+                return new(StatusCodes.Status404NotFound,
+                           _responseMessages[HttpResponseMessages.UserNotFound].Value);
 
             try
             {
