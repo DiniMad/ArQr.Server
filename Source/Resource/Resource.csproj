@@ -18,6 +18,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ResourcePropertyValidationMessages.fa.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="ResourceFiles\HttpResponseMessages.fa.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>HttpResponseMessages.fa.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -30,6 +34,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ResourcePropertyValidationMessages.fa.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ResourceFiles\HttpResponseMessages.fa.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>HttpResponseMessages.fa.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
