@@ -7,7 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Resource.Api.Resources;
 
-namespace ArQr.Core
+namespace ArQr.Core.UserController
 {
     public sealed record UserGetMeRequest : IRequest<ActionHandlerResult>;
 

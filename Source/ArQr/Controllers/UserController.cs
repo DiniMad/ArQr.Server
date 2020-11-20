@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using ArQr.Core;
+using ArQr.Core.UserController;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
