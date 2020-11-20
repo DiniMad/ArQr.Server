@@ -10,6 +10,8 @@ namespace ArQr.Helper
         {
             CreateMap<UserRegisterResource, User>();
             CreateMap<User, UserResource>();
+            CreateMap<UserRefreshToken, UserRefreshToken>()
+                .ForMember(token => token.Id, option => option.Ignore());
         }
     }
 }
