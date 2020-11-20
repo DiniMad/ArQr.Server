@@ -47,7 +47,7 @@ namespace ArQr.Core
                            : new(StatusCodes.Status500InternalServerError, "Unhandled Exception.");
             }
 
-            return new(StatusCodes.Status201Created, user);
+            return new(StatusCodes.Status201Created, _mapper.Map<UserResource>(user));
         }
     }
 }
