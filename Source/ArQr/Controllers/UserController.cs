@@ -1,11 +1,9 @@
 using System.Threading.Tasks;
-using ArQr.Helper;
-using AutoMapper;
-using Data.Repository.Base;
+using ArQr.Core;
 using Domain;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Resource.Api.Resources;
 
 namespace ArQr.Controllers
 {
@@ -14,22 +12,18 @@ namespace ArQr.Controllers
     [Route("User")]
     public class UserController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper     _mapper;
+        private readonly IMediator _mediator;
 
-        public UserController(IUnitOfWork unitOfWork, IMapper mapper)
+        public UserController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
-            _mapper     = mapper;
+            _mediator = mediator;
         }
 
         [HttpGet("Me")]
         public async Task<ActionResult<User>> GetMe()
         {
-            var userId = HttpContext.GetUserId();
-            var user   = await _unitOfWork.UserRepository.GetAsync(userId);
-            if (user is null) return NotFound();
-            return Ok(_mapper.Map<UserResource>(user));
+            var (statusCode, result) = await _mediator.Send(new UserGetMeRequest());
+            return StatusCode(statusCode, result);
         }
     }
 }
