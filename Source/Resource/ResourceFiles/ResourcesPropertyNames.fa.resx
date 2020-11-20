@@ -21,4 +21,7 @@
     <data name="PhoneNumber" xml:space="preserve">
         <value>شماره تماس</value>
     </data>
+    <data name="Password" xml:space="preserve">
+        <value>رمز عبور</value>
+    </data>
 </root>
