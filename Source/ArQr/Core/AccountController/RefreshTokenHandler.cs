@@ -6,7 +6,9 @@ using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountController
 {
@@ -14,22 +16,29 @@ namespace ArQr.Core.AccountController
 
     public class RefreshTokenHandler : IRequestHandler<RefreshTokenRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork   _unitOfWork;
-        private readonly ITokenService _tokenService;
-        private readonly IMapper       _mapper;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly ITokenService                          _tokenService;
+        private readonly IMapper                                _mapper;
 
-        public RefreshTokenHandler(IUnitOfWork unitOfWork, ITokenService tokenService, IMapper mapper)
+        public RefreshTokenHandler(IUnitOfWork                            unitOfWork,
+                                   IStringLocalizer<HttpResponseMessages> responseMessages,
+                                   ITokenService                          tokenService,
+                                   IMapper                                mapper)
         {
-            _unitOfWork   = unitOfWork;
-            _tokenService = tokenService;
-            _mapper       = mapper;
+            _unitOfWork       = unitOfWork;
+            _responseMessages = responseMessages;
+            _tokenService     = tokenService;
+            _mapper           = mapper;
         }
 
         public async Task<ActionHandlerResult> Handle(RefreshTokenRequest request, CancellationToken cancellationToken)
         {
             var refreshTokenResource = request.RefreshTokenResource;
             var user = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(refreshTokenResource.UserId);
-            if (user is null) return new(StatusCodes.Status404NotFound, "User Not Found.");
+            if (user is null)
+                return new(StatusCodes.Status404NotFound,
+                           _responseMessages[HttpResponseMessages.UserNotFound]);
 
             var isRefreshTokenValid = user.RefreshToken.IsExpired is false &&
                                       user.RefreshToken.Token == refreshTokenResource.RefreshToken;
