@@ -7,7 +7,8 @@ namespace Resource.Api.Validations
 {
     public class UserLoginValidation : AbstractValidator<UserLoginResource>
     {
-        public UserLoginValidation(IStringLocalizer<ResourcesPropertyNames> propertyNames)
+        public UserLoginValidation(IStringLocalizer<ResourcesPropertyNames>             propertyNames,
+                                   IStringLocalizer<ResourcePropertyValidationMessages> validationMessages)
         {
             RuleFor(resource => resource.PhoneNumber)
                 .NotNull()
@@ -17,6 +18,7 @@ namespace Resource.Api.Validations
             RuleFor(resource => resource.Password)
                 .NotNull()
                 .Matches(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")
+                .WithMessage(_ => validationMessages[ResourcePropertyValidationMessages.PasswordRegex])
                 .WithName(_ => propertyNames[ResourcesPropertyNames.Password]);
         }
     }
