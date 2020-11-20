@@ -23,4 +23,7 @@
     <data name="IncorrectRefreshToken" xml:space="preserve">
         <value>The refresh token is incorret.</value>
     </data>
+    <data name="DuplicatePhoneNumber" xml:space="preserve">
+        <value>The phone number already exists.</value>
+    </data>
 </root>

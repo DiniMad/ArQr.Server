@@ -61,6 +61,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شماره تماس موجود می باشد..
+        /// </summary>
+        internal static string DuplicatePhoneNumber {
+            get {
+                return ResourceManager.GetString("DuplicatePhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز عبور نادرست است..
         /// </summary>
         internal static string IncorrectPassword {

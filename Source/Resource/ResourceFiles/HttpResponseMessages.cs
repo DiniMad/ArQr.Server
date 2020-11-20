@@ -6,5 +6,6 @@ namespace Resource.ResourceFiles
         public const string UserNotFound          = "UserNotFound";
         public const string IncorrectPassword     = "IncorrectPassword";
         public const string IncorrectRefreshToken = "IncorrectRefreshToken";
+        public const string DuplicatePhoneNumber = "DuplicatePhoneNumber";
     }
 }
