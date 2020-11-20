@@ -12,11 +12,9 @@ using Resource.Api.Resources;
 
 namespace ArQr.Core
 {
-    public sealed record RegisterUserRequest(UserRegisterResource RegisterResource) : IRequest<RegisterUserResult>;
+    public sealed record RegisterUserRequest(UserRegisterResource RegisterResource) : IRequest<ActionHandlerResult>;
 
-    public sealed record RegisterUserResult(int StatusCode, object Value);
-
-    public class RegisterUserHandler : IRequestHandler<RegisterUserRequest, RegisterUserResult>
+    public class RegisterUserHandler : IRequestHandler<RegisterUserRequest, ActionHandlerResult>
     {
         private readonly IMapper               _mapper;
         private readonly IPasswordHasher<User> _passwordHasher;
@@ -29,7 +27,7 @@ namespace ArQr.Core
             _unitOfWork     = unitOfWork;
         }
 
-        public async Task<RegisterUserResult> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
+        public async Task<ActionHandlerResult> Handle(RegisterUserRequest request, CancellationToken cancellationToken)
         {
             var registerResource = request.RegisterResource;
             var user             = _mapper.Map<User>(registerResource);
