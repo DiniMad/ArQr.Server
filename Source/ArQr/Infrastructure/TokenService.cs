@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+using ArQr.Helper;
 using ArQr.Interface;
 using ArQr.Models;
-using Data.Repository.Base;
 using Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ArQr.Helper
+namespace ArQr.Infrastructure
 {
     public class TokenService : ITokenService
     {
