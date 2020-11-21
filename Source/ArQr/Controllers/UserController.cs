@@ -4,6 +4,7 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resource.Api.Resources;
 
 namespace ArQr.Controllers
 {
@@ -23,6 +24,13 @@ namespace ArQr.Controllers
         public async Task<ActionResult<User>> GetMe()
         {
             var (statusCode, value) = await _mediator.Send(new UserGetMeRequest());
+            return StatusCode(statusCode, value);
+        }
+        
+        [HttpPost("update")]
+        public async Task<ActionResult<User>> UpdateMe(UserUpdateResource updateResource)
+        {
+            var (statusCode, value) = await _mediator.Send(new UserUpdateMeRequest(updateResource));
             return StatusCode(statusCode, value);
         }
     }
