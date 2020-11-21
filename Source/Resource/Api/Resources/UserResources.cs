@@ -5,4 +5,6 @@ namespace Resource.Api.Resources
                                       string Email,
                                       bool   EmailConfirmed,
                                       bool   PhoneNumberConfirmed);
+
+    public sealed record UserUpdateResource(string? PhoneNumber, string? Password, string? Email);
 }
