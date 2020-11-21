@@ -38,7 +38,7 @@ namespace ArQr.Core.UserController
             var user = await _unitOfWork.UserRepository.GetAsync(userId);
             return user is null
                        ? new(StatusCodes.Status404NotFound,
-                             _responseMessages[HttpResponseMessages.UserNotFound])
+                             _responseMessages[HttpResponseMessages.UserNotFound].Value)
                        : new(StatusCodes.Status200OK,
                              _mapper.Map<UserResource>(user));
         }
