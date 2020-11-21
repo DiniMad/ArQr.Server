@@ -30,4 +30,7 @@
     <data name="RefreshToken" xml:space="preserve">
         <value>رفرش توکن</value>
     </data>
+    <data name="Email" xml:space="preserve">
+        <value>ایمیل</value>
+    </data>
 </root>

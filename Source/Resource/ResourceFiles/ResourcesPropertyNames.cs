@@ -6,5 +6,6 @@ namespace Resource.ResourceFiles
         public const string Password     = "Password";
         public const string UserId       = "UserId";
         public const string RefreshToken = "RefreshToken";
+        public const string Email        = "Email";
     }
 }
