@@ -40,8 +40,8 @@ namespace ArQr.Core.UserController
 
         public async Task<ActionHandlerResult> Handle(UserUpdateMeRequest request, CancellationToken cancellationToken)
         {
-            var (_, userId) = _httpContextAccessor.HttpContext!.GetUserAuthentication();
-            var user = await _unitOfWork.UserRepository.GetAsync(userId);
+            var userId = _httpContextAccessor.HttpContext!.GetUserId();
+            var user   = await _unitOfWork.UserRepository.GetAsync(userId);
             if (user is null)
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.UserNotFound].Value);

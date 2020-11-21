@@ -9,14 +9,10 @@ namespace ArQr.Helper
     {
         public sealed record UserAuthentication(bool IsAuthenticated, Guid Id);
 
-        public static UserAuthentication GetUserAuthentication(this HttpContext httpContext)
+        public static Guid GetUserId(this HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-
-            var isAuthenticated = userId is not null;
-            var userGuidId      = isAuthenticated ? Guid.Parse(userId!) : Guid.Empty;
-
-            return new(isAuthenticated, userGuidId);
+            return Guid.Parse(userId);
         }
     }
 }
