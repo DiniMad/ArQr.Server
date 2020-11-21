@@ -52,8 +52,19 @@ namespace ArQr.Core.UserController
                 user.PasswordHash = _passwordHasher.HashPassword(user, updateResource.Password);
 
             _unitOfWork.UserRepository.Update(user);
-            await _unitOfWork.CompleteAsync();
-            
+            try
+            {
+                await _unitOfWork.CompleteAsync();
+            }
+            catch (Exception e)
+            {
+                return (e.InnerException as SqlException)?.Number == 2601
+                           ? new(StatusCodes.Status409Conflict,
+                                 _responseMessages[HttpResponseMessages.DuplicatePhoneNumberOrEmail].Value)
+                           : new(StatusCodes.Status500InternalServerError,
+                                 _responseMessages[HttpResponseMessages.UnhandledException].Value);
+            }
+
             return new(StatusCodes.Status200OK, user);
         }
     }
