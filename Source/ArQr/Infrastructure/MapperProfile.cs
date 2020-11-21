@@ -2,7 +2,7 @@ using AutoMapper;
 using Domain;
 using Resource.Api.Resources;
 
-namespace ArQr.Helper
+namespace ArQr.Infrastructure
 {
     public class MapperProfile : Profile
     {
