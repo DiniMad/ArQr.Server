@@ -29,4 +29,7 @@
     <data name="UnhandledException" xml:space="preserve">
         <value>An unhandled exception has occurred.</value>
     </data>
+    <data name="DuplicatePhoneNumberOrEmail" xml:space="preserve">
+        <value>Either email or phone number has already existed.</value>
+    </data>
 </root>
