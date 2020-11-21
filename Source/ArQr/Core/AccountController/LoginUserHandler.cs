@@ -70,7 +70,7 @@ namespace ArQr.Core.AccountController
             await _unitOfWork.CompleteAsync();
 
             var jwtToken = _tokenService.GenerateJwtToken(user.GetClaims());
-            return new(StatusCodes.Status200OK, jwtToken);
+            return new(StatusCodes.Status200OK, new JwtTokenResource(jwtToken));
         }
     }
 }
