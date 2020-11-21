@@ -1,4 +1,5 @@
 using ArQr.Helper;
+using ArQr.Infrastructure;
 using ArQr.Interface;
 using AutoMapper;
 using Domain;
@@ -23,7 +24,7 @@ namespace ArQr
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services.AddControllers(options => options.Filters.Add<ApiResponseResultFilter>())
                     .AddTheFluentValidation();
 
             services.AddHttpContextAccessor();
