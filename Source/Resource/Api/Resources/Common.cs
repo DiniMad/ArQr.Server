@@ -4,6 +4,8 @@ namespace Resource.Api.Resources
 {
     public sealed record ApiResponse<T>(int Status, bool Success, T? Data, object? Error) where T : class
     {
+        public bool DetailedError => Error is not string;
+
         public static ApiResponse<T> Parse(ObjectResult objectResult)
         {
             var status  = objectResult.StatusCode!.Value;
