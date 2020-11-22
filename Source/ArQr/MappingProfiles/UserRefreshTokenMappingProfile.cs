@@ -3,9 +3,9 @@ using Domain;
 
 namespace ArQr.MappingProfiles
 {
-    public class MapperProfile : Profile
+    public class UserRefreshTokenMappingProfile : Profile
     {
-        public MapperProfile()
+        public UserRefreshTokenMappingProfile()
         {
             CreateMap<UserRefreshToken, UserRefreshToken>()
                 .ForMember(token => token.UserId, option => option.Ignore());
