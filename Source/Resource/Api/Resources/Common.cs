@@ -15,4 +15,9 @@ namespace Resource.Api.Resources
             return new(status, success, data, error);
         }
     }
+
+    public sealed record PaginationInputResource(int PageSize = 5, int PageNumber = 1)
+    {
+        public int After => (PageNumber - 1) * PageSize;
+    }
 }
