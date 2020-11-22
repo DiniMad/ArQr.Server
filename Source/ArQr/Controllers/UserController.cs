@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using ArQr.Core.UserController;
-using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,14 +20,14 @@ namespace ArQr.Controllers
         }
 
         [HttpGet("me")]
-        public async Task<ActionResult<User>> GetMe()
+        public async Task<ActionResult<UserResource>> GetMe()
         {
             var (statusCode, value) = await _mediator.Send(new UserGetMeRequest());
             return StatusCode(statusCode, value);
         }
         
         [HttpPost("update")]
-        public async Task<ActionResult<User>> UpdateMe(UserUpdateResource updateResource)
+        public async Task<ActionResult<UserResource>> UpdateMe(UserUpdateResource updateResource)
         {
             var (statusCode, value) = await _mediator.Send(new UserUpdateMeRequest(updateResource));
             return StatusCode(statusCode, value);
