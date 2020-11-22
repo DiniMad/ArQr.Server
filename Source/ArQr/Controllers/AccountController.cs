@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using ArQr.Core.AccountController;
-using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,7 @@ namespace ArQr.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(UserRegisterResource registerResource)
+        public async Task<ActionResult<UserResource>> Register(UserRegisterResource registerResource)
         {
             var (statusCode, value) = await _mediator.Send(new RegisterUserRequest(registerResource));
             return statusCode == StatusCodes.Status201Created
@@ -29,14 +28,14 @@ namespace ArQr.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserLoginResource loginResource)
+        public async Task<ActionResult<JwtTokenResource>> Login(UserLoginResource loginResource)
         {
             var (statusCode, value) = await _mediator.Send(new LoginUserRequest(loginResource));
             return StatusCode(statusCode, value);
         }
 
         [HttpPost("refresh_token")]
-        public async Task<ActionResult<string>> RefreshToken(RefreshTokenResource refreshTokenResource)
+        public async Task<ActionResult<JwtTokenResource>> RefreshToken(RefreshTokenResource refreshTokenResource)
         {
             var (statusCode, value) = await _mediator.Send(new RefreshTokenRequest(refreshTokenResource));
             return StatusCode(statusCode, value);
