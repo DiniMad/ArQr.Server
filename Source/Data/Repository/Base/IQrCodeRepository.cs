@@ -8,7 +8,7 @@ namespace Data.Repository.Base
 {
     public interface IQrCodeRepository : IRepository<QrCode>
     {
-        Task<IEnumerable<QrCode>> FindAsync(Expression<Func<QrCode, bool>> predicate, int after, int take);
-        Task<int>                 GetCount();
+        Task<IEnumerable<QrCode>> FindAsync(Expression<Func<QrCode, bool>>     predicate, int after, int take);
+        Task<int>                 GetCountAsync(Expression<Func<QrCode, bool>> predicate);
     }
 }
