@@ -12,7 +12,8 @@ using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeController
 {
-    public sealed record GetAllUserQrCodesRequest(long UserId) : IRequest<ActionHandlerResult>;
+    public sealed record GetAllUserQrCodesRequest
+        (long UserId, PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;
 
     public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>
     {
@@ -32,9 +33,12 @@ namespace ArQr.Core.QrCodeController
         public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesRequest request,
                                                       CancellationToken        cancellationToken)
         {
-            var userId = request.UserId;
+            var userId          = request.UserId;
+            var paginationInput = request.PaginationInputResource;
             var userQrCodes =
-                await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId);
+                await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId,
+                                                             paginationInput.After,
+                                                             paginationInput.PageSize);
 
             if (userQrCodes.Any() is false)
                 return new(StatusCodes.Status404NotFound,
