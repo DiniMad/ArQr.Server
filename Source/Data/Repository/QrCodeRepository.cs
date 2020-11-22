@@ -19,5 +19,10 @@ namespace Data.Repository
         {
             return await Context.Set<QrCode>().Where(predicate).Skip(after).Take(take).ToListAsync();
         }
+
+        public async Task<int> GetCount()
+        {
+            return await Context.Set<QrCode>().CountAsync();
+        }
     }
 }
