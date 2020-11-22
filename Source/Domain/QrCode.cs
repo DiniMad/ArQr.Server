@@ -11,7 +11,6 @@ namespace Domain
         public int     ExpireDate            { get; set; }
         public string? AssociatedPhoneNumber { get; set; }
         public string? AssociatedWebsite     { get; set; }
-        public bool    Expired               => ExpireDate > DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         public User    Owner                 { get; set; }
         public long    OwnerId               { get; set; }
     }
