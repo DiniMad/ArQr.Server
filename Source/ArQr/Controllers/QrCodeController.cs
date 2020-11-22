@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArQr.Core.QrCodeController;
-using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Resource.Api.Resources;
 
 namespace ArQr.Controllers
 {
@@ -19,7 +19,7 @@ namespace ArQr.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<QrCode>>> GetAllUserQrCodes(long userId)
+        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllUserQrCodes(long userId)
         {
             var (statusCode, value) = await _mediator.Send(new GetAllUserQrCodesRequest(userId));
             return StatusCode(statusCode, value);
