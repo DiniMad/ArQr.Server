@@ -19,9 +19,11 @@ namespace ArQr.Controllers
         }
 
         [HttpGet("/User/{userId}/QrCode")]
-        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllUserQrCodes(long userId)
+        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllUserQrCodes(long userId,
+            [FromQuery] PaginationInputResource                                             paginationInputResource)
         {
-            var (statusCode, value) = await _mediator.Send(new GetAllUserQrCodesRequest(userId));
+            var (statusCode, value) =
+                await _mediator.Send(new GetAllUserQrCodesRequest(userId, paginationInputResource));
             return StatusCode(statusCode, value);
         }
 
