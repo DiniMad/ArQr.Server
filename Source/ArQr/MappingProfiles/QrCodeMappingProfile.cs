@@ -13,7 +13,7 @@ namespace ArQr.MappingProfiles
                 .ForMember(resource => resource.Expired,
                            expression =>
                                expression.MapFrom(code =>
-                                                      code.ExpireDate > DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
+                                                      code.ExpireDate < DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
         }
     }
 }
