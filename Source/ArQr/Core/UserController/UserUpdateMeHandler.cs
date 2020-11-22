@@ -65,7 +65,7 @@ namespace ArQr.Core.UserController
                                  _responseMessages[HttpResponseMessages.UnhandledException].Value);
             }
 
-            return new(StatusCodes.Status200OK, user);
+            return new(StatusCodes.Status200OK, _mapper.Map<UserResource>(user));
         }
     }
 }
