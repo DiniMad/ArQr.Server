@@ -1,4 +1,3 @@
-using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -11,6 +10,13 @@ namespace ArQr.Helper
         {
             var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
             return long.Parse(userId);
+        }
+
+        public static string GetFullUrl(this HttpContext httpContext)
+        {
+            var httpRequest = httpContext.Request;
+            var baseUrl     = $"{httpRequest.Scheme}://{httpRequest.Host.Value}{httpRequest.Path.Value!.TrimEnd('/')}/";
+            return baseUrl;
         }
     }
 }
