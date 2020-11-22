@@ -8,7 +8,7 @@ using Resource.Api.Resources;
 namespace ArQr.Controllers
 {
     [ApiController]
-    [Route("user/{userId}/QrCode")]
+    [Route("QrCode")]
     public class QrCodeController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,13 +18,13 @@ namespace ArQr.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet("/User/{userId}/QrCode")]
         public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllUserQrCodes(long userId)
         {
             var (statusCode, value) = await _mediator.Send(new GetAllUserQrCodesRequest(userId));
             return StatusCode(statusCode, value);
         }
-        
+
         [HttpGet("{qrCodeId}")]
         public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetSingleUserQrCode(long qrCodeId)
         {
