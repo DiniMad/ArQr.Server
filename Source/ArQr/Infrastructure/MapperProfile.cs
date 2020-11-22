@@ -22,7 +22,7 @@ namespace ArQr.Infrastructure
                                    expression.Condition((_, _, sourceMember) => sourceMember is not null));
             CreateMap<User, UserResource>();
             CreateMap<UserRefreshToken, UserRefreshToken>()
-                .ForMember(token => token.Id, option => option.Ignore());
+                .ForMember(token => token.UserId, option => option.Ignore());
         }
     }
 }
