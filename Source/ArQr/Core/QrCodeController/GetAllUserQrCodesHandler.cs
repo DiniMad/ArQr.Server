@@ -5,7 +5,9 @@ using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeController
 {
@@ -13,13 +15,17 @@ namespace ArQr.Core.QrCodeController
 
     public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper     _mapper;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IMapper                                _mapper;
 
-        public GetAllUserQrCodesHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetAllUserQrCodesHandler(IUnitOfWork                            unitOfWork,
+                                        IStringLocalizer<HttpResponseMessages> responseMessages,
+                                        IMapper                                mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper     = mapper;
+            _unitOfWork       = unitOfWork;
+            _responseMessages = responseMessages;
+            _mapper           = mapper;
         }
 
         public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesRequest request,
@@ -29,7 +35,9 @@ namespace ArQr.Core.QrCodeController
             var userQrCodes =
                 await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId);
 
-            if (userQrCodes.Any() is false) return new(StatusCodes.Status404NotFound, "NotFound");
+            if (userQrCodes.Any() is false)
+                return new(StatusCodes.Status404NotFound,
+                           _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
             return new(StatusCodes.Status200OK, _mapper.Map<QrCodeResource>(userQrCodes));
         }
