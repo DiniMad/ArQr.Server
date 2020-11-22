@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ArQr.Helper;
 using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
@@ -20,14 +22,17 @@ namespace ArQr.Core.QrCodeController
         private readonly IUnitOfWork                            _unitOfWork;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
         private readonly IMapper                                _mapper;
+        private readonly IHttpContextAccessor                   _httpContextAccessor;
 
         public GetAllUserQrCodesHandler(IUnitOfWork                            unitOfWork,
                                         IStringLocalizer<HttpResponseMessages> responseMessages,
-                                        IMapper                                mapper)
+                                        IMapper                                mapper,
+                                        IHttpContextAccessor                   httpContextAccessor)
         {
-            _unitOfWork       = unitOfWork;
-            _responseMessages = responseMessages;
-            _mapper           = mapper;
+            _unitOfWork          = unitOfWork;
+            _responseMessages    = responseMessages;
+            _mapper              = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesRequest request,
@@ -44,7 +49,14 @@ namespace ArQr.Core.QrCodeController
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
-            return new(StatusCodes.Status200OK, _mapper.Map<IEnumerable<QrCodeResource>>(userQrCodes));
+            var userQrCodesResource = _mapper.Map<IEnumerable<QrCodeResource>>(userQrCodes);
+            var userQrCodeCount = await _unitOfWork.QrCodeRepository.GetCountAsync(code => code.OwnerId == userId);
+            var baseUrl         = _httpContextAccessor.HttpContext!.GetFullUrl();
+            
+            PaginationResultResource<QrCodeResource> paginationResult =
+                new(userQrCodesResource, userQrCodeCount, baseUrl, paginationInput);
+            
+            return new(StatusCodes.Status200OK, paginationResult);
         }
     }
 }
