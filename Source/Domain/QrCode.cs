@@ -13,6 +13,6 @@ namespace Domain
         public string? AssociatedWebsite     { get; set; }
         public bool    Expired               => ExpireDate > DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         public User    Owner                 { get; set; }
-        public Guid    OwnerId               { get; set; }
+        public long    OwnerId               { get; set; }
     }
 }

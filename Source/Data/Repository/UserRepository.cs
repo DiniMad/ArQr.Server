@@ -18,7 +18,7 @@ namespace Data.Repository
             return await GetIncludeRefreshTokenAsync(user => user.PhoneNumber == phoneNumber);
         }
 
-        public async Task<User?> GetIncludeRefreshTokenAsync(Guid userId)
+        public async Task<User?> GetIncludeRefreshTokenAsync(long userId)
         {
             return await GetIncludeRefreshTokenAsync(user => user.Id == userId);
         }

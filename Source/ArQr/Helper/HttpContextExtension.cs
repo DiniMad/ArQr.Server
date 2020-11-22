@@ -7,10 +7,10 @@ namespace ArQr.Helper
 {
     public static class HttpContextExtension
     {
-        public static Guid GetUserId(this HttpContext httpContext)
+        public static long GetUserId(this HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
-            return Guid.Parse(userId);
+            return long.Parse(userId);
         }
     }
 }

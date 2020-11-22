@@ -8,5 +8,5 @@ namespace Resource.Api.Resources
 
     public sealed record UserLoginResource(string PhoneNumber, string Password);
 
-    public sealed record RefreshTokenResource(Guid UserId, string RefreshToken);
+    public sealed record RefreshTokenResource(long UserId, string RefreshToken);
 }
