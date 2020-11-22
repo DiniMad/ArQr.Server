@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace ArQr.Core.QrCodeController
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
-            return new(StatusCodes.Status200OK, _mapper.Map<QrCodeResource>(userQrCodes));
+            return new(StatusCodes.Status200OK, _mapper.Map<IEnumerable<QrCodeResource>>(userQrCodes));
         }
     }
 }
