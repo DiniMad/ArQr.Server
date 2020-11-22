@@ -9,5 +9,6 @@ namespace Resource.ResourceFiles
         public const string DuplicatePhoneNumber        = "DuplicatePhoneNumber";
         public const string UnhandledException          = "UnhandledException";
         public const string DuplicatePhoneNumberOrEmail = "DuplicatePhoneNumberOrEmail";
+        public const string QrCodeNotFound              = "QrCodeNotFound";
     }
 }

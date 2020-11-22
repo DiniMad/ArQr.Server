@@ -39,4 +39,7 @@
     <data name="DuplicatePhoneNumberOrEmail" xml:space="preserve">
         <value>ایمیل یا شماره تماس موجود می باشد.</value>
     </data>
+    <data name="QrCodeNotFound" xml:space="preserve">
+        <value>بارکد پیدا نشد.</value>
+    </data>
 </root>
