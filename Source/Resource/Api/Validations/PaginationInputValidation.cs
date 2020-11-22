@@ -7,7 +7,7 @@ namespace Resource.Api.Validations
     {
         public PaginationInputValidation()
         {
-            RuleFor(input => input.PageSize).GreaterThan(0);
+            RuleFor(input => input.PageSize).InclusiveBetween(1,25);
             RuleFor(input => input.PageNumber).GreaterThan(0);
         }
     }
