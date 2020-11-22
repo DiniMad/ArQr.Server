@@ -2,6 +2,7 @@ namespace Resource.Api.Resources
 {
     public sealed record QrCodeResource
     {
+        public long    Id                    { get; set; }
         public string  Title                 { get; init; }
         public string  Description           { get; init; }
         public int     CreationDate          { get; init; }
