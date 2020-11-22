@@ -8,6 +8,8 @@ namespace Data.Configuration
     {
         public void Configure(EntityTypeBuilder<UserRefreshToken> builder)
         {
+            builder.HasKey(token => token.UserId);
+
             builder.Property(refreshToken => refreshToken.ExpireDate)
                    .HasColumnType("date");
         }
