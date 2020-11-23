@@ -18,6 +18,7 @@ namespace Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UserRefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new QrCodeConfiguration());
+            modelBuilder.ApplyConfiguration(new QrCodeViewerConfiguration());
         }
     }
 }
