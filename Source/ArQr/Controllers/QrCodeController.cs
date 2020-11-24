@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArQr.Core.QrCodeController;
-using ArQr.Interface;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Resource.Api.Resources;
@@ -39,6 +38,13 @@ namespace ArQr.Controllers
         public async Task<ActionResult> AddViewer(long qrCodeId, AddViewerResource viewerResource)
         {
             var (statusCode, value) = await _mediator.Send(new AddViewerRequest(qrCodeId, viewerResource));
+            return StatusCode(statusCode, value);
+        }
+
+        [HttpGet("{qrCodeId}/viewers")]
+        public async Task<ActionResult> GetViewersCount(long qrCodeId)
+        {
+            var (statusCode, value) = await _mediator.Send(new GetViewersCountRequest(qrCodeId));
             return StatusCode(statusCode, value);
         }
     }
