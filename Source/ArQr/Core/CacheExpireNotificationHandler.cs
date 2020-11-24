@@ -5,6 +5,7 @@ using ArQr.Helper;
 using ArQr.Models;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ArQr.Core
 {
@@ -12,12 +13,12 @@ namespace ArQr.Core
 
     public class CacheExpireNotificationHandler : INotificationHandler<CacheExpireNotification>
     {
-        private readonly ISender      _sender;
-        private readonly CacheOptions _cacheOptions;
+        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly CacheOptions         _cacheOptions;
 
-        public CacheExpireNotificationHandler(IConfiguration configuration, ISender sender)
+        public CacheExpireNotificationHandler(IConfiguration configuration, IServiceScopeFactory scopeFactory)
         {
-            _sender       = sender;
+            _scopeFactory = scopeFactory;
             _cacheOptions = configuration.GetCacheOptions();
         }
 
@@ -31,7 +32,10 @@ namespace ArQr.Core
             if (isQrCode is true)
             {
                 var qrCodeId = rawKey.Split(_cacheOptions.KyeSeparatorCharacter)[^1];
-                await _sender.Send(new ViewersCacheExpireRequest(long.Parse(qrCodeId)), cancellationToken);
+
+                using var serviceScope = _scopeFactory.CreateScope();
+                var       sender       = serviceScope.ServiceProvider.GetRequiredService<ISender>();
+                await sender.Send(new ViewersCacheExpireRequest(long.Parse(qrCodeId)), cancellationToken);
             }
         }
     }
