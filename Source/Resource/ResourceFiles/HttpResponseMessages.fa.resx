@@ -42,4 +42,7 @@
     <data name="QrCodeNotFound" xml:space="preserve">
         <value>بارکد پیدا نشد.</value>
     </data>
+    <data name="Done" xml:space="preserve">
+        <value>انجام شد.</value>
+    </data>
 </root>

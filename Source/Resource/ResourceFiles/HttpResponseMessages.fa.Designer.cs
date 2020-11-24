@@ -61,6 +61,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to انجام شد..
+        /// </summary>
+        internal static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شماره تماس موجود می باشد..
         /// </summary>
         internal static string DuplicatePhoneNumber {

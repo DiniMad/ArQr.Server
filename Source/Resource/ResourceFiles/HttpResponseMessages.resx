@@ -35,4 +35,7 @@
     <data name="QrCodeNotFound" xml:space="preserve">
         <value>QR code not found.</value>
     </data>
+    <data name="Done" xml:space="preserve">
+        <value>Done.</value>
+    </data>
 </root>
