@@ -6,8 +6,9 @@ namespace Data
 {
     internal class ApplicationDbContext : DbContext
     {
-        public DbSet<User>   Users   { get; set; }
-        public DbSet<QrCode> QrCodes { get; set; }
+        public DbSet<User>         Users         { get; set; }
+        public DbSet<QrCode>       QrCodes       { get; set; }
+        public DbSet<QrCodeViewer> QrCodeViewers { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
