@@ -30,7 +30,7 @@ namespace ArQr.Core.QrCodeController
         public async Task<ActionHandlerResult> Handle(AddViewerRequest request, CancellationToken cancellationToken)
         {
             var qrCodeId      = request.QrCodeId;
-            var ghostKey      = $"{GhostPrefix}:{QrCodePrefix}:{qrCodeId}";
+            var ghostKey      = RedisSequenceKeyBuilder(GhostPrefix, QrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.GetAsync(ghostKey) is not null;
             if (ghostKeyExist is false)
             {
@@ -38,16 +38,23 @@ namespace ArQr.Core.QrCodeController
                 if (qrCode is null) return new(StatusCodes.Status404NotFound, "QrCode not found.");
 
                 var qrCodePersistedViewersCountValue = qrCode.ViewersCount.ToString();
-                var qrCodePersistedViewersCountKey   = $"{QrCodePrefix}:{PersistedViewersCountPrefix}:{qrCodeId}";
+                var qrCodePersistedViewersCountKey =
+                    RedisSequenceKeyBuilder(QrCodePrefix, PersistedViewersCountPrefix, qrCodeId);
                 await _cacheService.SetAsync(qrCodePersistedViewersCountKey, qrCodePersistedViewersCountValue);
 
                 await _cacheService.SetAsync(ghostKey, string.Empty, TimeSpan.FromMinutes(10));
             }
 
-            var viewerListKey = $"{QrCodePrefix}:{ViewersListPrefix}:{qrCodeId}";
+            var viewerListKey = RedisSequenceKeyBuilder(QrCodePrefix, ViewersListPrefix, qrCodeId);
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
             return new(StatusCodes.Status200OK, "Viewer Added.");
+        }
+
+        private string RedisSequenceKeyBuilder(params object[] keySections)
+        {
+            var key = string.Join(':', keySections);
+            return key;
         }
     }
 }
