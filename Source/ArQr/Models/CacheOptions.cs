@@ -7,5 +7,11 @@ namespace ArQr.Models
         public string PersistedViewersCountPrefix    { get; init; }
         public string ViewersListPrefix              { get; init; }
         public int    ViewersCountExpireTimeInMinute { get; init; }
+
+        public string SequenceKeyBuilder(params object[] keySections)
+        {
+            var key = string.Join(':', keySections);
+            return key;
+        }
     }
 }
