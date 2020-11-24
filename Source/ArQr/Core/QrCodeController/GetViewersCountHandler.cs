@@ -7,6 +7,8 @@ using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeController
 {
@@ -14,17 +16,20 @@ namespace ArQr.Core.QrCodeController
 
     public class GetViewersCountHandler : IRequestHandler<GetViewersCountRequest, ActionHandlerResult>
     {
-        private readonly ICacheService _cacheService;
-        private readonly IUnitOfWork   _unitOfWork;
-        private readonly CacheOptions  _cacheOptions;
+        private readonly ICacheService                          _cacheService;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly CacheOptions                           _cacheOptions;
 
-        public GetViewersCountHandler(ICacheService  cacheService,
-                                      IUnitOfWork    unitOfWork,
-                                      IConfiguration configuration)
+        public GetViewersCountHandler(ICacheService                          cacheService,
+                                      IUnitOfWork                            unitOfWork,
+                                      IConfiguration                         configuration,
+                                      IStringLocalizer<HttpResponseMessages> responseMessages)
         {
-            _cacheService = cacheService;
-            _unitOfWork   = unitOfWork;
-            _cacheOptions = configuration.GetCacheOptions();
+            _cacheService     = cacheService;
+            _unitOfWork       = unitOfWork;
+            _responseMessages = responseMessages;
+            _cacheOptions     = configuration.GetCacheOptions();
         }
 
         public async Task<ActionHandlerResult> Handle(GetViewersCountRequest request,
@@ -40,7 +45,9 @@ namespace ArQr.Core.QrCodeController
                 var qrCodePersistedViewersCountKey =
                     _cacheOptions.SequenceKeyBuilder(qrCodePrefix, persistedViewersCountPrefix, qrCodeId);
                 var persistedViewersCount = await _cacheService.GetAsync(qrCodePersistedViewersCountKey);
-                if (persistedViewersCount is null) return new(StatusCodes.Status500InternalServerError, "Exception");
+                if (persistedViewersCount is null)
+                    return new(StatusCodes.Status500InternalServerError,
+                               _responseMessages[HttpResponseMessages.UnhandledException]);
 
                 var cachedViewerListKey =
                     _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
@@ -52,7 +59,9 @@ namespace ArQr.Core.QrCodeController
             else
             {
                 var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
-                if (qrCode is null) return new(StatusCodes.Status404NotFound, "NotFound");
+                if (qrCode is null)
+                    return new(StatusCodes.Status404NotFound,
+                               _responseMessages[HttpResponseMessages.QrCodeNotFound]);
 
                 var totalCount = qrCode.ViewersCount;
                 return new(StatusCodes.Status200OK, new {Count = totalCount});
