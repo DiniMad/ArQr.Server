@@ -104,5 +104,14 @@ namespace Resource.ResourceFiles {
                 return ResourceManager.GetString("UserId", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه بازدیدکننده.
+        /// </summary>
+        internal static string ViewerId {
+            get {
+                return ResourceManager.GetString("ViewerId", resourceCulture);
+            }
+        }
     }
 }

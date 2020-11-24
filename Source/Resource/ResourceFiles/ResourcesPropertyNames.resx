@@ -26,4 +26,7 @@
     <data name="Email" xml:space="preserve">
         <value>Email</value>
     </data>
+    <data name="ViewerId" xml:space="preserve">
+        <value>Viewer ID</value>
+    </data>
 </root>

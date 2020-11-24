@@ -33,4 +33,7 @@
     <data name="Email" xml:space="preserve">
         <value>ایمیل</value>
     </data>
+    <data name="ViewerId" xml:space="preserve">
+        <value>شناسه بازدیدکننده</value>
+    </data>
 </root>
