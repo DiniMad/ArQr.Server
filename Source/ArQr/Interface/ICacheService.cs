@@ -11,6 +11,7 @@ namespace ArQr.Interface
         public Task<string?>             GetAsync(string key);
         public Task                      AddToUniqueListAsync(string key, string value);
         public Task<IEnumerable<string>> GetUniqueListAsync(string key);
+        public Task<long>                GetCountOfListAsync(string listKey);
         public Task                      SubscribeToExpireEventAsync(Action<string> onExpired);
     }
 }

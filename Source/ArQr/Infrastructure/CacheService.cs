@@ -47,6 +47,11 @@ namespace ArQr.Infrastructure
             return values;
         }
 
+        public async Task<long> GetCountOfListAsync(string listKey)
+        {
+            return await _database.SetLengthAsync(listKey);
+        }
+
         public async Task SubscribeToExpireEventAsync(Action<string> onExpired)
         {
             await SetupExpireEvent();
