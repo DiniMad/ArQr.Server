@@ -47,7 +47,7 @@ namespace ArQr.Core.QrCodeController
                 var persistedViewersCount = await _cacheService.GetAsync(qrCodePersistedViewersCountKey);
                 if (persistedViewersCount is null)
                     return new(StatusCodes.Status500InternalServerError,
-                               _responseMessages[HttpResponseMessages.UnhandledException]);
+                               _responseMessages[HttpResponseMessages.UnhandledException].Value);
 
                 var cachedViewerListKey =
                     _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
@@ -61,7 +61,7 @@ namespace ArQr.Core.QrCodeController
                 var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
                 if (qrCode is null)
                     return new(StatusCodes.Status404NotFound,
-                               _responseMessages[HttpResponseMessages.QrCodeNotFound]);
+                               _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
                 var totalCount = qrCode.ViewersCount;
                 return new(StatusCodes.Status200OK, new {Count = totalCount});

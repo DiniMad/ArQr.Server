@@ -48,7 +48,7 @@ namespace ArQr.Core.QrCodeController
                 var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
                 if (qrCode is null)
                     return new(StatusCodes.Status404NotFound,
-                               _responseMessages[HttpResponseMessages.QrCodeNotFound]);
+                               _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
                 var qrCodePersistedViewersCountValue = qrCode.ViewersCount.ToString();
                 var qrCodePersistedViewersCountKey =
@@ -62,7 +62,7 @@ namespace ArQr.Core.QrCodeController
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
 
-            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done]);
+            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
         }
     }
 }
