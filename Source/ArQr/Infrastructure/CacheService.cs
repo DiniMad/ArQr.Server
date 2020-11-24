@@ -18,6 +18,11 @@ namespace ArQr.Infrastructure
             _subscriber = connection.GetSubscriber();
         }
 
+        public async Task<bool> KeyExist(string key)
+        {
+            return await _database.KeyExistsAsync(key);
+        }
+
         public async Task SetAsync(string key, string value, TimeSpan? expiry = null)
         {
             await _database.StringSetAsync(key, value, expiry);
