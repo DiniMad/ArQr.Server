@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ArQr.Core.QrCodeController;
+using ArQr.Core.QrCodeHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Resource.Api.Resources;

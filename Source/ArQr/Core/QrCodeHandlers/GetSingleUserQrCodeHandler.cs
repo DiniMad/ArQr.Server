@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.QrCodeController
+namespace ArQr.Core.QrCodeHandlers
 {
     public sealed record GetSingleUserQrCodeRequest(long QrCodeId) : IRequest<ActionHandlerResult>;
 

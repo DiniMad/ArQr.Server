@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.QrCodeController
+namespace ArQr.Core.QrCodeHandlers
 {
     public sealed record GetAllUserQrCodesRequest
         (long UserId, PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;

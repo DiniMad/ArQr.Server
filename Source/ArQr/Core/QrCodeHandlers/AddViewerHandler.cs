@@ -12,7 +12,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.QrCodeController
+namespace ArQr.Core.QrCodeHandlers
 {
     public sealed record AddViewerRequest
         (long QrCodeId, AddViewerResource ViewerResource) : IRequest<ActionHandlerResult>;
