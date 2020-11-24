@@ -54,6 +54,11 @@ namespace ArQr.Infrastructure
             return await _database.SetLengthAsync(listKey);
         }
 
+        public async Task DeleteKeyAsync(string key)
+        {
+            await _database.KeyDeleteAsync(key);
+        }
+
         private void SetupExpireEvent(ISubscriber subscriber, IPublisher publisher)
         {
             _database.Execute("config", "set", "notify-keyspace-events", "EA");
