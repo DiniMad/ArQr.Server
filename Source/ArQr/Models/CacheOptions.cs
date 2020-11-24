@@ -2,6 +2,7 @@ namespace ArQr.Models
 {
     public sealed record CacheOptions
     {
+        public char   KyeSeparatorCharacter          { get; init; }
         public string GhostPrefix                    { get; init; }
         public string QrCodePrefix                   { get; init; }
         public string PersistedViewersCountPrefix    { get; init; }
@@ -10,8 +11,7 @@ namespace ArQr.Models
 
         public string SequenceKeyBuilder(params object[] keySections)
         {
-            var key = string.Join(':', keySections);
-            return key;
+            return string.Join(KyeSeparatorCharacter, keySections);
         }
     }
 }
