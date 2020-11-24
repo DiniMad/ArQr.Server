@@ -1,3 +1,5 @@
+using System;
+
 namespace ArQr.Models
 {
     public sealed record CacheOptions
@@ -25,6 +27,21 @@ namespace ArQr.Models
         public string SequenceKeyBuilder(params object[] keySections)
         {
             return string.Join(KyeSeparatorCharacter, keySections);
+        }
+
+        public bool IsGhostKey(string key)
+        {
+            return KeyHasPrefix(key, GhostPrefix);
+        }
+
+        public string ExtractRawKey(string key)
+        {
+            return key.Replace($"{GhostPrefix}{KyeSeparatorCharacter}", string.Empty);
+        }
+
+        public bool KeyHasPrefix(string key, string prefix)
+        {
+            return key.StartsWith(prefix);
         }
     }
 }
