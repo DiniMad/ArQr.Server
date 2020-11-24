@@ -2,18 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArQr.Core;
 using ArQr.Interface;
+using MediatR;
 using StackExchange.Redis;
 
 namespace ArQr.Infrastructure
 {
     public class CacheService : ICacheService
     {
-        private readonly IDatabase   _database;
+        private readonly IDatabase _database;
 
-        public CacheService(IConnectionMultiplexer connection)
+        public CacheService(IConnectionMultiplexer connection, IPublisher publisher)
         {
-            _database   = connection.GetDatabase();
+            _database = connection.GetDatabase();
+
+            SetupExpireEvent(connection.GetSubscriber(), publisher);
         }
 
         public async Task<bool> KeyExist(string key)
@@ -50,9 +54,11 @@ namespace ArQr.Infrastructure
             return await _database.SetLengthAsync(listKey);
         }
 
-        private async Task SetupExpireEvent()
+        private void SetupExpireEvent(ISubscriber subscriber, IPublisher publisher)
         {
-            await _database.ExecuteAsync("psubscribe", "'__key*__:expired'");
+            _database.Execute("config", "set", "notify-keyspace-events", "EA");
+            subscriber.Subscribe("__key*__:expired",
+                                 (_, key) => publisher.Publish(new CacheExpireNotification(key)));
         }
     }
 }
