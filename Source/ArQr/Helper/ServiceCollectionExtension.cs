@@ -19,7 +19,7 @@ namespace ArQr.Helper
             return services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, TokenOption tokenOption)
+        public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, TokenOptions tokenOptions)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -30,7 +30,7 @@ namespace ArQr.Helper
                         ValidateAudience         = false,
                         ValidateLifetime         = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey         = tokenOption.GetSecurityKey()
+                        IssuerSigningKey         = tokenOptions.GetSecurityKey()
                     });
 
             return services;

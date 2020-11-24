@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ArQr.Models
 {
-    public record TokenOption
+    public record TokenOptions
     {
         public string JwtSigningKey                    { get; init; }
         public int    JwtExpireIntervalInMinutes       { get; init; }

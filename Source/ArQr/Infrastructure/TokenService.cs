@@ -14,7 +14,7 @@ namespace ArQr.Infrastructure
 {
     public class TokenService : ITokenService
     {
-        private readonly TokenOption               _tokenOption;
+        private readonly TokenOptions               _tokenOptions;
         private readonly SigningCredentials        _credentials;
         private readonly JwtSecurityTokenHandler   _tokenHandler;
         private readonly TokenValidationParameters _validationParameters;
@@ -22,9 +22,9 @@ namespace ArQr.Infrastructure
 
         public TokenService(IConfiguration configuration)
         {
-            _tokenOption = configuration.GetTokenOption();
+            _tokenOptions = configuration.GetTokenOption();
 
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOption.JwtSigningKey));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenOptions.JwtSigningKey));
             _credentials  = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             _tokenHandler = new JwtSecurityTokenHandler();
             _validationParameters = new TokenValidationParameters
@@ -41,7 +41,7 @@ namespace ArQr.Infrastructure
         {
             var token = _tokenHandler.CreateToken(new SecurityTokenDescriptor
             {
-                Expires            = DateTime.UtcNow.AddMinutes(_tokenOption.JwtExpireIntervalInMinutes),
+                Expires            = DateTime.UtcNow.AddMinutes(_tokenOptions.JwtExpireIntervalInMinutes),
                 SigningCredentials = _credentials,
                 Claims             = claims
             });
@@ -69,7 +69,7 @@ namespace ArQr.Infrastructure
             return new UserRefreshToken
             {
                 Token      = Convert.ToBase64String(randomBytes),
-                ExpireDate = DateTime.UtcNow.AddDays(_tokenOption.RefreshTokenExpireIntervalInDays)
+                ExpireDate = DateTime.UtcNow.AddDays(_tokenOptions.RefreshTokenExpireIntervalInDays)
             };
         }
     }

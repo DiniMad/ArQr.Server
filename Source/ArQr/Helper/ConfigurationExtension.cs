@@ -5,9 +5,9 @@ namespace ArQr.Helper
 {
     public static class ConfigurationExtension
     {
-        public static TokenOption GetTokenOption(this IConfiguration configuration)
+        public static TokenOptions GetTokenOption(this IConfiguration configuration)
         {
-            return configuration.GetSection("Token").Get<TokenOption>();
+            return configuration.GetSection("Token").Get<TokenOptions>();
         }
     }
 }
