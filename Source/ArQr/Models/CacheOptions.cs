@@ -9,6 +9,19 @@ namespace ArQr.Models
         public string ViewersListPrefix              { get; init; }
         public int    ViewersCountExpireTimeInMinute { get; init; }
 
+        public void Deconstruct(out string ghostPrefix,
+                                out string qrCodePrefix,
+                                out string persistedViewersCountPrefix,
+                                out string viewersListPrefix,
+                                out int    viewersCountExpireTimeInMinute)
+        {
+            ghostPrefix                    = GhostPrefix;
+            qrCodePrefix                   = QrCodePrefix;
+            persistedViewersCountPrefix    = PersistedViewersCountPrefix;
+            viewersListPrefix              = ViewersListPrefix;
+            viewersCountExpireTimeInMinute = ViewersCountExpireTimeInMinute;
+        }
+
         public string SequenceKeyBuilder(params object[] keySections)
         {
             return string.Join(KyeSeparatorCharacter, keySections);

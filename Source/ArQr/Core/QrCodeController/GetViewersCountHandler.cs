@@ -30,23 +30,20 @@ namespace ArQr.Core.QrCodeController
         public async Task<ActionHandlerResult> Handle(GetViewersCountRequest request,
                                                       CancellationToken      cancellationToken)
         {
-            var qrCodeId = request.QrCodeId;
-            var ghostKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
+            var (ghostPrefix, qrCodePrefix, persistedViewersCountPrefix, viewersListPrefix, _) = _cacheOptions;
+
+            var qrCodeId      = request.QrCodeId;
+            var ghostKey      = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
             if (ghostKeyExist is true)
             {
                 var qrCodePersistedViewersCountKey =
-                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
-                                                     _cacheOptions.PersistedViewersCountPrefix,
-                                                     qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(qrCodePrefix, persistedViewersCountPrefix, qrCodeId);
                 var persistedViewersCount = await _cacheService.GetAsync(qrCodePersistedViewersCountKey);
                 if (persistedViewersCount is null) return new(StatusCodes.Status500InternalServerError, "Exception");
 
                 var cachedViewerListKey =
-                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
-                                                     _cacheOptions.ViewersListPrefix,
-                                                     qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
                 var cachedViewersCount = await _cacheService.GetCountOfListAsync(cachedViewerListKey);
 
                 var totalCount = cachedViewersCount + long.Parse(persistedViewersCount);

@@ -32,9 +32,11 @@ namespace ArQr.Core.QrCodeController
 
         public async Task<ActionHandlerResult> Handle(AddViewerRequest request, CancellationToken cancellationToken)
         {
-            var qrCodeId = request.QrCodeId;
-            var ghostKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
+            var (ghostPrefix, qrCodePrefix, persistedViewersCountPrefix, viewersListPrefix, expireTimeInMinute) =
+                _cacheOptions;
+
+            var qrCodeId      = request.QrCodeId;
+            var ghostKey      = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
             if (ghostKeyExist is false)
             {
@@ -43,18 +45,13 @@ namespace ArQr.Core.QrCodeController
 
                 var qrCodePersistedViewersCountValue = qrCode.ViewersCount.ToString();
                 var qrCodePersistedViewersCountKey =
-                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
-                                                     _cacheOptions.PersistedViewersCountPrefix,
-                                                     qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(qrCodePrefix, persistedViewersCountPrefix, qrCodeId);
                 await _cacheService.SetAsync(qrCodePersistedViewersCountKey, qrCodePersistedViewersCountValue);
             }
 
-            await _cacheService.SetAsync(ghostKey,
-                                         string.Empty,
-                                         TimeSpan.FromMinutes(_cacheOptions.ViewersCountExpireTimeInMinute));
+            await _cacheService.SetAsync(ghostKey, string.Empty, TimeSpan.FromMinutes(expireTimeInMinute));
 
-            var viewerListKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix, _cacheOptions.ViewersListPrefix, qrCodeId);
+            var viewerListKey = _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
 
