@@ -31,7 +31,7 @@ namespace ArQr.Core.QrCodeController
         {
             var qrCodeId      = request.QrCodeId;
             var ghostKey      = RedisSequenceKeyBuilder(GhostPrefix, QrCodePrefix, qrCodeId);
-            var ghostKeyExist = await _cacheService.GetAsync(ghostKey) is not null;
+            var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
             if (ghostKeyExist is false)
             {
                 var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
