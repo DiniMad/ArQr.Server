@@ -10,12 +10,10 @@ namespace ArQr.Infrastructure
     public class CacheService : ICacheService
     {
         private readonly IDatabase   _database;
-        private readonly ISubscriber _subscriber;
 
         public CacheService(IConnectionMultiplexer connection)
         {
             _database   = connection.GetDatabase();
-            _subscriber = connection.GetSubscriber();
         }
 
         public async Task<bool> KeyExist(string key)
@@ -50,12 +48,6 @@ namespace ArQr.Infrastructure
         public async Task<long> GetCountOfListAsync(string listKey)
         {
             return await _database.SetLengthAsync(listKey);
-        }
-
-        public async Task SubscribeToExpireEventAsync(Action<string> onExpired)
-        {
-            await SetupExpireEvent();
-            await _subscriber.SubscribeAsync("__key*__:expired", (_, key) => onExpired(key));
         }
 
         private async Task SetupExpireEvent()
