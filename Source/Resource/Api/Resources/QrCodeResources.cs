@@ -14,4 +14,6 @@ namespace Resource.Api.Resources
     }
 
     public sealed record AddViewerResource(long ViewerId);
+
+    public sealed record QrCodeViewersCountResource(int Count);
 }
