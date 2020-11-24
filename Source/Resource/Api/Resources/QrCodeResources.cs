@@ -12,4 +12,6 @@ namespace Resource.Api.Resources
         public bool    Expired               { get; init; }
         public long    OwnerId               { get; init; }
     }
+
+    public sealed record AddViewerResource(long ViewerId);
 }
