@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
 using ArQr.Interface;
@@ -19,7 +18,7 @@ namespace ArQr.Infrastructure
             _subscriber = connection.GetSubscriber();
         }
 
-        public async Task SetAsync(string key, string value, TimeSpan expiry)
+        public async Task SetAsync(string key, string value, TimeSpan? expiry = null)
         {
             await _database.StringSetAsync(key, value, expiry);
         }
