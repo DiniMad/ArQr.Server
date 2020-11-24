@@ -33,7 +33,8 @@ namespace ArQr.Core.QrCodeController
         public async Task<ActionHandlerResult> Handle(AddViewerRequest request, CancellationToken cancellationToken)
         {
             var qrCodeId = request.QrCodeId;
-            var ghostKey = RedisSequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
+            var ghostKey =
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
             if (ghostKeyExist is false)
             {
@@ -42,9 +43,9 @@ namespace ArQr.Core.QrCodeController
 
                 var qrCodePersistedViewersCountValue = qrCode.ViewersCount.ToString();
                 var qrCodePersistedViewersCountKey =
-                    RedisSequenceKeyBuilder(_cacheOptions.QrCodePrefix,
-                                            _cacheOptions.PersistedViewersCountPrefix,
-                                            qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
+                                                     _cacheOptions.PersistedViewersCountPrefix,
+                                                     qrCodeId);
                 await _cacheService.SetAsync(qrCodePersistedViewersCountKey, qrCodePersistedViewersCountValue);
             }
 
@@ -53,17 +54,11 @@ namespace ArQr.Core.QrCodeController
                                          TimeSpan.FromMinutes(_cacheOptions.ViewersCountExpireTimeInMinute));
 
             var viewerListKey =
-                RedisSequenceKeyBuilder(_cacheOptions.QrCodePrefix, _cacheOptions.ViewersListPrefix, qrCodeId);
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix, _cacheOptions.ViewersListPrefix, qrCodeId);
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
 
             return new(StatusCodes.Status200OK, "Viewer Added.");
-        }
-
-        private string RedisSequenceKeyBuilder(params object[] keySections)
-        {
-            var key = string.Join(':', keySections);
-            return key;
         }
     }
 }

@@ -31,19 +31,22 @@ namespace ArQr.Core.QrCodeController
                                                       CancellationToken      cancellationToken)
         {
             var qrCodeId = request.QrCodeId;
-            var ghostKey = RedisSequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
+            var ghostKey =
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.GhostPrefix, _cacheOptions.QrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
             if (ghostKeyExist is true)
             {
                 var qrCodePersistedViewersCountKey =
-                    RedisSequenceKeyBuilder(_cacheOptions.QrCodePrefix,
-                                            _cacheOptions.PersistedViewersCountPrefix,
-                                            qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
+                                                     _cacheOptions.PersistedViewersCountPrefix,
+                                                     qrCodeId);
                 var persistedViewersCount = await _cacheService.GetAsync(qrCodePersistedViewersCountKey);
                 if (persistedViewersCount is null) return new(StatusCodes.Status500InternalServerError, "Exception");
 
                 var cachedViewerListKey =
-                    RedisSequenceKeyBuilder(_cacheOptions.QrCodePrefix, _cacheOptions.ViewersListPrefix, qrCodeId);
+                    _cacheOptions.SequenceKeyBuilder(_cacheOptions.QrCodePrefix,
+                                                     _cacheOptions.ViewersListPrefix,
+                                                     qrCodeId);
                 var cachedViewersCount = await _cacheService.GetCountOfListAsync(cachedViewerListKey);
 
                 var totalCount = cachedViewersCount + long.Parse(persistedViewersCount);
@@ -57,12 +60,6 @@ namespace ArQr.Core.QrCodeController
                 var totalCount = qrCode.ViewersCount;
                 return new(StatusCodes.Status200OK, new {Count = totalCount});
             }
-        }
-
-        private string RedisSequenceKeyBuilder(params object[] keySections)
-        {
-            var key = string.Join(':', keySections);
-            return key;
         }
     }
 }
