@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
+using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeController
@@ -54,7 +55,7 @@ namespace ArQr.Core.QrCodeController
                 var cachedViewersCount = await _cacheService.GetCountOfListAsync(cachedViewerListKey);
 
                 var totalCount = cachedViewersCount + long.Parse(persistedViewersCount);
-                return new(StatusCodes.Status200OK, new {Count = totalCount});
+                return new(StatusCodes.Status200OK, new QrCodeViewersCountResource((int) totalCount));
             }
             else
             {
@@ -64,7 +65,7 @@ namespace ArQr.Core.QrCodeController
                                _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
                 var totalCount = qrCode.ViewersCount;
-                return new(StatusCodes.Status200OK, new {Count = totalCount});
+                return new(StatusCodes.Status200OK, new QrCodeViewersCountResource(totalCount));
             }
         }
     }
