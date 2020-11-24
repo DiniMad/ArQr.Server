@@ -8,5 +8,7 @@ namespace Resource.ResourceFiles
         public const string RefreshToken = "RefreshToken";
         public const string Email        = "Email";
         public const string ViewerId     = "ViewerId";
+        public const string PageSize     = "PageSize";
+        public const string PageNumber   = "PageNumber";
     }
 }

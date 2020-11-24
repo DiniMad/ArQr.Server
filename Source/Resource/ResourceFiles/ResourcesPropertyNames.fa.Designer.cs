@@ -70,6 +70,24 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شماره صفحه.
+        /// </summary>
+        internal static string PageNumber {
+            get {
+                return ResourceManager.GetString("PageNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعداد ایتم های صفحه.
+        /// </summary>
+        internal static string PageSize {
+            get {
+                return ResourceManager.GetString("PageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز عبور.
         /// </summary>
         internal static string Password {

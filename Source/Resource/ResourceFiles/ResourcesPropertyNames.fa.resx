@@ -36,4 +36,10 @@
     <data name="ViewerId" xml:space="preserve">
         <value>شناسه بازدیدکننده</value>
     </data>
+    <data name="PageSize" xml:space="preserve">
+        <value>تعداد ایتم های صفحه</value>
+    </data>
+    <data name="PageNumber" xml:space="preserve">
+        <value>شماره صفحه</value>
+    </data>
 </root>

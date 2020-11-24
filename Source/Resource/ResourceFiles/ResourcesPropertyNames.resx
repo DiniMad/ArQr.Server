@@ -29,4 +29,10 @@
     <data name="ViewerId" xml:space="preserve">
         <value>Viewer ID</value>
     </data>
+    <data name="PageSize" xml:space="preserve">
+        <value>Page size</value>
+    </data>
+    <data name="PageNumber" xml:space="preserve">
+        <value>Page number</value>
+    </data>
 </root>
