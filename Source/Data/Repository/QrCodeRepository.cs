@@ -17,12 +17,12 @@ namespace Data.Repository
 
         public async Task<IEnumerable<QrCode>> FindAsync(Expression<Func<QrCode, bool>> predicate, int after, int take)
         {
-            return await Context.Set<QrCode>().Where(predicate).Skip(after).Take(take).ToListAsync();
+            return await Context.Set<QrCode>().AsNoTracking().Where(predicate).Skip(after).Take(take).ToListAsync();
         }
 
         public async Task<int> GetCountAsync(Expression<Func<QrCode, bool>> predicate)
         {
-            return await Context.Set<QrCode>().Where(predicate).CountAsync();
+            return await Context.Set<QrCode>().AsNoTracking().Where(predicate).CountAsync();
         }
     }
 }
