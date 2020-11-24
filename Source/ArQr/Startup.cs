@@ -29,6 +29,7 @@ namespace ArQr
 
             services.AddHttpContextAccessor();
             services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
+            services.AddCacheService(Configuration.GetConnectionString("Redis"));
             services.AddJwtAuthentication(Configuration.GetTokenOption());
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
