@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ArQr.Core.AccountController;
+using ArQr.Core.AccountHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

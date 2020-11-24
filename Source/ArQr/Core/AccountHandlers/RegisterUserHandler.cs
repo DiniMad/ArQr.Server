@@ -12,7 +12,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.AccountController
+namespace ArQr.Core.AccountHandlers
 {
     public sealed record RegisterUserRequest(UserRegisterResource RegisterResource) : IRequest<ActionHandlerResult>;
 

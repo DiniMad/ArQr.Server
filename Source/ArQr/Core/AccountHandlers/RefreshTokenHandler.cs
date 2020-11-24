@@ -10,7 +10,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.AccountController
+namespace ArQr.Core.AccountHandlers
 {
     public sealed record RefreshTokenRequest(RefreshTokenResource RefreshTokenResource) : IRequest<ActionHandlerResult>;
 

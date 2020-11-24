@@ -13,7 +13,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.AccountController
+namespace ArQr.Core.AccountHandlers
 {
     public sealed record LoginUserRequest(UserLoginResource LoginResource) : IRequest<ActionHandlerResult>;
 
