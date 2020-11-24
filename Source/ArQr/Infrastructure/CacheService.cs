@@ -28,12 +28,12 @@ namespace ArQr.Infrastructure
             return await _database.StringGetAsync(key);
         }
 
-        public async Task AddToUniqueList(string key, string value)
+        public async Task AddToUniqueListAsync(string key, string value)
         {
             await _database.SetAddAsync(key, value);
         }
 
-        public async Task<IEnumerable<string>> GetUniqueList(string key)
+        public async Task<IEnumerable<string>> GetUniqueListAsync(string key)
         {
             var setMembers = await _database.SetMembersAsync(key);
             if (setMembers is null) return Enumerable.Empty<string>();
