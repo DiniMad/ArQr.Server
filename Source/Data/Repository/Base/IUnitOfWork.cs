@@ -5,8 +5,9 @@ namespace Data.Repository.Base
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        public IUserRepository   UserRepository   { get; }
-        public IQrCodeRepository QrCodeRepository { get; }
+        public IUserRepository          UserRepository          { get; }
+        public IQrCodeRepository        QrCodeRepository        { get; }
+        public IQrCodeViewersRepository QrCodeViewersRepository { get; }
 
         public Task CompleteAsync();
     }
