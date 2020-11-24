@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
 
-namespace ArQr.Core.UserController
+namespace ArQr.Core.UserHandlers
 {
     public sealed record UserGetMeRequest : IRequest<ActionHandlerResult>;
 
