@@ -9,5 +9,10 @@ namespace ArQr.Helper
         {
             return configuration.GetSection("Token").Get<TokenOptions>();
         }
+
+        public static CacheOptions GetCacheOptions(this IConfiguration configuration)
+        {
+            return configuration.GetSection("CacheOptions").Get<CacheOptions>();
+        }
     }
 }
