@@ -41,13 +41,14 @@ namespace ArQr.Core.QrCodeController
                 var qrCodePersistedViewersCountKey =
                     RedisSequenceKeyBuilder(QrCodePrefix, PersistedViewersCountPrefix, qrCodeId);
                 await _cacheService.SetAsync(qrCodePersistedViewersCountKey, qrCodePersistedViewersCountValue);
-
-                await _cacheService.SetAsync(ghostKey, string.Empty, TimeSpan.FromMinutes(10));
             }
+
+            await _cacheService.SetAsync(ghostKey, string.Empty, TimeSpan.FromMinutes(10));
 
             var viewerListKey = RedisSequenceKeyBuilder(QrCodePrefix, ViewersListPrefix, qrCodeId);
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
+            
             return new(StatusCodes.Status200OK, "Viewer Added.");
         }
 
