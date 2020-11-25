@@ -56,6 +56,7 @@ namespace ArQr.Core.QrCodeHandlers
 
         private async Task<ActionHandlerResult> Handle<TResult>(long                    userId,
                                                                 PaginationInputResource paginationInput)
+            where TResult : QrCodeResource
         {
             var userQrCodes =
                 await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId,
