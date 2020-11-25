@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArQr.Core.QrCodeHandlers;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Resource.Api.Resources;
 
@@ -24,6 +25,16 @@ namespace ArQr.Controllers
         {
             var (statusCode, value) =
                 await _mediator.Send(new GetAllUserQrCodesRequest(userId, paginationInputResource));
+            return StatusCode(statusCode, value);
+        }
+
+        [Authorize]
+        [HttpGet("/User/Me/QrCode")]
+        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllMyQrCodes(
+            [FromQuery] PaginationInputResource paginationInputResource)
+        {
+            var (statusCode, value) =
+                await _mediator.Send(new GetAllUserQrCodesAuthorizedRequest(paginationInputResource));
             return StatusCode(statusCode, value);
         }
 
