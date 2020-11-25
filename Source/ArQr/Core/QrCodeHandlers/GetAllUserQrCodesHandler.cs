@@ -16,7 +16,11 @@ namespace ArQr.Core.QrCodeHandlers
     public sealed record GetAllUserQrCodesRequest
         (long UserId, PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;
 
-    public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>
+    public sealed record GetAllUserQrCodesAuthorizedRequest
+        (PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;
+
+    public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>,
+                                            IRequestHandler<GetAllUserQrCodesAuthorizedRequest, ActionHandlerResult>
     {
         private readonly IUnitOfWork                            _unitOfWork;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
@@ -39,6 +43,19 @@ namespace ArQr.Core.QrCodeHandlers
         {
             var userId          = request.UserId;
             var paginationInput = request.PaginationInputResource;
+            return await Handle(userId, paginationInput);
+        }
+
+        public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesAuthorizedRequest request,
+                                                      CancellationToken                  cancellationToken)
+        {
+            var userId          = _httpContextAccessor.HttpContext!.GetUserId();
+            var paginationInput = request.PaginationInputResource;
+            return await Handle(userId, paginationInput);
+        }
+
+        private async Task<ActionHandlerResult> Handle(long userId, PaginationInputResource paginationInput)
+        {
             var userQrCodes =
                 await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId,
                                                              paginationInput.After,
@@ -49,12 +66,13 @@ namespace ArQr.Core.QrCodeHandlers
                            _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
             var userQrCodesResource = _mapper.Map<IEnumerable<QrCodeResource>>(userQrCodes);
-            var userQrCodeCount = await _unitOfWork.QrCodeRepository.GetCountAsync(code => code.OwnerId == userId);
-            var baseUrl         = _httpContextAccessor.HttpContext!.GetFullUrl();
-            
+            var userQrCodeCount =
+                await _unitOfWork.QrCodeRepository.GetCountAsync(code => code.OwnerId == userId);
+            var baseUrl = _httpContextAccessor.HttpContext!.GetFullUrl();
+
             PaginationResultResource<QrCodeResource> paginationResult =
                 new(userQrCodesResource, userQrCodeCount, baseUrl, paginationInput);
-            
+
             return new(StatusCodes.Status200OK, paginationResult);
         }
     }
