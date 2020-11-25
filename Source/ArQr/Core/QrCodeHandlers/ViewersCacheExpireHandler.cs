@@ -36,34 +36,45 @@ namespace ArQr.Core.QrCodeHandlers
             var viewerListKey     = _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
             var cachedViewersList = (await _cacheService.GetUniqueListAsync(viewerListKey)).ToList();
             if (!cachedViewersList.Any()) return Unit.Value;
+
+            int newViewersCount;
             var persistedViewers =
                 (await _unitOfWork.QrCodeViewersRepository.FindAsync(viewer => viewer.QrCodeId == qrCodeId)).ToList();
-            if (!persistedViewers.Any())
+            if (persistedViewers.Any())
+            {
+                var persistedViewersId = persistedViewers.Select(viewer => viewer.Id.ToString());
+                var newViewers = cachedViewersList
+                                 .Where(viewerId => !persistedViewersId.Contains(viewerId))
+                                 .Select(viewerId => new QrCodeViewer
+                                 {
+                                     Id       = long.Parse(viewerId),
+                                     QrCodeId = qrCodeId
+                                 })
+                                 .ToList();
+
+                await _unitOfWork.QrCodeViewersRepository.InsertCollectionAsync(newViewers);
+                newViewersCount = newViewers.Count;
+            }
+            else
             {
                 var cachedQrCodeViewers =
                     cachedViewersList.Select(viewerId => new QrCodeViewer
-                    {
-                        Id       = long.Parse(viewerId),
-                        QrCodeId = qrCodeId
-                    });
+                                     {
+                                         Id       = long.Parse(viewerId),
+                                         QrCodeId = qrCodeId
+                                     })
+                                     .ToList();
 
                 await _unitOfWork.QrCodeViewersRepository.InsertCollectionAsync(cachedQrCodeViewers);
-                await _unitOfWork.CompleteAsync();
-                return Unit.Value;
+                newViewersCount = cachedQrCodeViewers.Count;
             }
 
-            var persistedViewersId = persistedViewers.Select(viewer => viewer.Id.ToString());
-            var newViewers =
-                cachedViewersList.Where(viewerId => !persistedViewersId.Contains(viewerId));
-            var newQrCodeViewer = newViewers.Select(viewerId => new QrCodeViewer
-            {
-                Id       = long.Parse(viewerId),
-                QrCodeId = qrCodeId
-            });
+            var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
+            if (qrCode is null) return Unit.Value;
+            qrCode.ViewersCount += newViewersCount;
+            _unitOfWork.QrCodeRepository.Update(qrCode);
 
-            await _unitOfWork.QrCodeViewersRepository.InsertCollectionAsync(newQrCodeViewer);
             await _unitOfWork.CompleteAsync();
-
 
             var qrCodePersistedViewersCountKey =
                 _cacheOptions.SequenceKeyBuilder(qrCodePrefix, persistedViewersCountPrefix, qrCodeId);
