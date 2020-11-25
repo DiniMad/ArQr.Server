@@ -15,7 +15,11 @@ namespace ArQr.MappingProfiles
                 .ForMember(resource => resource.Expired,
                            expression =>
                                expression.MapFrom(code =>
-                                                      code.ExpireDate < DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
+                                                      code.ExpireDate < DateTimeOffset.UtcNow.ToUnixTimeSeconds()))
+                .ForMember(resource => resource.ReachedMaxViews,
+                           expression =>
+                               expression.MapFrom(code =>
+                                                      code.ViewersCount >= code.MaxAllowedViewersCount));
         }
     }
 }
