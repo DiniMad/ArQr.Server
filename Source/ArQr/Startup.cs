@@ -34,6 +34,7 @@ namespace ArQr
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
             services.AddTheLocalization();
+            services.AddTheParbad(Configuration.GetConnectionString("Parbad"));
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
@@ -53,7 +54,14 @@ namespace ArQr
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                // TODO: Remove after developing the Parbad payment functionality. 
+                endpoints.MapDefaultControllerRoute();
+            });
+            // TODO: Remove after developing the Parbad payment functionality. 
+            app.UseParbadVirtualGatewayWhenDeveloping();
         }
     }
 }
