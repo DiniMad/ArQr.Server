@@ -9,7 +9,9 @@ namespace ArQr.MappingProfiles
     {
         public QrCodeMappingProfile()
         {
-            CreateMap<QrCode, QrCodeResource>()
+            CreateMap<QrCode, QrCodeResource>();
+
+            CreateMap<QrCode, AuthorizeQrCodeResource>()
                 .ForMember(resource => resource.Expired,
                            expression =>
                                expression.MapFrom(code =>
