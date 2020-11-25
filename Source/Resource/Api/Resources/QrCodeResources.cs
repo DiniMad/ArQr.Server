@@ -14,7 +14,6 @@ namespace Resource.Api.Resources
         public int  CreationDate { get; init; }
         public int  ExpireDate   { get; init; }
         public bool Expired      { get; init; }
-        public long OwnerId      { get; init; }
         public int  ViewersCount { get; set; }
     }
 
