@@ -16,11 +16,11 @@ namespace ArQr.Core.QrCodeHandlers
     public sealed record GetAllUserQrCodesRequest
         (long UserId, PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;
 
-    public sealed record GetAllUserQrCodesAuthorizedRequest
+    public sealed record GetAllMyQrCodesRequest
         (PaginationInputResource PaginationInputResource) : IRequest<ActionHandlerResult>;
 
     public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>,
-                                            IRequestHandler<GetAllUserQrCodesAuthorizedRequest, ActionHandlerResult>
+                                            IRequestHandler<GetAllMyQrCodesRequest, ActionHandlerResult>
     {
         private readonly IUnitOfWork                            _unitOfWork;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
@@ -46,8 +46,8 @@ namespace ArQr.Core.QrCodeHandlers
             return await Handle<QrCodeResource>(userId, paginationInput);
         }
 
-        public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesAuthorizedRequest request,
-                                                      CancellationToken                  cancellationToken)
+        public async Task<ActionHandlerResult> Handle(GetAllMyQrCodesRequest request,
+                                                      CancellationToken      cancellationToken)
         {
             var userId          = _httpContextAccessor.HttpContext!.GetUserId();
             var paginationInput = request.PaginationInputResource;

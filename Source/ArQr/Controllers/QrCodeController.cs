@@ -34,7 +34,7 @@ namespace ArQr.Controllers
             [FromQuery] PaginationInputResource paginationInputResource)
         {
             var (statusCode, value) =
-                await _mediator.Send(new GetAllUserQrCodesAuthorizedRequest(paginationInputResource));
+                await _mediator.Send(new GetAllMyQrCodesRequest(paginationInputResource));
             return StatusCode(statusCode, value);
         }
 
