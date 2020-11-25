@@ -61,7 +61,7 @@ namespace ArQr.Controllers
         }
 
         [HttpGet("{qrCodeId}/cachedViewersCount")]
-        public async Task<ActionResult> GetViewersCount(long qrCodeId)
+        public async Task<ActionResult> GetCachedViewersCount(long qrCodeId)
         {
             var (statusCode, value) = await _mediator.Send(new GetCachedViewersCountRequest(qrCodeId));
             return StatusCode(statusCode, value);
