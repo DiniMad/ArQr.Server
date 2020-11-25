@@ -30,7 +30,7 @@ namespace ArQr.Core.QrCodeHandlers
 
         public async Task<Unit> Handle(ViewersCacheExpireRequest request, CancellationToken cancellationToken)
         {
-            var (_, qrCodePrefix, _, viewersListPrefix, _) = _cacheOptions;
+            var (_, qrCodePrefix, viewersListPrefix, _) = _cacheOptions;
 
             var qrCodeId          = request.QrCodeId;
             var viewerListKey     = _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);

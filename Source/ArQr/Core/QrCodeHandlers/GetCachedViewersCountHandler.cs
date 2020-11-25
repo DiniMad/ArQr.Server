@@ -33,7 +33,7 @@ namespace ArQr.Core.QrCodeHandlers
         public async Task<ActionHandlerResult> Handle(GetCachedViewersCountRequest request,
                                                       CancellationToken            cancellationToken)
         {
-            var (ghostPrefix, qrCodePrefix, _, viewersListPrefix, _) = _cacheOptions;
+            var (ghostPrefix, qrCodePrefix, viewersListPrefix, _) = _cacheOptions;
 
             var qrCodeId      = request.QrCodeId;
             var ghostKey      = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);

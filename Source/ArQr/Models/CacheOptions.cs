@@ -7,19 +7,16 @@ namespace ArQr.Models
         public char   KyeSeparatorCharacter          { get; init; }
         public string GhostPrefix                    { get; init; }
         public string QrCodePrefix                   { get; init; }
-        public string PersistedViewersCountPrefix    { get; init; }
         public string ViewersListPrefix              { get; init; }
         public int    ViewersCountExpireTimeInMinute { get; init; }
 
         public void Deconstruct(out string ghostPrefix,
                                 out string qrCodePrefix,
-                                out string persistedViewersCountPrefix,
                                 out string viewersListPrefix,
                                 out int    viewersCountExpireTimeInMinute)
         {
             ghostPrefix                    = GhostPrefix;
             qrCodePrefix                   = QrCodePrefix;
-            persistedViewersCountPrefix    = PersistedViewersCountPrefix;
             viewersListPrefix              = ViewersListPrefix;
             viewersCountExpireTimeInMinute = ViewersCountExpireTimeInMinute;
         }
