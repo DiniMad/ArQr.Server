@@ -19,7 +19,7 @@ namespace ArQr.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/User/{userId}/QrCode")]
+        [HttpGet("/user/{userId}/qrCode")]
         public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllUserQrCodes(long userId,
             [FromQuery] PaginationInputResource                                             paginationInputResource)
         {
@@ -29,7 +29,7 @@ namespace ArQr.Controllers
         }
 
         [Authorize]
-        [HttpGet("/User/Me/QrCode")]
+        [HttpGet("/user/me/qrCode")]
         public async Task<ActionResult<IEnumerable<AuthorizeQrCodeResource>>> GetAllMyQrCodes(
             [FromQuery] PaginationInputResource paginationInputResource)
         {
