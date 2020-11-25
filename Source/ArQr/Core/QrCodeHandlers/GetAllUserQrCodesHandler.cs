@@ -43,7 +43,7 @@ namespace ArQr.Core.QrCodeHandlers
         {
             var userId          = request.UserId;
             var paginationInput = request.PaginationInputResource;
-            return await Handle(userId, paginationInput);
+            return await Handle<QrCodeResource>(userId, paginationInput);
         }
 
         public async Task<ActionHandlerResult> Handle(GetAllUserQrCodesAuthorizedRequest request,
@@ -51,10 +51,11 @@ namespace ArQr.Core.QrCodeHandlers
         {
             var userId          = _httpContextAccessor.HttpContext!.GetUserId();
             var paginationInput = request.PaginationInputResource;
-            return await Handle(userId, paginationInput);
+            return await Handle<AuthorizeQrCodeResource>(userId, paginationInput);
         }
 
-        private async Task<ActionHandlerResult> Handle(long userId, PaginationInputResource paginationInput)
+        private async Task<ActionHandlerResult> Handle<TResult>(long                    userId,
+                                                                PaginationInputResource paginationInput)
         {
             var userQrCodes =
                 await _unitOfWork.QrCodeRepository.FindAsync(code => code.OwnerId == userId,
@@ -65,12 +66,12 @@ namespace ArQr.Core.QrCodeHandlers
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
 
-            var userQrCodesResource = _mapper.Map<IEnumerable<QrCodeResource>>(userQrCodes);
+            var userQrCodesResource = _mapper.Map<IEnumerable<TResult>>(userQrCodes);
             var userQrCodeCount =
                 await _unitOfWork.QrCodeRepository.GetCountAsync(code => code.OwnerId == userId);
             var baseUrl = _httpContextAccessor.HttpContext!.GetFullUrl();
 
-            PaginationResultResource<QrCodeResource> paginationResult =
+            PaginationResultResource<TResult> paginationResult =
                 new(userQrCodesResource, userQrCodeCount, baseUrl, paginationInput);
 
             return new(StatusCodes.Status200OK, paginationResult);
