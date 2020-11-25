@@ -42,7 +42,7 @@ namespace ArQr.Core.QrCodeHandlers
 
             var qrCodeId      = request.QrCodeId;
             var ghostKey      = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);
-            var ghostKeyExist = await _cacheService.KeyExist(ghostKey);
+            var ghostKeyExist = await _cacheService.KeyExistAsync(ghostKey);
             if (ghostKeyExist is false)
             {
                 var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);

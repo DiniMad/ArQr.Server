@@ -20,7 +20,7 @@ namespace ArQr.Infrastructure
             SetupExpireEvent(connection.GetSubscriber(), publisher);
         }
 
-        public async Task<bool> KeyExist(string key)
+        public async Task<bool> KeyExistAsync(string key)
         {
             return await _database.KeyExistsAsync(key);
         }
