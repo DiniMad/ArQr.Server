@@ -11,10 +11,12 @@ namespace Resource.Api.Resources
 
     public sealed record AuthorizeQrCodeResource : QrCodeResource
     {
-        public int  CreationDate { get; init; }
-        public int  ExpireDate   { get; init; }
-        public bool Expired      { get; init; }
-        public int  ViewersCount { get; set; }
+        public int  CreationDate           { get; init; }
+        public int  ExpireDate             { get; init; }
+        public bool Expired                { get; init; }
+        public int  ViewersCount           { get; set; }
+        public int  MaxAllowedViewersCount { get; set; }
+        public bool ReachedMaxViews        { get; set; }
     }
 
 
