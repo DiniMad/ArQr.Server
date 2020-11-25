@@ -30,7 +30,7 @@ namespace ArQr.Controllers
 
         [Authorize]
         [HttpGet("/User/Me/QrCode")]
-        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetAllMyQrCodes(
+        public async Task<ActionResult<IEnumerable<AuthorizeQrCodeResource>>> GetAllMyQrCodes(
             [FromQuery] PaginationInputResource paginationInputResource)
         {
             var (statusCode, value) =
