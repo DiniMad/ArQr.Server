@@ -8,7 +8,9 @@ namespace ArQr.Models
         public string GhostPrefix                    { get; init; }
         public string QrCodePrefix                   { get; init; }
         public string ViewersListPrefix              { get; init; }
+        public string PaymentPrefix                  { get; init; }
         public int    ViewersCountExpireTimeInMinute { get; init; }
+        public int    PaymentExpireTimeInMinute      { get; init; }
 
         public void Deconstruct(out string ghostPrefix,
                                 out string qrCodePrefix,
