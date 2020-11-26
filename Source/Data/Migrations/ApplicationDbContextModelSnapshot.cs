@@ -19,51 +19,6 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
 
-            modelBuilder.Entity("Domain.Purchase", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("Date")
-                        .HasColumnType("int");
-
-                    b.Property<string>("GetwayName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("OffAmountInThousandToman")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int>("PaidAmountInThousandToman")
-                        .HasColumnType("int");
-
-                    b.Property<byte>("Quantity")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("ServiceId")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("TransactionCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("TransactionCode")
-                        .IsUnique();
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Purchases");
-                });
-
             modelBuilder.Entity("Domain.QrCode", b =>
                 {
                     b.Property<long>("Id")
@@ -127,32 +82,6 @@ namespace Data.Migrations
                     b.ToTable("QrCodeViewers");
                 });
 
-            modelBuilder.Entity("Domain.Service", b =>
-                {
-                    b.Property<byte>("Id")
-                        .HasColumnType("tinyint");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<int>("UnitPriceInThousandToman")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Services");
-                });
-
             modelBuilder.Entity("Domain.User", b =>
                 {
                     b.Property<long>("Id")
@@ -208,25 +137,6 @@ namespace Data.Migrations
                     b.ToTable("UserRefreshToken");
                 });
 
-            modelBuilder.Entity("Domain.Purchase", b =>
-                {
-                    b.HasOne("Domain.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.User", "User")
-                        .WithMany("Purchases")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Service");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.QrCode", b =>
                 {
                     b.HasOne("Domain.User", "Owner")
@@ -263,8 +173,6 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Domain.User", b =>
                 {
-                    b.Navigation("Purchases");
-
                     b.Navigation("QrCodes");
 
                     b.Navigation("RefreshToken")
