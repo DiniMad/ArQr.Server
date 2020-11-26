@@ -62,12 +62,17 @@ namespace ArQr.Core.PaymentHandlers
                 if (cancelResult.IsSucceed is true)
                     return new(StatusCodes.Status410Gone,
                                _responseMessages[HttpResponseMessages.PaymentExpired].Value);
+                
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
             }
 
 
             var cachePayment = JsonSerializer.Deserialize<CachePaymentResource>(paymentString);
+            if (cachePayment is null)
+                return new(StatusCodes.Status500InternalServerError,
+                           _responseMessages[HttpResponseMessages.UnhandledException].Value);
+            
             if (cachePayment.PriceInRial != payment.Amount)
                 return new(StatusCodes.Status400BadRequest,
                            _responseMessages[HttpResponseMessages.WrongPayment].Value);
