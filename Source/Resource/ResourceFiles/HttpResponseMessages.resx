@@ -41,4 +41,16 @@
     <data name="ServiceNotFound" xml:space="preserve">
         <value>Service not found.</value>
     </data>
+    <data name="PaymentAlreadyProcessed" xml:space="preserve">
+        <value>Payment already processed.</value>
+    </data>
+    <data name="PaymentAlreadyVerified" xml:space="preserve">
+        <value>Payment already verified.</value>
+    </data>
+    <data name="PaymentExpired" xml:space="preserve">
+        <value>Payment expired. Your Money will return to your account.</value>
+    </data>
+    <data name="WrongPayment" xml:space="preserve">
+        <value>Payment is wrong.</value>
+    </data>
 </root>

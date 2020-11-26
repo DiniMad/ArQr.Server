@@ -12,5 +12,9 @@ namespace Resource.ResourceFiles
         public const string QrCodeNotFound              = "QrCodeNotFound";
         public const string Done                        = "Done";
         public const string ServiceNotFound             = "ServiceNotFound";
+        public const string PaymentAlreadyProcessed     = "ServiceNotFound";
+        public const string PaymentAlreadyVerified      = "PaymentAlreadyVerified";
+        public const string PaymentExpired              = "PaymentExpired";
+        public const string WrongPayment                = "WrongPayment";
     }
 }

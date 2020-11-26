@@ -106,6 +106,33 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to پرداخت قبلا پردازش شده است..
+        /// </summary>
+        internal static string PaymentAlreadyProcessed {
+            get {
+                return ResourceManager.GetString("PaymentAlreadyProcessed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پرداخت قبلا تایید شده است..
+        /// </summary>
+        internal static string PaymentAlreadyVerified {
+            get {
+                return ResourceManager.GetString("PaymentAlreadyVerified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پرداخت منقضی شده است. مبلغ به حساب شما بازگشت داده میشود..
+        /// </summary>
+        internal static string PaymentExpired {
+            get {
+                return ResourceManager.GetString("PaymentExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to بارکد پیدا نشد..
         /// </summary>
         internal static string QrCodeNotFound {
@@ -147,6 +174,15 @@ namespace Resource.ResourceFiles {
         internal static string UserNotFound {
             get {
                 return ResourceManager.GetString("UserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to پرداخت اشتباه است..
+        /// </summary>
+        internal static string WrongPayment {
+            get {
+                return ResourceManager.GetString("WrongPayment", resourceCulture);
             }
         }
     }

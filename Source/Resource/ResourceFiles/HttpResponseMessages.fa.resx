@@ -48,4 +48,16 @@
     <data name="ServiceNotFound" xml:space="preserve">
         <value>سرویس پیدا نشد.</value>
     </data>
+    <data name="PaymentAlreadyProcessed" xml:space="preserve">
+        <value>پرداخت قبلا پردازش شده است.</value>
+    </data>
+    <data name="PaymentAlreadyVerified" xml:space="preserve">
+        <value>پرداخت قبلا تایید شده است.</value>
+    </data>
+    <data name="PaymentExpired" xml:space="preserve">
+        <value>پرداخت منقضی شده است. مبلغ به حساب شما بازگشت داده میشود.</value>
+    </data>
+    <data name="WrongPayment" xml:space="preserve">
+        <value>پرداخت اشتباه است.</value>
+    </data>
 </root>
