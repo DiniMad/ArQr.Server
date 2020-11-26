@@ -11,6 +11,7 @@ namespace Data.Repository
         public  IQrCodeRepository        QrCodeRepository        { get; }
         public  IQrCodeViewersRepository QrCodeViewersRepository { get; }
         public  IServiceRepository       ServiceRepository       { get; }
+        public  IPurchaseRepository      PurchaseRepository      { get; }
 
         public UnitOfWork()
         {
@@ -21,6 +22,7 @@ namespace Data.Repository
             QrCodeRepository        = new QrCodeRepository(DbContext);
             QrCodeViewersRepository = new QrCodeViewersRepository(DbContext);
             ServiceRepository       = new ServiceRepository(DbContext);
+            PurchaseRepository      = new PurchaseRepository(DbContext);
         }
 
         public async Task CompleteAsync()

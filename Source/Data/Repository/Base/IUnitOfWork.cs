@@ -9,6 +9,7 @@ namespace Data.Repository.Base
         public IQrCodeRepository        QrCodeRepository        { get; }
         public IQrCodeViewersRepository QrCodeViewersRepository { get; }
         public IServiceRepository       ServiceRepository       { get; }
+        public IPurchaseRepository      PurchaseRepository      { get; }
 
         public Task CompleteAsync();
     }
