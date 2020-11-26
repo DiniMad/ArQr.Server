@@ -5,7 +5,7 @@ namespace Domain
     public class Purchase : BaseDomain<long>
     {
         public string   TransactionCode           { get; set; }
-        public string   GetwayName                { get; set; }
+        public string   GatewayName               { get; set; }
         public byte     Quantity                  { get; set; }
         public int      Date                      { get; set; }
         public int      PaidAmountInThousandToman { get; set; }
