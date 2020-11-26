@@ -87,7 +87,7 @@ namespace ArQr.Core.PaymentHandlers
             var paymentKey =
                 _cacheOptions.SequenceKeyBuilder(_cacheOptions.PaymentPrefix, invoiceResult.TrackingNumber);
             CachePaymentResource cachePayment =
-                new(invoiceResult.GatewayName, requestedQuantity, 0, userId, serviceId);
+                new(invoiceResult.GatewayName, requestedQuantity, totalPriceInRial,0, userId, serviceId);
             var paymentString =
                 JsonSerializer.Serialize(cachePayment, new JsonSerializerOptions {IgnoreNullValues = true});
 
