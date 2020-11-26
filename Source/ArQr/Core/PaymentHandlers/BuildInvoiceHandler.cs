@@ -80,12 +80,12 @@ namespace ArQr.Core.PaymentHandlers
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
 
-            CachePurchaseResource cachePurchase =
+            CachePaymentResource cachePayment =
                 new(invoiceResult.GatewayName, requestedQuantity, 0, userId, serviceId);
-            var purchaseString =
-                JsonSerializer.Serialize(cachePurchase, new JsonSerializerOptions {IgnoreNullValues = true});
-            await _cacheService.SetAsync(purchaseString,
-                                         cachePurchase.ToString(),
+            var paymentString =
+                JsonSerializer.Serialize(cachePayment, new JsonSerializerOptions {IgnoreNullValues = true});
+            await _cacheService.SetAsync(paymentString,
+                                         cachePayment.ToString(),
                                          TimeSpan.FromMinutes(10));
 
             return new(StatusCodes.Status200OK, invoiceResult.GatewayTransporter.Descriptor);
