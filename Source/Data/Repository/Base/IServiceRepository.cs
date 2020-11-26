@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Domain;
 
 namespace Data.Repository.Base
@@ -17,5 +18,7 @@ namespace Data.Repository.Base
 
         [Obsolete("This repository should not have remove method.", true)]
         void RemoveCollection(IEnumerable<Service> domains);
+
+        public Task UpdateActiveProperty(byte serviceId, bool active);
     }
 }
