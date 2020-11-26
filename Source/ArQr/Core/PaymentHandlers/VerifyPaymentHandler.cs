@@ -47,8 +47,12 @@ namespace ArQr.Core.PaymentHandlers
             var payment = await _onlinePayment.FetchAsync();
 
             if (payment.Status == PaymentFetchResultStatus.AlreadyProcessed)
-                return new(StatusCodes.Status409Conflict, "PaymentAlreadyProcessed.");
-            if (payment.IsAlreadyVerified) return new(StatusCodes.Status409Conflict, "PaymentAlreadyVerified.");
+                return new(StatusCodes.Status409Conflict,
+                           _responseMessages[HttpResponseMessages.PaymentAlreadyProcessed].Value);
+            if (payment.IsAlreadyVerified)
+                return new(StatusCodes.Status409Conflict,
+                           _responseMessages[HttpResponseMessages.PaymentAlreadyVerified]
+                               .Value);
 
             var paymentKey    = _cacheOptions.SequenceKeyBuilder(_cacheOptions.PaymentPrefix, payment.TrackingNumber);
             var paymentString = await _cacheService.GetAsync(paymentKey);
@@ -57,18 +61,22 @@ namespace ArQr.Core.PaymentHandlers
                 var cancelResult = await _onlinePayment.CancelAsync(payment, "Payment expired.");
                 if (cancelResult.IsSucceed is true)
                     return new(StatusCodes.Status410Gone,
-                               "Payment expired. Your Money will return to your accoutn.");
+                               _responseMessages[HttpResponseMessages.PaymentExpired].Value);
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
             }
 
 
             var cachePayment = JsonSerializer.Deserialize<CachePaymentResource>(paymentString);
-            if (cachePayment.PriceInRial != payment.Amount) return new(StatusCodes.Status400BadRequest, "WrongPayment");
-
+            if (cachePayment.PriceInRial != payment.Amount)
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.WrongPayment].Value);
 
             var verifyResult = await _onlinePayment.VerifyAsync(payment);
-            if (verifyResult.IsSucceed is false) return new(StatusCodes.Status400BadRequest, "WrongPayment");
+            if (verifyResult.IsSucceed is false)
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.WrongPayment].Value);
+
 
             var purchase = _mapper.Map<Purchase>(cachePayment);
             purchase.TransactionCode = verifyResult.TransactionCode;
