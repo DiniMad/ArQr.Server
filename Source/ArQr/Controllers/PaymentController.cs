@@ -27,7 +27,7 @@ namespace ArQr.Controllers
         }
 
         [Route("verify")]
-        public async Task<ActionResult> Verify()
+        public async Task<ActionResult> VerifyPayment()
         {
             var (statusCode, value) = await _mediator.Send(new VerifyPaymentRequest());
             return StatusCode(statusCode, value);

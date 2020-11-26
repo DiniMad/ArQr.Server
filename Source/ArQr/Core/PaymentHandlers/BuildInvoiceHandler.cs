@@ -69,7 +69,7 @@ namespace ArQr.Core.PaymentHandlers
             var totalPriceInRial =
                 (long) (service.UnitPriceInThousandToman * requestedQuantity * ThousandTomanToRialCoefficient);
 
-            var verifyUrl = _url.Action("Verify", "Payment", null, _httpContextAccessor.HttpContext.Request.Scheme);
+            var verifyUrl = _url.Action("VerifyPayment", "Payment", null, _httpContextAccessor.HttpContext.Request.Scheme);
 
             var invoiceResult = await _onlinePayment.RequestAsync(invoice =>
             {
