@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using Parbad;
 using Resource.Api.Resources;
@@ -30,6 +31,7 @@ namespace ArQr.Core.PaymentHandlers
         private readonly IUrlHelper                             _url;
         private readonly IOnlinePayment                         _onlinePayment;
         private readonly ICacheService                          _cacheService;
+        private readonly CacheOptions                           _cacheOptions;
 
         public BuildInvoiceHandler(IHttpContextAccessor                   httpContextAccessor,
                                    IUnitOfWork                            unitOfWork,
@@ -37,7 +39,8 @@ namespace ArQr.Core.PaymentHandlers
                                    IUrlHelperFactory                      urlHelperFactory,
                                    IActionContextAccessor                 actionContextAccessor,
                                    IOnlinePayment                         onlinePayment,
-                                   ICacheService                          cacheService)
+                                   ICacheService                          cacheService,
+                                   IConfiguration                         configuration)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
@@ -45,6 +48,7 @@ namespace ArQr.Core.PaymentHandlers
             _url                 = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
             _onlinePayment       = onlinePayment;
             _cacheService        = cacheService;
+            _cacheOptions        = configuration.GetCacheOptions();
         }
 
         public async Task<ActionHandlerResult> Handle(BuildInvoiceRequest request, CancellationToken cancellationToken)
@@ -58,7 +62,7 @@ namespace ArQr.Core.PaymentHandlers
             var serviceId = request.InvoiceResource.Service;
             var service   = await _unitOfWork.ServiceRepository.GetAsync(serviceId);
             if (service is null || service.Active == false)
-                return new(StatusCodes.Status404NotFound, 
+                return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.ServiceNotFound].Value);
 
             var requestedQuantity = request.InvoiceResource.Quantity;
@@ -80,13 +84,16 @@ namespace ArQr.Core.PaymentHandlers
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
 
+            var paymentKey =
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.PaymentPrefix, invoiceResult.TrackingNumber);
             CachePaymentResource cachePayment =
                 new(invoiceResult.GatewayName, requestedQuantity, 0, userId, serviceId);
             var paymentString =
                 JsonSerializer.Serialize(cachePayment, new JsonSerializerOptions {IgnoreNullValues = true});
-            await _cacheService.SetAsync(paymentString,
-                                         cachePayment.ToString(),
-                                         TimeSpan.FromMinutes(10));
+
+            await _cacheService.SetAsync(paymentKey,
+                                         paymentString,
+                                         TimeSpan.FromMinutes(_cacheOptions.PaymentExpireTimeInMinute));
 
             return new(StatusCodes.Status200OK, invoiceResult.GatewayTransporter.Descriptor);
         }
