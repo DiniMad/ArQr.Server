@@ -58,7 +58,8 @@ namespace ArQr.Core.PaymentHandlers
             var serviceId = request.InvoiceResource.Service;
             var service   = await _unitOfWork.ServiceRepository.GetAsync(serviceId);
             if (service is null || service.Active == false)
-                return new(StatusCodes.Status404NotFound, "ServiceNotFound");
+                return new(StatusCodes.Status404NotFound, 
+                           _responseMessages[HttpResponseMessages.ServiceNotFound].Value);
 
             var requestedQuantity = request.InvoiceResource.Quantity;
             var totalPriceInRial =
