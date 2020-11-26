@@ -35,4 +35,10 @@
     <data name="PageNumber" xml:space="preserve">
         <value>Page number</value>
     </data>
+    <data name="Service" xml:space="preserve">
+        <value>Service</value>
+    </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>Quantity</value>
+    </data>
 </root>

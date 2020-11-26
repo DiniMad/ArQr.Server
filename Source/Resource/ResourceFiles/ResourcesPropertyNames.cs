@@ -10,5 +10,7 @@ namespace Resource.ResourceFiles
         public const string ViewerId     = "ViewerId";
         public const string PageSize     = "PageSize";
         public const string PageNumber   = "PageNumber";
+        public const string Service      = "Service";
+        public const string Quantity     = "Quantity";
     }
 }

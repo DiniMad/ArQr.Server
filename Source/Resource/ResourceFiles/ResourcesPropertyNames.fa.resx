@@ -42,4 +42,10 @@
     <data name="PageNumber" xml:space="preserve">
         <value>شماره صفحه</value>
     </data>
+    <data name="Service" xml:space="preserve">
+        <value>سرویس</value>
+    </data>
+    <data name="Quantity" xml:space="preserve">
+        <value>تعداد</value>
+    </data>
 </root>
