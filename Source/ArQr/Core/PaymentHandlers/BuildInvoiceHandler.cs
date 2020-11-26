@@ -1,6 +1,10 @@
+using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
+using ArQr.Interface;
+using ArQr.Models;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -25,19 +29,22 @@ namespace ArQr.Core.PaymentHandlers
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
         private readonly IUrlHelper                             _url;
         private readonly IOnlinePayment                         _onlinePayment;
+        private readonly ICacheService                          _cacheService;
 
         public BuildInvoiceHandler(IHttpContextAccessor                   httpContextAccessor,
                                    IUnitOfWork                            unitOfWork,
                                    IStringLocalizer<HttpResponseMessages> responseMessages,
                                    IUrlHelperFactory                      urlHelperFactory,
                                    IActionContextAccessor                 actionContextAccessor,
-                                   IOnlinePayment                         onlinePayment)
+                                   IOnlinePayment                         onlinePayment,
+                                   ICacheService                          cacheService)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
             _responseMessages    = responseMessages;
             _url                 = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
             _onlinePayment       = onlinePayment;
+            _cacheService        = cacheService;
         }
 
         public async Task<ActionHandlerResult> Handle(BuildInvoiceRequest request, CancellationToken cancellationToken)
@@ -57,7 +64,7 @@ namespace ArQr.Core.PaymentHandlers
             var totalPriceInRial =
                 (long) (service.UnitPriceInThousandToman * requestedQuantity * ThousandTomanToRialCoefficient);
 
-            var verifyUrl = _url.Action("Verify", "Payment");
+            var verifyUrl = _url.Action("Verify", "Payment", null, _httpContextAccessor.HttpContext.Request.Scheme);
 
             var invoiceResult = await _onlinePayment.RequestAsync(invoice =>
             {
@@ -71,6 +78,14 @@ namespace ArQr.Core.PaymentHandlers
             if (invoiceResult.IsSucceed is false)
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
+
+            CachePurchaseResource cachePurchase =
+                new(invoiceResult.GatewayName, requestedQuantity, 0, userId, serviceId);
+            var purchaseString =
+                JsonSerializer.Serialize(cachePurchase, new JsonSerializerOptions {IgnoreNullValues = true});
+            await _cacheService.SetAsync(purchaseString,
+                                         cachePurchase.ToString(),
+                                         TimeSpan.FromMinutes(10));
 
             return new(StatusCodes.Status200OK, invoiceResult.GatewayTransporter.Descriptor);
         }
