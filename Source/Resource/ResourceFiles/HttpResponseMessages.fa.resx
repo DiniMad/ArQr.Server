@@ -45,4 +45,7 @@
     <data name="Done" xml:space="preserve">
         <value>انجام شد.</value>
     </data>
+    <data name="ServiceNotFound" xml:space="preserve">
+        <value>سرویس پیدا نشد.</value>
+    </data>
 </root>

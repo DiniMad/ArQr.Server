@@ -115,6 +115,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سرویس پیدا نشد..
+        /// </summary>
+        internal static string ServiceNotFound {
+            get {
+                return ResourceManager.GetString("ServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شما اجازه دسترسی به محتوای خواسته شده را ندارید..
         /// </summary>
         internal static string Unauthorized {

@@ -11,5 +11,6 @@ namespace Resource.ResourceFiles
         public const string DuplicatePhoneNumberOrEmail = "DuplicatePhoneNumberOrEmail";
         public const string QrCodeNotFound              = "QrCodeNotFound";
         public const string Done                        = "Done";
+        public const string ServiceNotFound             = "ServiceNotFound";
     }
 }

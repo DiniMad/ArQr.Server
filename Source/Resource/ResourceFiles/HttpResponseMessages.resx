@@ -38,4 +38,7 @@
     <data name="Done" xml:space="preserve">
         <value>Done.</value>
     </data>
+    <data name="ServiceNotFound" xml:space="preserve">
+        <value>Service not found.</value>
+    </data>
 </root>
