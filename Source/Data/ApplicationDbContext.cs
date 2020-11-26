@@ -10,6 +10,7 @@ namespace Data
         public DbSet<QrCode>       QrCodes       { get; set; }
         public DbSet<QrCodeViewer> QrCodeViewers { get; set; }
         public DbSet<Service>      Services      { get; set; }
+        public DbSet<Purchase>     Purchases     { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -22,6 +23,7 @@ namespace Data
             modelBuilder.ApplyConfiguration(new QrCodeConfiguration());
             modelBuilder.ApplyConfiguration(new QrCodeViewerConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
         }
     }
 }
