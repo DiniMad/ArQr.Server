@@ -6,9 +6,9 @@ using Domain.Base;
 
 namespace Data.Repository.Base
 {
-    public interface IRepository<TDomain, TKey> where TDomain : BaseDomain<TKey> where TKey : struct
+    public interface IRepository<TDomain, in TKey> where TDomain : BaseDomain<TKey> where TKey : struct
     {
-        Task<TDomain?>             GetAsync(long id);
+        Task<TDomain?>             GetAsync(TKey id);
         Task<IEnumerable<TDomain>> GetAllAsync();
         Task<IEnumerable<TDomain>> FindAsync(Expression<Func<TDomain, bool>>  predicate);
         Task                       InsertAsync(TDomain                        domain);
