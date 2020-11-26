@@ -11,11 +11,11 @@ namespace ArQr.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IMediator      _mediator;
 
         public PaymentController(IMediator mediator)
         {
-            _mediator = mediator;
+            _mediator           = mediator;
         }
 
         [Authorize]
@@ -26,9 +26,11 @@ namespace ArQr.Controllers
             return StatusCode(statusCode, value);
         }
 
+        [Route("verify")]
         public async Task<ActionResult> Verify()
         {
-            return Ok();
+            var (statusCode, value) = await _mediator.Send(new VerifyPaymentRequest());
+            return StatusCode(statusCode, value);
         }
     }
 }
