@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository
 {
-    public class QrCodeRepository : Repository<QrCode>, IQrCodeRepository
+    public class QrCodeRepository : Repository<QrCode,long>, IQrCodeRepository
     {
         public QrCodeRepository(DbContext context) : base(context)
         {

@@ -4,7 +4,7 @@ using Domain;
 
 namespace Data.Repository.Base
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User,long>
     {
         Task<User?> GetIncludeRefreshTokenAsync(string phoneNumber);
         Task<User?> GetIncludeRefreshTokenAsync(long userId);

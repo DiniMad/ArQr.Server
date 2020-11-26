@@ -4,7 +4,7 @@ using Domain.Base;
 
 namespace Domain
 {
-    public class QrCode : BaseDomain
+    public class QrCode : BaseDomain<long>
     {
         public string                    Title                  { get; set; }
         public string                    Description            { get; set; }

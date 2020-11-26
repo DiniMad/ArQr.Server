@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository.Base
 {
-    public abstract class Repository<TDomain> : IRepository<TDomain> where TDomain : BaseDomain
+    public abstract class Repository<TDomain, TKey> : IRepository<TDomain, TKey> where TDomain : BaseDomain<TKey>
+        where TKey : struct
     {
         protected readonly DbContext Context;
 
@@ -21,7 +22,7 @@ namespace Data.Repository.Base
         {
             return await Context.Set<TDomain>()
                                 .AsNoTracking()
-                                .FirstOrDefaultAsync(domain => domain.Id == id);
+                                .FirstOrDefaultAsync(domain => domain.Id.Equals(id));
         }
 
         public async Task<IEnumerable<TDomain>> GetAllAsync()

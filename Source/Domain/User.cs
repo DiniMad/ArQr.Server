@@ -3,7 +3,7 @@ using Domain.Base;
 
 namespace Domain
 {
-    public class User : BaseDomain
+    public class User : BaseDomain<long>
     {
         public string              PhoneNumber          { get; set; }
         public string              PasswordHash         { get; set; }

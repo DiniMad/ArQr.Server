@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repository
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class UserRepository : Repository<User,long>, IUserRepository
     {
         public UserRepository(DbContext context) : base(context)
         {

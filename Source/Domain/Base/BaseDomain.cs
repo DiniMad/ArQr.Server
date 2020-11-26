@@ -1,7 +1,7 @@
 namespace Domain.Base
 {
-    public abstract class BaseDomain
+    public abstract class BaseDomain<TKey> where TKey : struct
     {
-        public long Id { get; set; }
+        public TKey Id { get; set; }
     }
 }
