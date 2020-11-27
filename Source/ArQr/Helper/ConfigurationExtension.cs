@@ -14,5 +14,10 @@ namespace ArQr.Helper
         {
             return configuration.GetSection("CacheOptions").Get<CacheOptions>();
         }
+        
+        public static string GetFileStoragePath(this IConfiguration configuration)
+        {
+            return configuration.GetValue<string>("FileStoragePath");
+        }
     }
 }
