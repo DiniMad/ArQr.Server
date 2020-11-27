@@ -10,7 +10,9 @@ using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
+using Resource.ResourceFiles;
 
 namespace ArQr.Core.FileHandlers
 {
@@ -19,19 +21,22 @@ namespace ArQr.Core.FileHandlers
 
     public class CreateUploadSessionHandler : IRequestHandler<CreateUploadSessionRequest, ActionHandlerResult>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUnitOfWork          _unitOfWork;
-        private readonly ICacheService        _cacheService;
-        private readonly CacheOptions         _cacheOptions;
+        private readonly IHttpContextAccessor                   _httpContextAccessor;
+        private readonly IUnitOfWork                            _unitOfWork;
+        private readonly ICacheService                          _cacheService;
+        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly CacheOptions                           _cacheOptions;
 
-        public CreateUploadSessionHandler(IHttpContextAccessor httpContextAccessor,
-                                          IUnitOfWork          unitOfWork,
-                                          ICacheService        cacheService,
-                                          IConfiguration       configuration)
+        public CreateUploadSessionHandler(IHttpContextAccessor                   httpContextAccessor,
+                                          IUnitOfWork                            unitOfWork,
+                                          ICacheService                          cacheService,
+                                          IConfiguration                         configuration,
+                                          IStringLocalizer<HttpResponseMessages> responseMessages)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
             _cacheService        = cacheService;
+            _responseMessages    = responseMessages;
             _cacheOptions        = configuration.GetCacheOptions();
         }
 
@@ -44,10 +49,13 @@ namespace ArQr.Core.FileHandlers
 
             var mediaContent = await _unitOfWork.MediaContentRepository.GetAsync(mediaContentId);
             if (mediaContent is null || mediaContent.UserId != userId)
-                return new(StatusCodes.Status404NotFound, "MediaContentNotFound");
+                return new(StatusCodes.Status404NotFound,
+                           _responseMessages[HttpResponseMessages.MediaContentNotFound]);
 
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(extensionName);
-            if (extension is null) return new(StatusCodes.Status400BadRequest, "ExtensionNotSupported");
+            if (extension is null)
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.ExtensionNotSupported]);
 
             mediaContent.Verified      = false;
             mediaContent.TotalSizeInMb = totalSizeInMb;
