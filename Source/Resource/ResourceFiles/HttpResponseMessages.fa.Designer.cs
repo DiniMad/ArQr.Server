@@ -88,6 +88,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to این فرمت فایل پشتیبانی نمی شود..
+        /// </summary>
+        internal static string ExtensionNotSupported {
+            get {
+                return ResourceManager.GetString("ExtensionNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رمز عبور نادرست است..
         /// </summary>
         internal static string IncorrectPassword {
@@ -102,6 +111,15 @@ namespace Resource.ResourceFiles {
         internal static string IncorrectRefreshToken {
             get {
                 return ResourceManager.GetString("IncorrectRefreshToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to محتوا پیدا نشد..
+        /// </summary>
+        internal static string MediaContentNotFound {
+            get {
+                return ResourceManager.GetString("MediaContentNotFound", resourceCulture);
             }
         }
         

@@ -16,5 +16,7 @@ namespace Resource.ResourceFiles
         public const string PaymentAlreadyVerified      = "PaymentAlreadyVerified";
         public const string PaymentExpired              = "PaymentExpired";
         public const string WrongPayment                = "WrongPayment";
+        public const string MediaContentNotFound        = "MediaContentNotFound";
+        public const string ExtensionNotSupported       = "ExtensionNotSupported";
     }
 }

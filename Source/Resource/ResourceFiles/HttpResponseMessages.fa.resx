@@ -60,4 +60,10 @@
     <data name="WrongPayment" xml:space="preserve">
         <value>پرداخت اشتباه است.</value>
     </data>
+    <data name="MediaContentNotFound" xml:space="preserve">
+        <value>محتوا پیدا نشد.</value>
+    </data>
+    <data name="ExtensionNotSupported" xml:space="preserve">
+        <value>این فرمت فایل پشتیبانی نمی شود.</value>
+    </data>
 </root>

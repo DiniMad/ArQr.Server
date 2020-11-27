@@ -53,4 +53,10 @@
     <data name="WrongPayment" xml:space="preserve">
         <value>Payment is wrong.</value>
     </data>
+    <data name="MediaContentNotFound" xml:space="preserve">
+        <value>Media content not found.</value>
+    </data>
+    <data name="ExtensionNotSupported" xml:space="preserve">
+        <value>The extension not supported.</value>
+    </data>
 </root>
