@@ -4,13 +4,16 @@ namespace ArQr.Models
 {
     public sealed record CacheOptions
     {
-        public char   KyeSeparatorCharacter          { get; init; }
-        public string GhostPrefix                    { get; init; }
-        public string QrCodePrefix                   { get; init; }
-        public string ViewersListPrefix              { get; init; }
-        public string PaymentPrefix                  { get; init; }
-        public int    ViewersCountExpireTimeInMinute { get; init; }
-        public int    PaymentExpireTimeInMinute      { get; init; }
+        public char   KyeSeparatorCharacter           { get; init; }
+        public string GhostPrefix                     { get; init; }
+        public string QrCodePrefix                    { get; init; }
+        public string ViewersListPrefix               { get; init; }
+        public string PaymentPrefix                   { get; init; }
+        public string UploadSessionPrefix             { get; init; }
+        public string MediaContentPrefix              { get; init; }
+        public int    ViewersCountExpireTimeInMinute  { get; init; }
+        public int    PaymentExpireTimeInMinute       { get; init; }
+        public int    UploadSessionExpireTimeInMinute { get; init; }
 
         public void Deconstruct(out string ghostPrefix,
                                 out string qrCodePrefix,
