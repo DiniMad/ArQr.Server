@@ -11,6 +11,7 @@ namespace ArQr.Models
         public string PaymentPrefix                   { get; init; }
         public string UploadSessionPrefix             { get; init; }
         public string MediaContentPrefix              { get; init; }
+        public string ChunkListPrefix                 { get; init; }
         public int    ViewersCountExpireTimeInMinute  { get; init; }
         public int    PaymentExpireTimeInMinute       { get; init; }
         public int    UploadSessionExpireTimeInMinute { get; init; }
