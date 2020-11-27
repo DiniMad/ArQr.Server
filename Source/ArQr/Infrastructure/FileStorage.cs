@@ -38,5 +38,12 @@ namespace ArQr.Infrastructure
             var fullDirectory = Path.Join(BasePath, directory, subDirectory);
             Directory.Delete(fullDirectory, true);
         }
+
+        public void ReCreateDirectory(string directory, string? subDirectory = null)
+        {
+            var fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            Directory.Delete(fullDirectory, true);
+            Directory.CreateDirectory(fullDirectory);
+        }
     }
 }
