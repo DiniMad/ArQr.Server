@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using ArQr.Core.FileHandlers;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +20,18 @@ namespace ArQr.Controllers
 
         [Authorize]
         [HttpPost("createSession")]
-        public async Task<ActionResult<UploadSessionResource>> CreateUploadSession(CreateUploadSessionResource sessionResource)
+        public async Task<ActionResult<UploadSessionResource>> CreateUploadSession(
+            CreateUploadSessionResource sessionResource)
         {
             var (statusCode, value) = await _mediator.Send(new CreateUploadSessionRequest(sessionResource));
+            return StatusCode(statusCode, value);
+        }
+
+        [Authorize]
+        [HttpPost("uploadChunk")]
+        public async Task<ActionResult> UploadChunk(UploadChunkResource chunkResource)
+        {
+            var (statusCode, value) = await _mediator.Send(new UploadChunkRequest(chunkResource));
             return StatusCode(statusCode, value);
         }
     }
