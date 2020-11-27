@@ -62,4 +62,7 @@
     <data name="ViolationOfMediaMaxSize" xml:space="preserve">
         <value>File size is bigger than media content size.</value>
     </data>
+    <data name="SessionExpired" xml:space="preserve">
+        <value>Your session expired.</value>
+    </data>
 </root>

@@ -169,6 +169,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to نشست شما به منقضی شده است..
+        /// </summary>
+        internal static string SessionExpired {
+            get {
+                return ResourceManager.GetString("SessionExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شما اجازه دسترسی به محتوای خواسته شده را ندارید..
         /// </summary>
         internal static string Unauthorized {

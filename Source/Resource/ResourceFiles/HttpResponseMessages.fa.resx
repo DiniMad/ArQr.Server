@@ -69,4 +69,7 @@
     <data name="ViolationOfMediaMaxSize" xml:space="preserve">
         <value>سایز فایل از سایز محتوا بیشتر است.</value>
     </data>
+    <data name="SessionExpired" xml:space="preserve">
+        <value>نشست شما به منقضی شده است.</value>
+    </data>
 </root>
