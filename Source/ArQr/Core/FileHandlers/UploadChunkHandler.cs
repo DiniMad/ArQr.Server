@@ -40,12 +40,15 @@ namespace ArQr.Core.FileHandlers
             var ghostPrefix                     = _cacheOptions.GhostPrefix;
             var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
             var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
-            
+
             var session = request.ChunkResource.Session;
             var uploadSessionGhostKey =
                 _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
             var sessionExist = await _cacheService.KeyExistAsync(uploadSessionGhostKey);
-            if (sessionExist is false) return new(StatusCodes.Status410Gone, "SessionExpired");
+            if (sessionExist is false)
+                return new(StatusCodes.Status410Gone,
+                           _responseMessages[HttpResponseMessages.SessionExpired].Value);
+
 
             var uploadSessionKey =
                 _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, session);
@@ -54,7 +57,7 @@ namespace ArQr.Core.FileHandlers
                 return new(StatusCodes.Status500InternalServerError,
                            _responseMessages[HttpResponseMessages.UnhandledException].Value);
 
-            var userId = _httpContextAccessor.HttpContext!.GetUserId();
+            var userId       = _httpContextAccessor.HttpContext!.GetUserId();
             var cacheSession = JsonSerializer.Deserialize<CacheUploadSession>(cacheSessionString);
             if (cacheSession!.UserId != userId)
                 return new(StatusCodes.Status401Unauthorized,
