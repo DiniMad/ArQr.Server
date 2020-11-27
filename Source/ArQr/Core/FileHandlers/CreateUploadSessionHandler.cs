@@ -58,7 +58,7 @@ namespace ArQr.Core.FileHandlers
                            _responseMessages[HttpResponseMessages.ExtensionNotSupported]);
 
             mediaContent.Verified      = false;
-            mediaContent.TotalSizeInMb = totalSizeInMb;
+            mediaContent.MaxSizeInMb = totalSizeInMb;
             mediaContent.ExtensionId   = extension.Id;
 
             _unitOfWork.MediaContentRepository.Update(mediaContent);
