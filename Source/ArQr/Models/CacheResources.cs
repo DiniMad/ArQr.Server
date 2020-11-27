@@ -1,3 +1,5 @@
+using System;
+
 namespace ArQr.Models
 {
     public sealed record CachePaymentResource(string GatewayName,
@@ -6,4 +8,6 @@ namespace ArQr.Models
                                               byte   OffAmountInThousandToman,
                                               long   UserId,
                                               byte   ServiceId);
+
+    public sealed record CacheUploadSession(long UserId, byte TotalSizeInMb);
 }
