@@ -39,6 +39,7 @@ namespace ArQr.Core.FileHandlers
         {
             var ghostPrefix                     = _cacheOptions.GhostPrefix;
             var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
+            var chunkListPrefix                 = _cacheOptions.ChunkListPrefix;
             var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
 
             var session = request.ChunkResource.Session;
@@ -63,7 +64,7 @@ namespace ArQr.Core.FileHandlers
                 return new(StatusCodes.Status401Unauthorized,
                            _responseMessages[HttpResponseMessages.Unauthorized].Value);
 
-            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder("cl", session);
+            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
             var chunkNumber           = request.ChunkResource.ChunkNumber.ToString();
             await _cacheService.AddToUniqueListAsync(uploadedChunksListKey, chunkNumber);
 
