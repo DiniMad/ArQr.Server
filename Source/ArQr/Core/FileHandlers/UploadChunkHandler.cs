@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,16 +21,19 @@ namespace ArQr.Core.FileHandlers
         private readonly IHttpContextAccessor                   _httpContextAccessor;
         private readonly ICacheService                          _cacheService;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IFileStorage                           _fileStorage;
         private readonly CacheOptions                           _cacheOptions;
 
         public UploadChunkHandler(IHttpContextAccessor                   httpContextAccessor,
                                   ICacheService                          cacheService,
                                   IConfiguration                         configuration,
-                                  IStringLocalizer<HttpResponseMessages> responseMessages)
+                                  IStringLocalizer<HttpResponseMessages> responseMessages,
+                                  IFileStorage                           fileStorage)
         {
             _httpContextAccessor = httpContextAccessor;
             _cacheService        = cacheService;
             _responseMessages    = responseMessages;
+            _fileStorage         = fileStorage;
             _cacheOptions        = configuration.GetCacheOptions();
         }
 
@@ -81,9 +83,10 @@ namespace ArQr.Core.FileHandlers
                                          string.Empty,
                                          TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
-            var             buffer = request.ChunkResource.Content;
-            await using var file   = File.OpenWrite(chunkNumber);
-            await file.WriteAsync(buffer, cancellationToken);
+            var path     = userId.ToString();
+            var fileName = chunkNumber;
+            var content  = request.ChunkResource.Content;
+            await _fileStorage.WriteFileAsync(path, fileName, content);
 
             return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
         }
