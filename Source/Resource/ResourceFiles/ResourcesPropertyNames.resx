@@ -41,4 +41,13 @@
     <data name="Quantity" xml:space="preserve">
         <value>Quantity</value>
     </data>
+    <data name="MediaContentId" xml:space="preserve">
+        <value>Media content ID</value>
+    </data>
+    <data name="Extension" xml:space="preserve">
+        <value>Extension</value>
+    </data>
+    <data name="TotalSizeInMb" xml:space="preserve">
+        <value>Total size in MB</value>
+    </data>
 </root>

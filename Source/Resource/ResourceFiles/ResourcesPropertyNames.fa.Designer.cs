@@ -70,6 +70,24 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to فرمت فایل.
+        /// </summary>
+        internal static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to شناسه محتوا.
+        /// </summary>
+        internal static string MediaContentId {
+            get {
+                return ResourceManager.GetString("MediaContentId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شماره صفحه.
         /// </summary>
         internal static string PageNumber {
@@ -129,6 +147,15 @@ namespace Resource.ResourceFiles {
         internal static string Service {
             get {
                 return ResourceManager.GetString("Service", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سایز کلی در مقیاس مگابایت.
+        /// </summary>
+        internal static string TotalSizeInMb {
+            get {
+                return ResourceManager.GetString("TotalSizeInMb", resourceCulture);
             }
         }
         
