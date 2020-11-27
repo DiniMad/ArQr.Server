@@ -37,8 +37,11 @@ namespace ArQr.Core.QrCodeHandlers
 
         public async Task<ActionHandlerResult> Handle(AddViewerRequest request, CancellationToken cancellationToken)
         {
-            var (ghostPrefix, qrCodePrefix, viewersListPrefix, expireTimeInMinute) =
-                _cacheOptions;
+            var ghostPrefix        = _cacheOptions.GhostPrefix;
+            var qrCodePrefix       = _cacheOptions.QrCodePrefix;
+            var viewersListPrefix  = _cacheOptions.ViewersListPrefix;
+            var expireTimeInMinute = _cacheOptions.ViewersCountExpireTimeInMinute;
+
 
             var qrCodeId = request.QrCodeId;
             var qrCode   = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
