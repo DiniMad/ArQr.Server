@@ -3,7 +3,6 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
-using ArQr.Infrastructure;
 using ArQr.Interface;
 using ArQr.Models;
 using Data.Repository.Base;
@@ -53,7 +52,9 @@ namespace ArQr.Core.FileHandlers
                            _responseMessages[HttpResponseMessages.MediaContentNotFound]);
 
             if (totalSizeInMb > mediaContent.MaxSizeInMb)
-                return new(StatusCodes.Status400BadRequest, "ViolationOfMediaMaxSize");
+                return new(StatusCodes.Status400BadRequest,
+                           _responseMessages[HttpResponseMessages.ViolationOfMediaMaxSize]);
+
 
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(extensionName);
             if (extension is null)
