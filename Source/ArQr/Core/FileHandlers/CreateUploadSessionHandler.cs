@@ -24,18 +24,21 @@ namespace ArQr.Core.FileHandlers
         private readonly IUnitOfWork                            _unitOfWork;
         private readonly ICacheService                          _cacheService;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IFileStorage                           _fileStorage;
         private readonly CacheOptions                           _cacheOptions;
 
         public CreateUploadSessionHandler(IHttpContextAccessor                   httpContextAccessor,
                                           IUnitOfWork                            unitOfWork,
                                           ICacheService                          cacheService,
                                           IConfiguration                         configuration,
-                                          IStringLocalizer<HttpResponseMessages> responseMessages)
+                                          IStringLocalizer<HttpResponseMessages> responseMessages,
+                                          IFileStorage                           fileStorage)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
             _cacheService        = cacheService;
             _responseMessages    = responseMessages;
+            _fileStorage         = fileStorage;
             _cacheOptions        = configuration.GetCacheOptions();
         }
 
@@ -92,6 +95,11 @@ namespace ArQr.Core.FileHandlers
             CacheUploadSession uploadSession       = new(userId, mediaContent.MaxSizeInMb);
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
+
+            var directory    = userId.ToString();
+            var subDirectory = mediaContentId.ToString();
+            if (_fileStorage.DirectoryExist(directory, subDirectory))
+                _fileStorage.DeleteDirectory(directory, subDirectory);
 
             return new(StatusCodes.Status200OK, new UploadSessionResource(session));
         }
