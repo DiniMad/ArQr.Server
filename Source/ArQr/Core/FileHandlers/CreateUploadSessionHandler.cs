@@ -72,7 +72,7 @@ namespace ArQr.Core.FileHandlers
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
 
-            return new(StatusCodes.Status200OK, new {session});
+            return new(StatusCodes.Status200OK, new UploadSessionResource(session));
         }
     }
 }

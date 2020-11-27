@@ -21,7 +21,7 @@ namespace ArQr.Controllers
 
         [Authorize]
         [HttpPost("createSession")]
-        public async Task<ActionResult> CreateUploadSession(CreateUploadSessionResource sessionResource)
+        public async Task<ActionResult<UploadSessionResource>> CreateUploadSession(CreateUploadSessionResource sessionResource)
         {
             var (statusCode, value) = await _mediator.Send(new CreateUploadSessionRequest(sessionResource));
             return StatusCode(statusCode, value);
