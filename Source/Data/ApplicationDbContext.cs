@@ -11,6 +11,7 @@ namespace Data
         public DbSet<QrCodeViewer> QrCodeViewers { get; set; }
         public DbSet<Service>      Services      { get; set; }
         public DbSet<Purchase>     Purchases     { get; set; }
+        public DbSet<MediaContent> MediaContents { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -24,6 +25,7 @@ namespace Data
             modelBuilder.ApplyConfiguration(new QrCodeViewerConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
+            modelBuilder.ApplyConfiguration(new MediaContentConfiguration());
         }
     }
 }
