@@ -17,9 +17,9 @@ namespace ArQr.Infrastructure
             if (baseDirectoryExist is false) Directory.CreateDirectory(BasePath);
         }
 
-        public async Task WriteFileAsync(string path, string fileName, byte[] content)
+        public async Task WriteFileAsync(string fileName, byte[] content, string directory, string? subDirectory = null)
         {
-            var filePath = Path.Join(BasePath, path, fileName);
+            var filePath = Path.Join(BasePath, directory, subDirectory, fileName);
 
             await using var file = File.OpenWrite(filePath);
             await file.WriteAsync(content);
