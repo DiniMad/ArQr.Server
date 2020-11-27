@@ -1,5 +1,3 @@
-using System;
-
 namespace ArQr.Models
 {
     public sealed record CacheOptions
@@ -15,17 +13,6 @@ namespace ArQr.Models
         public int    ViewersCountExpireTimeInMinute  { get; init; }
         public int    PaymentExpireTimeInMinute       { get; init; }
         public int    UploadSessionExpireTimeInMinute { get; init; }
-
-        public void Deconstruct(out string ghostPrefix,
-                                out string qrCodePrefix,
-                                out string viewersListPrefix,
-                                out int    viewersCountExpireTimeInMinute)
-        {
-            ghostPrefix                    = GhostPrefix;
-            qrCodePrefix                   = QrCodePrefix;
-            viewersListPrefix              = ViewersListPrefix;
-            viewersCountExpireTimeInMinute = ViewersCountExpireTimeInMinute;
-        }
 
         public string SequenceKeyBuilder(params object[] keySections)
         {
