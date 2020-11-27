@@ -49,17 +49,17 @@ namespace ArQr.Core.FileHandlers
             var mediaContent = await _unitOfWork.MediaContentRepository.GetAsync(mediaContentId);
             if (mediaContent is null || mediaContent.UserId != userId)
                 return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.MediaContentNotFound]);
+                           _responseMessages[HttpResponseMessages.MediaContentNotFound].Value);
 
             if (totalSizeInMb > mediaContent.MaxSizeInMb)
                 return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.ViolationOfMediaMaxSize]);
+                           _responseMessages[HttpResponseMessages.ViolationOfMediaMaxSize].Value);
 
 
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(extensionName);
             if (extension is null)
                 return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.ExtensionNotSupported]);
+                           _responseMessages[HttpResponseMessages.ExtensionNotSupported].Value);
 
             mediaContent.Verified    = false;
             mediaContent.ExtensionId = extension.Id;
