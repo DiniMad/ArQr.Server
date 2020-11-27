@@ -26,7 +26,6 @@ namespace Data
             modelBuilder.ApplyConfiguration(new QrCodeViewerConfiguration());
             modelBuilder.ApplyConfiguration(new ServiceConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseConfiguration());
-            modelBuilder.ApplyConfiguration(new MediaContentConfiguration());
             modelBuilder.ApplyConfiguration(new SupportedMediaExtensionConfiguration());
         }
     }
