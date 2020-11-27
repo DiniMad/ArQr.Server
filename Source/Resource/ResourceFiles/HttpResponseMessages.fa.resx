@@ -66,4 +66,7 @@
     <data name="ExtensionNotSupported" xml:space="preserve">
         <value>این فرمت فایل پشتیبانی نمی شود.</value>
     </data>
+    <data name="ViolationOfMediaMaxSize" xml:space="preserve">
+        <value>سایز فایل از سایز محتوا بیشتر است.</value>
+    </data>
 </root>

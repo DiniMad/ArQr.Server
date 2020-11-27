@@ -18,5 +18,6 @@ namespace Resource.ResourceFiles
         public const string WrongPayment                = "WrongPayment";
         public const string MediaContentNotFound        = "MediaContentNotFound";
         public const string ExtensionNotSupported       = "ExtensionNotSupported";
+        public const string ViolationOfMediaMaxSize     = "ViolationOfMediaMaxSize";
     }
 }

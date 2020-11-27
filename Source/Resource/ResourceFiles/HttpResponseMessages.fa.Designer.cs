@@ -196,6 +196,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سایز فایل از سایز محتوا بیشتر است..
+        /// </summary>
+        internal static string ViolationOfMediaMaxSize {
+            get {
+                return ResourceManager.GetString("ViolationOfMediaMaxSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to پرداخت اشتباه است..
         /// </summary>
         internal static string WrongPayment {
