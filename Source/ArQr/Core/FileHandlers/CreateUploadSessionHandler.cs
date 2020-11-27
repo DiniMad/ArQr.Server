@@ -52,14 +52,16 @@ namespace ArQr.Core.FileHandlers
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.MediaContentNotFound]);
 
+            if (totalSizeInMb > mediaContent.MaxSizeInMb)
+                return new(StatusCodes.Status400BadRequest, "ViolationOfMediaMaxSize");
+
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(extensionName);
             if (extension is null)
                 return new(StatusCodes.Status400BadRequest,
                            _responseMessages[HttpResponseMessages.ExtensionNotSupported]);
 
-            mediaContent.Verified      = false;
-            mediaContent.MaxSizeInMb = totalSizeInMb;
-            mediaContent.ExtensionId   = extension.Id;
+            mediaContent.Verified    = false;
+            mediaContent.ExtensionId = extension.Id;
 
             _unitOfWork.MediaContentRepository.Update(mediaContent);
             await _unitOfWork.CompleteAsync();
