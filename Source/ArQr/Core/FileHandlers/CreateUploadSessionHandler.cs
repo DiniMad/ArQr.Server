@@ -98,8 +98,7 @@ namespace ArQr.Core.FileHandlers
 
             var directory    = userId.ToString();
             var subDirectory = mediaContentId.ToString();
-            if (_fileStorage.DirectoryExist(directory, subDirectory))
-                _fileStorage.DeleteDirectory(directory, subDirectory);
+            _fileStorage.ReCreateDirectory(directory, subDirectory);
 
             return new(StatusCodes.Status200OK, new UploadSessionResource(session));
         }
