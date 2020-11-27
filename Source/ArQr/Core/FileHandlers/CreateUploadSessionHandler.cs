@@ -64,18 +64,28 @@ namespace ArQr.Core.FileHandlers
             _unitOfWork.MediaContentRepository.Update(mediaContent);
             await _unitOfWork.CompleteAsync();
 
-            var downloadMediaGhostKey = _cacheOptions.SequenceKeyBuilder("gh", "mc", mediaContent.Id);
+            var ghostPrefix                     = _cacheOptions.GhostPrefix;
+            var mediaContentPrefix              = _cacheOptions.MediaContentPrefix;
+            var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
+            var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
+
+            var downloadMediaGhostKey =
+                _cacheOptions.SequenceKeyBuilder(ghostPrefix, mediaContentPrefix, mediaContent.Id);
             await _cacheService.DeleteKeyAsync(downloadMediaGhostKey);
 
-            var downloadMediaKey = _cacheOptions.SequenceKeyBuilder("mc", mediaContent.Id);
+            var downloadMediaKey = _cacheOptions.SequenceKeyBuilder(mediaContentPrefix, mediaContent.Id);
             await _cacheService.DeleteKeyAsync(downloadMediaKey);
 
             var session = Guid.NewGuid();
 
-            var uploadSessionGhostKey = _cacheOptions.SequenceKeyBuilder("gh", "us", session);
-            await _cacheService.SetAsync(uploadSessionGhostKey, string.Empty, TimeSpan.FromSeconds(30));
+            var uploadSessionGhostKey =
+                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
+            await _cacheService.SetAsync(uploadSessionGhostKey,
+                                         string.Empty,
+                                         TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
-            var                uploadSessionKey    = _cacheOptions.SequenceKeyBuilder("us", session);
+            var uploadSessionKey =
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, session);
             CacheUploadSession uploadSession       = new(userId, totalSizeInMb);
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
