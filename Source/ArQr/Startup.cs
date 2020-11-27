@@ -39,8 +39,8 @@ namespace ArQr
 
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
-            services.AddScoped<IFileStorage, FileStorage>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddSingleton<IFileStorage, FileStorage>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
