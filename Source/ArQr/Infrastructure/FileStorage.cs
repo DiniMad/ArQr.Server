@@ -20,11 +20,23 @@ namespace ArQr.Infrastructure
 
         public async Task WriteFileAsync(string path, string fileName, byte[] content)
         {
-            var filePath  = Path.Join(BasePath, path, fileName);
+            var filePath = Path.Join(BasePath, path, fileName);
 
             _directoryInfo.CreateSubdirectory(path);
             await using var file = File.OpenWrite(filePath);
             await file.WriteAsync(content);
+        }
+
+        public bool DirectoryExist(string directory, string? subDirectory = null)
+        {
+            var fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            return Directory.Exists(fullDirectory);
+        }
+
+        public void DeleteDirectory(string directory, string? subDirectory = null)
+        {
+            var fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            Directory.Delete(fullDirectory, true);
         }
     }
 }
