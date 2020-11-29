@@ -10,9 +10,7 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
 using Parbad;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.PaymentHandlers
 {
@@ -20,19 +18,19 @@ namespace ArQr.Core.PaymentHandlers
 
     public class VerifyPaymentHandler : IRequestHandler<VerifyPaymentRequest, ActionHandlerResult>
     {
-        private readonly IOnlinePayment                         _onlinePayment;
-        private readonly ICacheService                          _cacheService;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IMapper                                _mapper;
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly CacheOptions                           _cacheOptions;
+        private readonly IOnlinePayment    _onlinePayment;
+        private readonly ICacheService     _cacheService;
+        private readonly IResponseMessages _responseMessages;
+        private readonly IMapper           _mapper;
+        private readonly IUnitOfWork       _unitOfWork;
+        private readonly CacheOptions      _cacheOptions;
 
-        public VerifyPaymentHandler(IOnlinePayment                         onlinePayment,
-                                    ICacheService                          cacheService,
-                                    IConfiguration                         configuration,
-                                    IStringLocalizer<HttpResponseMessages> responseMessages,
-                                    IMapper                                mapper,
-                                    IUnitOfWork                            unitOfWork)
+        public VerifyPaymentHandler(IOnlinePayment    onlinePayment,
+                                    ICacheService     cacheService,
+                                    IConfiguration    configuration,
+                                    IResponseMessages responseMessages,
+                                    IMapper           mapper,
+                                    IUnitOfWork       unitOfWork)
         {
             _onlinePayment    = onlinePayment;
             _cacheService     = cacheService;
@@ -47,12 +45,9 @@ namespace ArQr.Core.PaymentHandlers
             var payment = await _onlinePayment.FetchAsync();
 
             if (payment.Status == PaymentFetchResultStatus.AlreadyProcessed)
-                return new(StatusCodes.Status409Conflict,
-                           _responseMessages[HttpResponseMessages.PaymentAlreadyProcessed].Value);
+                return new(StatusCodes.Status409Conflict, _responseMessages.PaymentAlreadyProcessed());
             if (payment.IsAlreadyVerified)
-                return new(StatusCodes.Status409Conflict,
-                           _responseMessages[HttpResponseMessages.PaymentAlreadyVerified]
-                               .Value);
+                return new(StatusCodes.Status409Conflict, _responseMessages.PaymentAlreadyVerified());
 
             var paymentKey    = _cacheOptions.SequenceKeyBuilder(_cacheOptions.PaymentPrefix, payment.TrackingNumber);
             var paymentString = await _cacheService.GetAsync(paymentKey);
@@ -60,27 +55,22 @@ namespace ArQr.Core.PaymentHandlers
             {
                 var cancelResult = await _onlinePayment.CancelAsync(payment, "Payment expired.");
                 if (cancelResult.IsSucceed is true)
-                    return new(StatusCodes.Status410Gone,
-                               _responseMessages[HttpResponseMessages.PaymentExpired].Value);
-                
-                return new(StatusCodes.Status500InternalServerError,
-                           _responseMessages[HttpResponseMessages.UnhandledException].Value);
-            }
+                    return new(StatusCodes.Status410Gone, _responseMessages.PaymentExpired());
 
+                return new(StatusCodes.Status500InternalServerError,
+                           _responseMessages.UnhandledException());
+            }
 
             var cachePayment = JsonSerializer.Deserialize<CachePaymentResource>(paymentString);
             if (cachePayment is null)
-                return new(StatusCodes.Status500InternalServerError,
-                           _responseMessages[HttpResponseMessages.UnhandledException].Value);
-            
+                return new(StatusCodes.Status500InternalServerError, _responseMessages.UnhandledException());
+
             if (cachePayment.PriceInRial != payment.Amount)
-                return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.WrongPayment].Value);
+                return new(StatusCodes.Status400BadRequest, _responseMessages.WrongPayment());
 
             var verifyResult = await _onlinePayment.VerifyAsync(payment);
             if (verifyResult.IsSucceed is false)
-                return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.WrongPayment].Value);
+                return new(StatusCodes.Status400BadRequest, _responseMessages.WrongPayment());
 
 
             var purchase = _mapper.Map<Purchase>(cachePayment);
@@ -89,7 +79,7 @@ namespace ArQr.Core.PaymentHandlers
             await _unitOfWork.PurchaseRepository.InsertAsync(purchase);
             await _unitOfWork.CompleteAsync();
 
-            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
+            return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
     }
 }
