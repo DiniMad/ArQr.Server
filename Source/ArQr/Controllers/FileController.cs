@@ -42,5 +42,12 @@ namespace ArQr.Controllers
             var (statusCode, value) = await _mediator.Send(new UploadCompletedRequest(completedResource));
             return StatusCode(statusCode, value);
         }
+
+        [HttpGet("download/{mediaContentId}")]
+        public async Task<ActionResult> Download(long mediaContentId)
+        {
+            var (statusCode, value) = await _mediator.Send(new DownloadRequest(mediaContentId));
+            return StatusCode(statusCode, value);
+        }
     }
 }
