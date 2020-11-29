@@ -3,13 +3,12 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
+using ArQr.Interface;
 using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeHandlers
 {
@@ -22,15 +21,15 @@ namespace ArQr.Core.QrCodeHandlers
     public class GetAllUserQrCodesHandler : IRequestHandler<GetAllUserQrCodesRequest, ActionHandlerResult>,
                                             IRequestHandler<GetAllMyQrCodesRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IMapper                                _mapper;
-        private readonly IHttpContextAccessor                   _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IResponseMessages    _responseMessages;
+        private readonly IMapper              _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GetAllUserQrCodesHandler(IUnitOfWork                            unitOfWork,
-                                        IStringLocalizer<HttpResponseMessages> responseMessages,
-                                        IMapper                                mapper,
-                                        IHttpContextAccessor                   httpContextAccessor)
+        public GetAllUserQrCodesHandler(IUnitOfWork          unitOfWork,
+                                        IResponseMessages    responseMessages,
+                                        IMapper              mapper,
+                                        IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork          = unitOfWork;
             _responseMessages    = responseMessages;
@@ -64,8 +63,7 @@ namespace ArQr.Core.QrCodeHandlers
                                                              paginationInput.PageSize);
 
             if (userQrCodes.Any() is false)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
+                return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
             var userQrCodesResource = _mapper.Map<IEnumerable<TResult>>(userQrCodes);
             var userQrCodeCount =

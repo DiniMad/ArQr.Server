@@ -1,13 +1,12 @@
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
+using ArQr.Interface;
 using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeHandlers
 {
@@ -18,15 +17,15 @@ namespace ArQr.Core.QrCodeHandlers
     public class GetSingleUserQrCodeHandler : IRequestHandler<GetSingleUserQrCodeRequest, ActionHandlerResult>,
                                               IRequestHandler<GetSingleMyQrCodeRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IMapper                                _mapper;
-        private readonly IHttpContextAccessor                   _httpContextAccessor;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IResponseMessages    _responseMessages;
+        private readonly IMapper              _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GetSingleUserQrCodeHandler(IUnitOfWork                            unitOfWork,
-                                          IStringLocalizer<HttpResponseMessages> responseMessages,
-                                          IMapper                                mapper,
-                                          IHttpContextAccessor                   httpContextAccessor)
+        public GetSingleUserQrCodeHandler(IUnitOfWork          unitOfWork,
+                                          IResponseMessages    responseMessages,
+                                          IMapper              mapper,
+                                          IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork          = unitOfWork;
             _responseMessages    = responseMessages;
@@ -54,13 +53,10 @@ namespace ArQr.Core.QrCodeHandlers
         {
             var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
 
-            if (qrCode is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
+            if (qrCode is null) return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
             if (userId is not null && qrCode.OwnerId != userId)
-                return new(StatusCodes.Status401Unauthorized,
-                           _responseMessages[HttpResponseMessages.Unauthorized].Value);
+                return new(StatusCodes.Status401Unauthorized, _responseMessages.Unauthorized());
 
             return new(StatusCodes.Status200OK, _mapper.Map<TResult>(qrCode));
         }

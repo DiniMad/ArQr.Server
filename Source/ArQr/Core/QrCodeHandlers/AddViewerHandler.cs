@@ -8,9 +8,7 @@ using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeHandlers
 {
@@ -19,15 +17,15 @@ namespace ArQr.Core.QrCodeHandlers
 
     public class AddViewerHandler : IRequestHandler<AddViewerRequest, ActionHandlerResult>
     {
-        private readonly ICacheService                          _cacheService;
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly CacheOptions                           _cacheOptions;
+        private readonly ICacheService     _cacheService;
+        private readonly IUnitOfWork       _unitOfWork;
+        private readonly IResponseMessages _responseMessages;
+        private readonly CacheOptions      _cacheOptions;
 
-        public AddViewerHandler(ICacheService                          cacheService,
-                                IUnitOfWork                            unitOfWork,
-                                IConfiguration                         configuration,
-                                IStringLocalizer<HttpResponseMessages> responseMessages)
+        public AddViewerHandler(ICacheService     cacheService,
+                                IUnitOfWork       unitOfWork,
+                                IConfiguration    configuration,
+                                IResponseMessages responseMessages)
         {
             _cacheService     = cacheService;
             _unitOfWork       = unitOfWork;
@@ -45,9 +43,7 @@ namespace ArQr.Core.QrCodeHandlers
 
             var qrCodeId = request.QrCodeId;
             var qrCode   = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
-            if (qrCode is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
+            if (qrCode is null) return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
             var ghostKey = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);
             await _cacheService.SetAsync(ghostKey, string.Empty, TimeSpan.FromMinutes(expireTimeInMinute));
@@ -56,7 +52,7 @@ namespace ArQr.Core.QrCodeHandlers
             var viewerIdValue = request.ViewerResource.ViewerId.ToString();
             await _cacheService.AddToUniqueListAsync(viewerListKey, viewerIdValue);
 
-            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
+            return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
     }
 }

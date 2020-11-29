@@ -3,13 +3,10 @@ using System.Threading.Tasks;
 using ArQr.Helper;
 using ArQr.Interface;
 using ArQr.Models;
-using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.QrCodeHandlers
 {
@@ -17,13 +14,13 @@ namespace ArQr.Core.QrCodeHandlers
 
     public class GetCachedViewersCountHandler : IRequestHandler<GetCachedViewersCountRequest, ActionHandlerResult>
     {
-        private readonly ICacheService                          _cacheService;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly CacheOptions                           _cacheOptions;
+        private readonly ICacheService     _cacheService;
+        private readonly IResponseMessages _responseMessages;
+        private readonly CacheOptions      _cacheOptions;
 
-        public GetCachedViewersCountHandler(ICacheService                          cacheService,
-                                            IConfiguration                         configuration,
-                                            IStringLocalizer<HttpResponseMessages> responseMessages)
+        public GetCachedViewersCountHandler(ICacheService     cacheService,
+                                            IConfiguration    configuration,
+                                            IResponseMessages responseMessages)
         {
             _cacheService     = cacheService;
             _responseMessages = responseMessages;
@@ -40,9 +37,7 @@ namespace ArQr.Core.QrCodeHandlers
             var qrCodeId      = request.QrCodeId;
             var ghostKey      = _cacheOptions.SequenceKeyBuilder(ghostPrefix, qrCodePrefix, qrCodeId);
             var ghostKeyExist = await _cacheService.KeyExistAsync(ghostKey);
-            if (ghostKeyExist is false)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.QrCodeNotFound].Value);
+            if (ghostKeyExist is false) return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
             var cachedViewerListKey =
                 _cacheOptions.SequenceKeyBuilder(qrCodePrefix, viewersListPrefix, qrCodeId);
