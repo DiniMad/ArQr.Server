@@ -11,6 +11,10 @@ namespace ArQr.MappingProfiles
             CreateMap<UserRegisterResource, User>();
 
             CreateMap<UserUpdateResource, User>()
+                .ForMember(user => user.Email,
+                           expression =>
+                               expression.MapFrom(resource =>
+                                                      resource.Email == null ? null : resource.Email.ToLower()))
                 .ForMember(user => user.EmailConfirmed,
                            expression =>
                                expression.MapFrom((resource, user) =>
