@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using ArQr.Helper;
 using ArQr.Interface;
@@ -23,6 +24,36 @@ namespace ArQr.Infrastructure
 
             await using var file = File.OpenWrite(filePath);
             await file.WriteAsync(content);
+        }
+
+        public async Task WriteChunksFromDiskToStream(string directory, Stream stream)
+        {
+            var fullDirectory = Path.Join(BasePath, directory);
+            var filesCount    = Directory.EnumerateFiles(fullDirectory).Count();
+
+            for (var i = 0; i < filesCount; i++)
+            {
+                var fileDirectory = Path.Join(fullDirectory, i.ToString());
+                var bytes         = await File.ReadAllBytesAsync(fileDirectory);
+                await stream.WriteAsync(bytes);
+            }
+        }
+
+        public long CalculateChunksTotalSize(string directory)
+        {
+            var fullDirectory = Path.Join(BasePath, directory);
+            var filesCount    = Directory.EnumerateFiles(fullDirectory).Count();
+            if (filesCount == 0) return 0;
+            
+            var      firstFilePath = Path.Join(fullDirectory, "1");
+            FileInfo firstFile     = new(firstFilePath);
+
+            var      lastFilePath = Path.Join(fullDirectory, (filesCount - 1).ToString());
+            FileInfo lastFile     = new(lastFilePath);
+
+            var totalLength = firstFile.Length * (filesCount - 1) + lastFile.Length;
+
+            return totalLength;
         }
 
         public bool DirectoryExist(string directory)

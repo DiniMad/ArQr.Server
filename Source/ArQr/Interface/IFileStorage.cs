@@ -1,3 +1,4 @@
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ArQr.Interface
@@ -6,9 +7,11 @@ namespace ArQr.Interface
     {
         public string BasePath { get; }
 
-        public Task WriteFileAsync(string    directory, string fileName, byte[] content);
-        public bool DirectoryExist(string    directory);
-        public void DeleteDirectory(string   directory);
-        public void ReCreateDirectory(string directory);
+        public Task WriteFileAsync(string           directory, string fileName, byte[] content);
+        public Task WriteChunksFromDiskToStream(string    directory, Stream stream);
+        public long CalculateChunksTotalSize(string directory);
+        public bool DirectoryExist(string           directory);
+        public void DeleteDirectory(string          directory);
+        public void ReCreateDirectory(string        directory);
     }
 }
