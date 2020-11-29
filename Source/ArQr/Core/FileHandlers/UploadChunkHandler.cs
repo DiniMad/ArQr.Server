@@ -83,11 +83,10 @@ namespace ArQr.Core.FileHandlers
                                          string.Empty,
                                          TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
-            var directory    = userId.ToString();
-            var subDirectory = cacheSession.MediaContentId.ToString();
+            var directory    = cacheSession.MediaContentId.ToString();
             var fileName     = chunkNumber;
             var content      = request.ChunkResource.Content;
-            await _fileStorage.WriteFileAsync(fileName, content, directory, subDirectory);
+            await _fileStorage.WriteFileAsync(fileName, content, directory);
 
             return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
         }

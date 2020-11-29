@@ -40,16 +40,15 @@ namespace ArQr.Core.FileHandlers
             var cacheSession = JsonSerializer.Deserialize<CacheUploadSession>(cacheSessionString);
             if (cacheSession is null) return Unit.Value;
 
-            var directory = cacheSession.UserId.ToString();
-            var subDirectory = cacheSession.MediaContentId.ToString();
-            var sessionDirectoryExist=_fileStorage.DirectoryExist(directory, subDirectory);
-            if(sessionDirectoryExist is true) _fileStorage.DeleteDirectory(directory, subDirectory);
+            var directory             = cacheSession.MediaContentId.ToString();
+            var sessionDirectoryExist = _fileStorage.DirectoryExist(directory);
+            if (sessionDirectoryExist is true) _fileStorage.DeleteDirectory(directory);
 
             var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
 
             await _cacheService.DeleteKeyAsync(uploadSessionKey);
             await _cacheService.DeleteKeyAsync(uploadedChunksListKey);
-            
+
             return Unit.Value;
         }
     }

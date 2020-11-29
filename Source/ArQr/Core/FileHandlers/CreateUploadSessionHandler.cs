@@ -96,9 +96,8 @@ namespace ArQr.Core.FileHandlers
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
 
-            var directory    = userId.ToString();
-            var subDirectory = mediaContentId.ToString();
-            _fileStorage.ReCreateDirectory(directory, subDirectory);
+            var directory = mediaContentId.ToString();
+            _fileStorage.ReCreateDirectory(directory);
 
             return new(StatusCodes.Status200OK, new UploadSessionResource(session));
         }
