@@ -37,6 +37,7 @@ namespace ArQr
             services.AddTheLocalization();
             services.AddTheParbad(Configuration.GetConnectionString("Parbad"));
 
+            services.AddTransient<IResponseMessages, ResponseMessages>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
