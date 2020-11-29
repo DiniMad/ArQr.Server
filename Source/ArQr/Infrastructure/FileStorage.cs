@@ -17,29 +17,29 @@ namespace ArQr.Infrastructure
             if (baseDirectoryExist is false) Directory.CreateDirectory(BasePath);
         }
 
-        public async Task WriteFileAsync(string fileName, byte[] content, string directory, string? subDirectory = null)
+        public async Task WriteFileAsync(string directory, string fileName, byte[] content)
         {
-            var filePath = Path.Join(BasePath, directory, subDirectory, fileName);
+            var filePath = Path.Join(BasePath, directory, fileName);
 
             await using var file = File.OpenWrite(filePath);
             await file.WriteAsync(content);
         }
 
-        public bool DirectoryExist(string directory, string? subDirectory = null)
+        public bool DirectoryExist(string directory)
         {
-            var fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            var fullDirectory = Path.Join(BasePath, directory);
             return Directory.Exists(fullDirectory);
         }
 
-        public void DeleteDirectory(string directory, string? subDirectory = null)
+        public void DeleteDirectory(string directory)
         {
-            var fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            var fullDirectory = Path.Join(BasePath, directory);
             Directory.Delete(fullDirectory, true);
         }
 
-        public void ReCreateDirectory(string directory, string? subDirectory = null)
+        public void ReCreateDirectory(string directory)
         {
-            var           fullDirectory = Path.Join(BasePath, directory, subDirectory);
+            var           fullDirectory = Path.Join(BasePath, directory);
             DirectoryInfo directoryInfo = new(fullDirectory);
             if (directoryInfo.Exists is true) directoryInfo.Delete(true);
             Directory.CreateDirectory(fullDirectory);
