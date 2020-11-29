@@ -4,8 +4,6 @@ using ArQr.Interface;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.FileHandlers
 {
@@ -13,15 +11,15 @@ namespace ArQr.Core.FileHandlers
 
     public class DownloadMediaHandler : IRequestHandler<DownloadMediaRequest, ActionHandlerResult>
     {
-        private readonly IFileStorage                           _fileStorage;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IHttpContextAccessor                   _httpContextAccessor;
+        private readonly IFileStorage         _fileStorage;
+        private readonly IResponseMessages    _responseMessages;
+        private readonly IUnitOfWork          _unitOfWork;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public DownloadMediaHandler(IFileStorage                           fileStorage,
-                                    IStringLocalizer<HttpResponseMessages> responseMessages,
-                                    IUnitOfWork                            unitOfWork,
-                                    IHttpContextAccessor                   httpContextAccessor)
+        public DownloadMediaHandler(IFileStorage         fileStorage,
+                                    IResponseMessages    responseMessages,
+                                    IUnitOfWork          unitOfWork,
+                                    IHttpContextAccessor httpContextAccessor)
         {
             _fileStorage         = fileStorage;
             _responseMessages    = responseMessages;
@@ -35,18 +33,14 @@ namespace ArQr.Core.FileHandlers
 
             var mediaDirectoryExist = _fileStorage.DirectoryExist(mediaContentId.ToString());
             if (mediaDirectoryExist is false)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.MediaContentNotFound].Value);
+                return new(StatusCodes.Status404NotFound, _responseMessages.MediaContentNotFound());
 
             var mediaContent = await _unitOfWork.MediaContentRepository.GetAsync(mediaContentId);
             if (mediaContent is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.MediaContentNotFound].Value);
+                return new(StatusCodes.Status404NotFound, _responseMessages.MediaContentNotFound());
 
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(mediaContent.ExtensionId);
-            if (extension is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.ExtensionNotSupported].Value);
+            if (extension is null) return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
 
             var directory = mediaContentId.ToString();
 
@@ -60,7 +54,7 @@ namespace ArQr.Core.FileHandlers
 
             await _fileStorage.WriteChunksFromDiskToStream(directory, response.Body);
 
-            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
+            return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
     }
 }

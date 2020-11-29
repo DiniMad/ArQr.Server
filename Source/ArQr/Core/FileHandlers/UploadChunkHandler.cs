@@ -8,9 +8,7 @@ using ArQr.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.FileHandlers
 {
@@ -18,17 +16,17 @@ namespace ArQr.Core.FileHandlers
 
     public class UploadChunkHandler : IRequestHandler<UploadChunkRequest, ActionHandlerResult>
     {
-        private readonly IHttpContextAccessor                   _httpContextAccessor;
-        private readonly ICacheService                          _cacheService;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IFileStorage                           _fileStorage;
-        private readonly CacheOptions                           _cacheOptions;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ICacheService        _cacheService;
+        private readonly IResponseMessages    _responseMessages;
+        private readonly IFileStorage         _fileStorage;
+        private readonly CacheOptions         _cacheOptions;
 
-        public UploadChunkHandler(IHttpContextAccessor                   httpContextAccessor,
-                                  ICacheService                          cacheService,
-                                  IConfiguration                         configuration,
-                                  IStringLocalizer<HttpResponseMessages> responseMessages,
-                                  IFileStorage                           fileStorage)
+        public UploadChunkHandler(IHttpContextAccessor httpContextAccessor,
+                                  ICacheService        cacheService,
+                                  IConfiguration       configuration,
+                                  IResponseMessages    responseMessages,
+                                  IFileStorage         fileStorage)
         {
             _httpContextAccessor = httpContextAccessor;
             _cacheService        = cacheService;
@@ -48,9 +46,7 @@ namespace ArQr.Core.FileHandlers
             var uploadSessionGhostKey =
                 _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
             var sessionExist = await _cacheService.KeyExistAsync(uploadSessionGhostKey);
-            if (sessionExist is false)
-                return new(StatusCodes.Status410Gone,
-                           _responseMessages[HttpResponseMessages.SessionExpired].Value);
+            if (sessionExist is false) return new(StatusCodes.Status410Gone, _responseMessages.SessionExpired());
 
 
             var uploadSessionKey =
@@ -58,13 +54,12 @@ namespace ArQr.Core.FileHandlers
             var cacheSessionString = await _cacheService.GetAsync(uploadSessionKey);
             if (cacheSessionString is null)
                 return new(StatusCodes.Status500InternalServerError,
-                           _responseMessages[HttpResponseMessages.UnhandledException].Value);
+                           _responseMessages.UnhandledException());
 
             var userId       = _httpContextAccessor.HttpContext!.GetUserId();
             var cacheSession = JsonSerializer.Deserialize<CacheUploadSession>(cacheSessionString);
             if (cacheSession!.UserId != userId)
-                return new(StatusCodes.Status401Unauthorized,
-                           _responseMessages[HttpResponseMessages.Unauthorized].Value);
+                return new(StatusCodes.Status401Unauthorized, _responseMessages.Unauthorized());
 
             var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
             var chunkNumber           = request.ChunkResource.ChunkNumber.ToString();
@@ -76,8 +71,7 @@ namespace ArQr.Core.FileHandlers
 
             var uploadedSizeAllowed = uploadedSizeInMb <= cacheSession.MaxSizeInMb;
             if (uploadedSizeAllowed is false)
-                return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.ViolationOfMediaMaxSize].Value);
+                return new(StatusCodes.Status400BadRequest, _responseMessages.ViolationOfMediaMaxSize());
 
             await _cacheService.SetAsync(uploadSessionGhostKey,
                                          string.Empty,
@@ -88,7 +82,7 @@ namespace ArQr.Core.FileHandlers
             var content   = request.ChunkResource.Content;
             await _fileStorage.WriteFileAsync(directory, fileName, content);
 
-            return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
+            return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
     }
 }
