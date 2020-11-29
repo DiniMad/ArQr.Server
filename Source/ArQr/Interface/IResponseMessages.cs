@@ -19,6 +19,9 @@ namespace ArQr.Interface
         public string MediaContentNotFound();
         public string ExtensionNotSupported();
         public string ViolationOfMediaMaxSize();
+        public string MediaExpired();
+        public string MediaNotVerified();
+        public string EmptyMedia();
         public string SessionExpired();
     }
 }

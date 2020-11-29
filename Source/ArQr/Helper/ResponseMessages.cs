@@ -30,6 +30,9 @@ namespace ArQr.Helper
         public  string MediaContentNotFound()        => GetMessage(HttpResponseMessages.MediaContentNotFound);
         public  string ExtensionNotSupported()       => GetMessage(HttpResponseMessages.ExtensionNotSupported);
         public  string ViolationOfMediaMaxSize()     => GetMessage(HttpResponseMessages.ViolationOfMediaMaxSize);
+        public  string MediaExpired()                => GetMessage(HttpResponseMessages.MediaExpired);
+        public  string MediaNotVerified()            => GetMessage(HttpResponseMessages.MediaNotVerified);
+        public  string EmptyMedia()                  => GetMessage(HttpResponseMessages.EmptyMedia);
         public  string SessionExpired()              => GetMessage(HttpResponseMessages.SessionExpired);
         private string GetMessage(string key)        => _responseMessages[key].Value;
     }
