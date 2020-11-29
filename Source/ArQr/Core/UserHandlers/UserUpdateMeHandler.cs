@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Helper;
+using ArQr.Interface;
 using AutoMapper;
 using Data.Repository.Base;
 using Domain;
@@ -9,9 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.UserHandlers
 {
@@ -19,17 +18,17 @@ namespace ArQr.Core.UserHandlers
 
     public class UserUpdateMeHandler : IRequestHandler<UserUpdateMeRequest, ActionHandlerResult>
     {
-        private readonly IHttpContextAccessor                   _httpContextAccessor;
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IMapper                                _mapper;
-        private readonly IPasswordHasher<User>                  _passwordHasher;
+        private readonly IHttpContextAccessor  _httpContextAccessor;
+        private readonly IUnitOfWork           _unitOfWork;
+        private readonly IResponseMessages     _responseMessages;
+        private readonly IMapper               _mapper;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public UserUpdateMeHandler(IHttpContextAccessor                   httpContextAccessor,
-                                   IUnitOfWork                            unitOfWork,
-                                   IStringLocalizer<HttpResponseMessages> responseMessages,
-                                   IMapper                                mapper,
-                                   IPasswordHasher<User>                  passwordHasher)
+        public UserUpdateMeHandler(IHttpContextAccessor  httpContextAccessor,
+                                   IUnitOfWork           unitOfWork,
+                                   IResponseMessages     responseMessages,
+                                   IMapper               mapper,
+                                   IPasswordHasher<User> passwordHasher)
         {
             _httpContextAccessor = httpContextAccessor;
             _unitOfWork          = unitOfWork;
@@ -42,9 +41,7 @@ namespace ArQr.Core.UserHandlers
         {
             var userId = _httpContextAccessor.HttpContext!.GetUserId();
             var user   = await _unitOfWork.UserRepository.GetAsync(userId);
-            if (user is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.UserNotFound].Value);
+            if (user is null) return new(StatusCodes.Status404NotFound, _responseMessages.UserNotFound());
 
             var updateResource = request.UpdateResource;
             user = _mapper.Map(updateResource, user);
@@ -60,9 +57,9 @@ namespace ArQr.Core.UserHandlers
             {
                 return (e.InnerException as SqlException)?.Number == 2601
                            ? new(StatusCodes.Status409Conflict,
-                                 _responseMessages[HttpResponseMessages.DuplicatePhoneNumberOrEmail].Value)
+                                 _responseMessages.DuplicatePhoneNumberOrEmail())
                            : new(StatusCodes.Status500InternalServerError,
-                                 _responseMessages[HttpResponseMessages.UnhandledException].Value);
+                                 _responseMessages.UnhandledException());
             }
 
             return new(StatusCodes.Status200OK, _mapper.Map<UserResource>(user));
