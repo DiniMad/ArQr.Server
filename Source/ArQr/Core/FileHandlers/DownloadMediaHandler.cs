@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using ArQr.Interface;
@@ -39,6 +40,12 @@ namespace ArQr.Core.FileHandlers
             if (mediaContent is null)
                 return new(StatusCodes.Status404NotFound, _responseMessages.MediaContentNotFound());
 
+            var isMediaExpired = DateTimeOffset.UtcNow.ToUnixTimeSeconds() > mediaContent.ExpireDate;
+            if (isMediaExpired is true) return new(StatusCodes.Status403Forbidden, _responseMessages.MediaExpired());
+
+            if (mediaContent.Verified is false)
+                return new(StatusCodes.Status403Forbidden, _responseMessages.MediaNotVerified());
+
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(mediaContent.ExtensionId);
             if (extension is null) return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
 
@@ -46,6 +53,8 @@ namespace ArQr.Core.FileHandlers
 
             var fileName = $"{mediaContent.Id}.{extension.Extension}";
             var fileSize = _fileStorage.CalculateChunksTotalSize(directory);
+
+            if (fileSize == 0) return new(StatusCodes.Status404NotFound, _responseMessages.EmptyMedia());
 
             var response = _httpContextAccessor.HttpContext!.Response;
             response.ContentType                    = "application/octet-stream";
