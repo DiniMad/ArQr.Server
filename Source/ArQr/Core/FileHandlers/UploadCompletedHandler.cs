@@ -41,6 +41,7 @@ namespace ArQr.Core.FileHandlers
 
             var ghostPrefix         = _cacheOptions.GhostPrefix;
             var uploadSessionPrefix = _cacheOptions.UploadSessionPrefix;
+            var chunkListPrefix     = _cacheOptions.ChunkListPrefix;
 
             var uploadSessionGhostKey =
                 _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
@@ -49,8 +50,7 @@ namespace ArQr.Core.FileHandlers
                 return new(StatusCodes.Status410Gone,
                            _responseMessages[HttpResponseMessages.SessionExpired].Value);
 
-            var uploadSessionKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, session);
+            var uploadSessionKey   = _cacheOptions.SequenceKeyBuilder(uploadSessionPrefix, session);
             var cacheSessionString = await _cacheService.GetAsync(uploadSessionKey);
             if (cacheSessionString is null)
                 return new(StatusCodes.Status500InternalServerError,
@@ -62,8 +62,11 @@ namespace ArQr.Core.FileHandlers
                 return new(StatusCodes.Status401Unauthorized,
                            _responseMessages[HttpResponseMessages.Unauthorized].Value);
 
+            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
+
             await _cacheService.DeleteKeyAsync(uploadSessionGhostKey);
             await _cacheService.DeleteKeyAsync(uploadSessionKey);
+            await _cacheService.DeleteKeyAsync(uploadedChunksListKey);
 
             return new(StatusCodes.Status200OK, _responseMessages[HttpResponseMessages.Done].Value);
         }
