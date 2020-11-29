@@ -9,19 +9,19 @@ using Resource.ResourceFiles;
 
 namespace ArQr.Core.FileHandlers
 {
-    public sealed record DownloadRequest(long MediaContentId) : IRequest<ActionHandlerResult>;
+    public sealed record DownloadMediaRequest(long MediaContentId) : IRequest<ActionHandlerResult>;
 
-    public class DownloadHandler : IRequestHandler<DownloadRequest, ActionHandlerResult>
+    public class DownloadMediaHandler : IRequestHandler<DownloadMediaRequest, ActionHandlerResult>
     {
         private readonly IFileStorage                           _fileStorage;
         private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
         private readonly IUnitOfWork                            _unitOfWork;
         private readonly IHttpContextAccessor                   _httpContextAccessor;
 
-        public DownloadHandler(IFileStorage                           fileStorage,
-                               IStringLocalizer<HttpResponseMessages> responseMessages,
-                               IUnitOfWork                            unitOfWork,
-                               IHttpContextAccessor                   httpContextAccessor)
+        public DownloadMediaHandler(IFileStorage                           fileStorage,
+                                    IStringLocalizer<HttpResponseMessages> responseMessages,
+                                    IUnitOfWork                            unitOfWork,
+                                    IHttpContextAccessor                   httpContextAccessor)
         {
             _fileStorage         = fileStorage;
             _responseMessages    = responseMessages;
@@ -29,7 +29,7 @@ namespace ArQr.Core.FileHandlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ActionHandlerResult> Handle(DownloadRequest request, CancellationToken cancellationToken)
+        public async Task<ActionHandlerResult> Handle(DownloadMediaRequest request, CancellationToken cancellationToken)
         {
             var mediaContentId = request.MediaContentId;
 
@@ -47,12 +47,12 @@ namespace ArQr.Core.FileHandlers
             if (extension is null)
                 return new(StatusCodes.Status404NotFound,
                            _responseMessages[HttpResponseMessages.ExtensionNotSupported].Value);
-            
+
             var directory = mediaContentId.ToString();
-            
+
             var fileName = $"{mediaContent.Id}.{extension.Extension}";
             var fileSize = _fileStorage.CalculateChunksTotalSize(directory);
-            
+
             var response = _httpContextAccessor.HttpContext!.Response;
             response.ContentType                    = "application/octet-stream";
             response.ContentLength                  = fileSize;
