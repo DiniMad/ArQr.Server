@@ -72,4 +72,13 @@
     <data name="SessionExpired" xml:space="preserve">
         <value>نشست شما به منقضی شده است.</value>
     </data>
+    <data name="MediaExpired" xml:space="preserve">
+        <value>محتوا منقضی شده است.</value>
+    </data>
+    <data name="MediaNotVerified" xml:space="preserve">
+        <value>محتوای این مدیا تایید نشده است.</value>
+    </data>
+    <data name="EmptyMedia" xml:space="preserve">
+        <value>محتوای رسانه خالی است.</value>
+    </data>
 </root>

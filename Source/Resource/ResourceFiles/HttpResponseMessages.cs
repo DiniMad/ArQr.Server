@@ -20,5 +20,8 @@ namespace Resource.ResourceFiles
         public const string ExtensionNotSupported       = "ExtensionNotSupported";
         public const string ViolationOfMediaMaxSize     = "ViolationOfMediaMaxSize";
         public const string SessionExpired              = "SessionExpired";
+        public const string MediaExpired                = "MediaExpired";
+        public const string MediaNotVerified            = "MediaNotVerified";
+        public const string EmptyMedia                  = "EmptyMedia";
     }
 }

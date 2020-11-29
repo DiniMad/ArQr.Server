@@ -88,6 +88,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to محتوای رسانه خالی است..
+        /// </summary>
+        internal static string EmptyMedia {
+            get {
+                return ResourceManager.GetString("EmptyMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to این فرمت فایل پشتیبانی نمی شود..
         /// </summary>
         internal static string ExtensionNotSupported {
@@ -120,6 +129,24 @@ namespace Resource.ResourceFiles {
         internal static string MediaContentNotFound {
             get {
                 return ResourceManager.GetString("MediaContentNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to محتوا منقضی شده است..
+        /// </summary>
+        internal static string MediaExpired {
+            get {
+                return ResourceManager.GetString("MediaExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to محتوای این مدیا تایید نشده است..
+        /// </summary>
+        internal static string MediaNotVerified {
+            get {
+                return ResourceManager.GetString("MediaNotVerified", resourceCulture);
             }
         }
         

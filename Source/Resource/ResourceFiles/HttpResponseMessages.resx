@@ -65,4 +65,13 @@
     <data name="SessionExpired" xml:space="preserve">
         <value>Your session expired.</value>
     </data>
+    <data name="MediaExpired" xml:space="preserve">
+        <value>Media is expired.</value>
+    </data>
+    <data name="MediaNotVerified" xml:space="preserve">
+        <value>Content of the media not verified.</value>
+    </data>
+    <data name="EmptyMedia" xml:space="preserve">
+        <value>The media content is empty.</value>
+    </data>
 </root>
