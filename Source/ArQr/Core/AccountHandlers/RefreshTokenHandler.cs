@@ -6,9 +6,7 @@ using AutoMapper;
 using Data.Repository.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountHandlers
 {
@@ -16,15 +14,15 @@ namespace ArQr.Core.AccountHandlers
 
     public class RefreshTokenHandler : IRequestHandler<RefreshTokenRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly ITokenService                          _tokenService;
-        private readonly IMapper                                _mapper;
+        private readonly IUnitOfWork       _unitOfWork;
+        private readonly IResponseMessages _responseMessages;
+        private readonly ITokenService     _tokenService;
+        private readonly IMapper           _mapper;
 
-        public RefreshTokenHandler(IUnitOfWork                            unitOfWork,
-                                   IStringLocalizer<HttpResponseMessages> responseMessages,
-                                   ITokenService                          tokenService,
-                                   IMapper                                mapper)
+        public RefreshTokenHandler(IUnitOfWork       unitOfWork,
+                                   IResponseMessages responseMessages,
+                                   ITokenService     tokenService,
+                                   IMapper           mapper)
         {
             _unitOfWork       = unitOfWork;
             _responseMessages = responseMessages;
@@ -36,15 +34,12 @@ namespace ArQr.Core.AccountHandlers
         {
             var refreshTokenResource = request.RefreshTokenResource;
             var user = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(refreshTokenResource.UserId);
-            if (user is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.UserNotFound].Value);
+            if (user is null) return new(StatusCodes.Status404NotFound, _responseMessages.UserNotFound());
 
             var isRefreshTokenValid = user.RefreshToken.IsExpired is false &&
                                       user.RefreshToken.Token == refreshTokenResource.RefreshToken;
             if (isRefreshTokenValid is false)
-                return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.IncorrectRefreshToken].Value);
+                return new(StatusCodes.Status400BadRequest, _responseMessages.UserNotFound());
 
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();

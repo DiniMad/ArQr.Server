@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using ArQr.Interface;
 using AutoMapper;
 using Data.Repository.Base;
 using Domain;
@@ -8,9 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountHandlers
 {
@@ -18,15 +17,15 @@ namespace ArQr.Core.AccountHandlers
 
     public class RegisterUserHandler : IRequestHandler<RegisterUserRequest, ActionHandlerResult>
     {
-        private readonly IMapper                                _mapper;
-        private readonly IPasswordHasher<User>                  _passwordHasher;
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
+        private readonly IMapper               _mapper;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly IUnitOfWork           _unitOfWork;
+        private readonly IResponseMessages     _responseMessages;
 
-        public RegisterUserHandler(IMapper                                mapper,
-                                   IPasswordHasher<User>                  passwordHasher,
-                                   IUnitOfWork                            unitOfWork,
-                                   IStringLocalizer<HttpResponseMessages> responseMessages)
+        public RegisterUserHandler(IMapper               mapper,
+                                   IPasswordHasher<User> passwordHasher,
+                                   IUnitOfWork           unitOfWork,
+                                   IResponseMessages     responseMessages)
         {
             _mapper           = mapper;
             _passwordHasher   = passwordHasher;
@@ -49,9 +48,9 @@ namespace ArQr.Core.AccountHandlers
             {
                 return (e.InnerException as SqlException)?.Number == 2601
                            ? new(StatusCodes.Status409Conflict,
-                                 _responseMessages[HttpResponseMessages.DuplicatePhoneNumber].Value)
+                                 _responseMessages.DuplicatePhoneNumber())
                            : new(StatusCodes.Status500InternalServerError,
-                                 _responseMessages[HttpResponseMessages.UnhandledException].Value);
+                                 _responseMessages.UnhandledException());
             }
 
             return new(StatusCodes.Status201Created, _mapper.Map<UserResource>(user));

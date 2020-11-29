@@ -9,9 +9,7 @@ using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
-using Resource.ResourceFiles;
 
 namespace ArQr.Core.AccountHandlers
 {
@@ -19,17 +17,17 @@ namespace ArQr.Core.AccountHandlers
 
     public class LoginUserHandler : IRequestHandler<LoginUserRequest, ActionHandlerResult>
     {
-        private readonly IUnitOfWork                            _unitOfWork;
-        private readonly IStringLocalizer<HttpResponseMessages> _responseMessages;
-        private readonly IPasswordHasher<User>                  _passwordHasher;
-        private readonly ITokenService                          _tokenService;
-        private readonly IMapper                                _mapper;
+        private readonly IUnitOfWork           _unitOfWork;
+        private readonly IResponseMessages     _responseMessages;
+        private readonly IPasswordHasher<User> _passwordHasher;
+        private readonly ITokenService         _tokenService;
+        private readonly IMapper               _mapper;
 
-        public LoginUserHandler(IUnitOfWork                            unitOfWork,
-                                IStringLocalizer<HttpResponseMessages> responseMessages,
-                                IPasswordHasher<User>                  passwordHasher,
-                                ITokenService                          tokenService,
-                                IMapper                                mapper)
+        public LoginUserHandler(IUnitOfWork           unitOfWork,
+                                IResponseMessages     responseMessages,
+                                IPasswordHasher<User> passwordHasher,
+                                ITokenService         tokenService,
+                                IMapper               mapper)
         {
             _unitOfWork       = unitOfWork;
             _responseMessages = responseMessages;
@@ -42,9 +40,7 @@ namespace ArQr.Core.AccountHandlers
         {
             var loginResource = request.LoginResource;
             var user          = await _unitOfWork.UserRepository.GetIncludeRefreshTokenAsync(loginResource.PhoneNumber);
-            if (user is null)
-                return new(StatusCodes.Status404NotFound,
-                           _responseMessages[HttpResponseMessages.UserNotFound].Value);
+            if (user is null) return new(StatusCodes.Status404NotFound, _responseMessages.UserNotFound());
 
             try
             {
@@ -52,13 +48,11 @@ namespace ArQr.Core.AccountHandlers
                                                                            user.PasswordHash,
                                                                            loginResource.Password);
                 if (isPasswordValid == PasswordVerificationResult.Failed)
-                    return new(StatusCodes.Status400BadRequest,
-                               _responseMessages[HttpResponseMessages.IncorrectPassword].Value);
+                    return new(StatusCodes.Status400BadRequest, _responseMessages.IncorrectPassword());
             }
             catch (FormatException)
             {
-                return new(StatusCodes.Status400BadRequest,
-                           _responseMessages[HttpResponseMessages.IncorrectPassword].Value);
+                return new(StatusCodes.Status400BadRequest, _responseMessages.IncorrectPassword());
             }
 
             var newRefreshToken = _tokenService.GenerateRefreshToken();
