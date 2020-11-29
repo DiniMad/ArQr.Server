@@ -66,16 +66,8 @@ namespace ArQr.Core.FileHandlers
             await _unitOfWork.CompleteAsync();
 
             var ghostPrefix                     = _cacheOptions.GhostPrefix;
-            var mediaContentPrefix              = _cacheOptions.MediaContentPrefix;
             var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
             var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
-
-            var downloadMediaGhostKey =
-                _cacheOptions.SequenceKeyBuilder(ghostPrefix, mediaContentPrefix, mediaContent.Id);
-            await _cacheService.DeleteKeyAsync(downloadMediaGhostKey);
-
-            var downloadMediaKey = _cacheOptions.SequenceKeyBuilder(mediaContentPrefix, mediaContent.Id);
-            await _cacheService.DeleteKeyAsync(downloadMediaKey);
 
             var session = Guid.NewGuid();
 
