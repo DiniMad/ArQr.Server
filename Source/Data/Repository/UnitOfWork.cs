@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Data.Repository.Base;
+using Domain.Base;
 
 namespace Data.Repository
 {
@@ -27,6 +28,11 @@ namespace Data.Repository
             PurchaseRepository                = new PurchaseRepository(DbContext);
             MediaContentRepository            = new MediaContentRepository(DbContext);
             SupportedMediaExtensionRepository = new SupportedMediaExtensionRepository(DbContext);
+        }
+
+        public async Task InsertAsync<TKey>(BaseDomain<TKey> domain) where TKey : struct
+        {
+            await DbContext.AddAsync(domain);
         }
 
         public async Task CompleteAsync()

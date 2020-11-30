@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Domain.Base;
 
 namespace Data.Repository.Base
 {
@@ -13,6 +14,7 @@ namespace Data.Repository.Base
         public IMediaContentRepository            MediaContentRepository            { get; }
         public ISupportedMediaExtensionRepository SupportedMediaExtensionRepository { get; }
 
+        public Task InsertAsync<TKey>(BaseDomain<TKey> domain) where TKey : struct;
         public Task CompleteAsync();
     }
 }
