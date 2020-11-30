@@ -62,4 +62,10 @@
     <data name="UnitPriceInThousandToman" xml:space="preserve">
         <value>Unit price in thousand toman</value>
     </data>
+    <data name="ProductType" xml:space="preserve">
+        <value>Product type</value>
+    </data>
+    <data name="Constraint" xml:space="preserve">
+        <value>Constraint</value>
+    </data>
 </root>

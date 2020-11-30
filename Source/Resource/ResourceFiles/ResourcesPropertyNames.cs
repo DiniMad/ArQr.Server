@@ -19,5 +19,7 @@ namespace Resource.ResourceFiles
         public const string Title                    = "Title";
         public const string Description              = "Description";
         public const string UnitPriceInThousandToman = "UnitPriceInThousandToman";
+        public const string ProductType              = "ProductType";
+        public const string Constraint               = "Constraint";
     }
 }

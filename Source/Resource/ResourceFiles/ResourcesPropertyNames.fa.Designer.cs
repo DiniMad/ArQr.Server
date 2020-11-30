@@ -70,6 +70,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to محدودیت.
+        /// </summary>
+        internal static string Constraint {
+            get {
+                return ResourceManager.GetString("Constraint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to توضیحات.
         /// </summary>
         internal static string Description {
@@ -138,6 +147,15 @@ namespace Resource.ResourceFiles {
         internal static string PhoneNumber {
             get {
                 return ResourceManager.GetString("PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوع محصول.
+        /// </summary>
+        internal static string ProductType {
+            get {
+                return ResourceManager.GetString("ProductType", resourceCulture);
             }
         }
         

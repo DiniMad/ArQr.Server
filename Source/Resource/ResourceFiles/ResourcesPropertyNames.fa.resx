@@ -69,4 +69,10 @@
     <data name="UnitPriceInThousandToman" xml:space="preserve">
         <value>قیمت واحد در واحد هزار تومان</value>
     </data>
+    <data name="ProductType" xml:space="preserve">
+        <value>نوع محصول</value>
+    </data>
+    <data name="Constraint" xml:space="preserve">
+        <value>محدودیت</value>
+    </data>
 </root>
