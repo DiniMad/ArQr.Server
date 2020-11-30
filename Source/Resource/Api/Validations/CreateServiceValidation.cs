@@ -23,6 +23,16 @@ namespace Resource.Api.Validations
                 .NotNull()
                 .GreaterThan(0)
                 .WithName(_ => propertyNames[ResourcesPropertyNames.UnitPriceInThousandToman]);
+
+            RuleFor(resource => resource.ProductType)
+                .NotNull()
+                .IsEnumName(typeof(ProductType))
+                .WithName(_ => propertyNames[ResourcesPropertyNames.ProductType]);
+
+            RuleFor(resource => resource.Constraint)
+                .NotNull()
+                .GreaterThan(0)
+                .WithName(_ => propertyNames[ResourcesPropertyNames.Constraint]);
         }
     }
 }
