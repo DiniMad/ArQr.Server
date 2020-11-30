@@ -10,6 +10,7 @@ namespace Domain
         public string                    Email                { get; set; }
         public bool                      EmailConfirmed       { get; set; }
         public bool                      PhoneNumberConfirmed { get; set; }
+        public bool                      Admin                { get; set; }
         public UserRefreshToken          RefreshToken         { get; set; }
         public IEnumerable<QrCode>       QrCodes              { get; set; }
         public IEnumerable<Purchase>     Purchases            { get; set; }
