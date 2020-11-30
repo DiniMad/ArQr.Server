@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -18,6 +17,19 @@ namespace Data.Configuration
 
             builder.Property(user => user.Email)
                    .IsRequired(false);
+
+            User adminUser = new()
+            {
+                Id          = 1,
+                PhoneNumber = "0000000000",
+                // Plain Password is "Admin123"
+                PasswordHash = "AQAAAAEAACcQAAAAELOXD5Z4lKhjCEQExaoM+Z0q7BR/vISBHA1XNP6nxJI2MrCD/x6vVCqEHCQ+mOHITg==",
+                Email = "admin@arqr.com",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                Admin = true,
+            };
+            builder.HasData(adminUser);
         }
     }
 }
