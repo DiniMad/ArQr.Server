@@ -20,6 +20,14 @@ namespace ArQr.MappingProfiles
                            expression =>
                                expression.MapFrom(code =>
                                                       code.ViewersCount >= code.MaxAllowedViewersCount));
+
+            CreateMap<UpdateQrCodeResource, QrCode>()
+                .ForAllMembers(expression =>
+                                   expression.Condition((_, _, sourceMember) => sourceMember is not null));
+            
+            CreateMap<QrCode, UpdateQrCodeResource>()
+                .ForAllMembers(expression =>
+                                   expression.Condition((_, _, sourceMember) => sourceMember is not null));
         }
     }
 }
