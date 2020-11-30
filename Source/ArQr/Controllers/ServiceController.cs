@@ -40,7 +40,10 @@ namespace ArQr.Controllers
         {
             var (statusCode, value) = await _mediator.Send(new CreateServiceRequest(serviceResource));
             return statusCode == StatusCodes.Status201Created
-                       ? CreatedAtAction("", "", null, value)
+                       ? CreatedAtAction("GetActiveService",
+                                         "Service",
+                                         new {serviceId = ((ServiceResource) value).Id},
+                                         value)
                        : StatusCode(statusCode, value);
         }
     }
