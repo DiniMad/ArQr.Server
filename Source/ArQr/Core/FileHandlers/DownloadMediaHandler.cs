@@ -46,7 +46,11 @@ namespace ArQr.Core.FileHandlers
             if (mediaContent.Verified is false)
                 return new(StatusCodes.Status403Forbidden, _responseMessages.MediaNotVerified());
 
-            var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(mediaContent.ExtensionId);
+            if (mediaContent.ExtensionId is null)
+                return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
+            
+            var extension =
+                await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(mediaContent.ExtensionId.Value);
             if (extension is null) return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
 
             var directory = mediaContentId.ToString();
