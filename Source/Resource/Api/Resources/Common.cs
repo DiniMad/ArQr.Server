@@ -55,4 +55,10 @@ namespace Resource.Api.Resources
                 $"{_baseUrl}?{nameof(_paginationInput.PageNumber)}={_paginationInput.PageNumber + amount}&{nameof(_paginationInput.PageSize)}={_paginationInput.PageSize}";
         }
     }
+    
+    internal enum ProductType : byte
+    {
+        QrCode,
+        MediaContent
+    }
 }
