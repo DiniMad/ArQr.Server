@@ -39,7 +39,6 @@ namespace ArQr.Helper
                 CreationDate = (int) now.ToUnixTimeSeconds(),
                 ExpireDate   = (int) now.AddDays(service.ExpireDurationInDays).ToUnixTimeSeconds(),
                 UserId       = userId,
-                ExtensionId = 1
             };
             return mediaContent;
         }
