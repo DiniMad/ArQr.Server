@@ -27,6 +27,13 @@ namespace ArQr.Controllers
             return StatusCode(statusCode, value);
         }
 
+        [HttpGet("{serviceId}")]
+        public async Task<ActionResult<ServiceResource>> GetActiveService(byte serviceId)
+        {
+            var (statusCode, value) = await _mediator.Send(new GetActiveServiceRequest(serviceId));
+            return StatusCode(statusCode, value);
+        }
+
         [Authorize(Roles = UserRoles.Admin)]
         [HttpPost]
         public async Task<ActionResult<ServiceResource>> CreateService(CreateServiceResource serviceResource)
