@@ -22,5 +22,7 @@ namespace Resource.ResourceFiles
         public const string ProductType              = "ProductType";
         public const string Constraint               = "Constraint";
         public const string ExpireDurationInDays     = "ExpireDurationInDays";
+        public const string AssociatedWebsite        = "AssociatedWebsite";
+        public const string AssociatedPhoneNumber    = "AssociatedPhoneNumber";
     }
 }

@@ -71,4 +71,10 @@
     <data name="ExpireDurationInDays" xml:space="preserve">
         <value>Expire duration in days</value>
     </data>
+    <data name="AssociatedWebsite" xml:space="preserve">
+        <value>Associated website</value>
+    </data>
+    <data name="AssociatedPhoneNumber" xml:space="preserve">
+        <value>Associated phone number</value>
+    </data>
 </root>

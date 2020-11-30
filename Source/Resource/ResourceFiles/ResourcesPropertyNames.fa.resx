@@ -78,4 +78,10 @@
     <data name="ExpireDurationInDays" xml:space="preserve">
         <value>مدت منقضی شدن در واحد روز</value>
     </data>
+    <data name="AssociatedWebsite" xml:space="preserve">
+        <value>وبسایت مرتبط</value>
+    </data>
+    <data name="AssociatedPhoneNumber" xml:space="preserve">
+        <value>شماره تماس مرتبط</value>
+    </data>
 </root>

@@ -70,6 +70,24 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to شماره تماس مرتبط.
+        /// </summary>
+        internal static string AssociatedPhoneNumber {
+            get {
+                return ResourceManager.GetString("AssociatedPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to وبسایت مرتبط.
+        /// </summary>
+        internal static string AssociatedWebsite {
+            get {
+                return ResourceManager.GetString("AssociatedWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to محدودیت.
         /// </summary>
         internal static string Constraint {
