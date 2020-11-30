@@ -9,6 +9,10 @@ namespace ArQr.MappingProfiles
         public ServiceMappingProfile()
         {
             CreateMap<Service, ServiceResource>();
+            CreateMap<CreateServiceResource, Service>()
+                .ForMember(service => service.Active,
+                           expression =>
+                               expression.MapFrom(_ => true));
         }
     }
 }
