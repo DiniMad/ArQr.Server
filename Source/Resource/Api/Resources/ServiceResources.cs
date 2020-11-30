@@ -6,5 +6,6 @@ namespace Resource.Api.Resources
                                                string Description,
                                                int    UnitPriceInThousandToman,
                                                string ProductType,
-                                               int    Constraint);
+                                               int    Constraint,
+                                               int    ExpireDurationInDays);
 }
