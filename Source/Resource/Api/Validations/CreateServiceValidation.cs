@@ -33,6 +33,11 @@ namespace Resource.Api.Validations
                 .NotNull()
                 .GreaterThan(0)
                 .WithName(_ => propertyNames[ResourcesPropertyNames.Constraint]);
+            
+            RuleFor(resource => resource.ExpireDurationInDays)
+                .NotNull()
+                .GreaterThan(0)
+                .WithName(_ => propertyNames[ResourcesPropertyNames.ExpireDurationInDays]);
         }
     }
 }
