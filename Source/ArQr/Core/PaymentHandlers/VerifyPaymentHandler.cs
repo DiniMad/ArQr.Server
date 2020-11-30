@@ -68,15 +68,19 @@ namespace ArQr.Core.PaymentHandlers
             if (cachePayment.PriceInRial != payment.Amount)
                 return new(StatusCodes.Status400BadRequest, _responseMessages.WrongPayment());
 
+            var service = await _unitOfWork.ServiceRepository.GetAsync(cachePayment.ServiceId);
+            if (service is null) return new(StatusCodes.Status400BadRequest, _responseMessages.ServiceNotFound());
+
             var verifyResult = await _onlinePayment.VerifyAsync(payment);
             if (verifyResult.IsSucceed is false)
                 return new(StatusCodes.Status400BadRequest, _responseMessages.WrongPayment());
 
-
             var purchase = _mapper.Map<Purchase>(cachePayment);
             purchase.TransactionCode = verifyResult.TransactionCode;
-
             await _unitOfWork.PurchaseRepository.InsertAsync(purchase);
+
+            var domain = service.CreateDomain(purchase.UserId);
+            await _unitOfWork.InsertAsync(domain);
             await _unitOfWork.CompleteAsync();
 
             return new(StatusCodes.Status200OK, _responseMessages.Done());
