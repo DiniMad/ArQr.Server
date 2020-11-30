@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Claims;
+using ArQr.Models;
 using Domain;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -20,7 +21,7 @@ namespace ArQr.Helper
                 {ClaimNameRefreshToken, user.RefreshToken.Token}
             };
 
-            if (user.Admin is true) claims.Add(ClaimTypes.Role, "Admin");
+            if (user.Admin is true) claims.Add(ClaimTypes.Role, UserRoles.Admin);
 
             return claims;
         }
