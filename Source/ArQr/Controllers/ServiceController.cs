@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ArQr.Core.ServiceHandlers;
-using Domain;
+using ArQr.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Resource.Api.Resources;
 
@@ -23,6 +25,16 @@ namespace ArQr.Controllers
         {
             var (statusCode, value) = await _mediator.Send(new GetAllActiveServicesRequest());
             return StatusCode(statusCode, value);
+        }
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost]
+        public async Task<ActionResult<ServiceResource>> CreateService(CreateServiceResource serviceResource)
+        {
+            var (statusCode, value) = await _mediator.Send(new CreateServiceRequest(serviceResource));
+            return statusCode == StatusCodes.Status201Created
+                       ? CreatedAtAction("", "", null, value)
+                       : StatusCode(statusCode, value);
         }
     }
 }
