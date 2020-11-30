@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using ArQr.Core.UserHandlers;
+using ArQr.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,19 @@ namespace ArQr.Controllers
             var (statusCode, value) = await _mediator.Send(new UserGetMeRequest());
             return StatusCode(statusCode, value);
         }
-        
+
         [HttpPost("update")]
         public async Task<ActionResult<UserResource>> UpdateMe(UserUpdateResource updateResource)
         {
             var (statusCode, value) = await _mediator.Send(new UserUpdateMeRequest(updateResource));
+            return StatusCode(statusCode, value);
+        }
+
+        [Authorize(Roles = UserRoles.Admin)]
+        [HttpPost("admin")]
+        public async Task<ActionResult> MakeUserAdmin(MakeUserAdminResource adminResource)
+        {
+            var (statusCode, value) = await _mediator.Send(new MakeUserAdminRequest(adminResource));
             return StatusCode(statusCode, value);
         }
     }
