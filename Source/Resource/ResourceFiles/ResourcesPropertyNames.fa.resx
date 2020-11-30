@@ -75,4 +75,7 @@
     <data name="Constraint" xml:space="preserve">
         <value>محدودیت</value>
     </data>
+    <data name="ExpireDurationInDays" xml:space="preserve">
+        <value>مدت منقضی شدن در واحد روز</value>
+    </data>
 </root>

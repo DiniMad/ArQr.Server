@@ -68,4 +68,7 @@
     <data name="Constraint" xml:space="preserve">
         <value>Constraint</value>
     </data>
+    <data name="ExpireDurationInDays" xml:space="preserve">
+        <value>Expire duration in days</value>
+    </data>
 </root>

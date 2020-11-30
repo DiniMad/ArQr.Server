@@ -97,6 +97,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مدت منقضی شدن در واحد روز.
+        /// </summary>
+        internal static string ExpireDurationInDays {
+            get {
+                return ResourceManager.GetString("ExpireDurationInDays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to فرمت فایل.
         /// </summary>
         internal static string Extension {

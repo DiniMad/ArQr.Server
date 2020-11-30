@@ -21,5 +21,6 @@ namespace Resource.ResourceFiles
         public const string UnitPriceInThousandToman = "UnitPriceInThousandToman";
         public const string ProductType              = "ProductType";
         public const string Constraint               = "Constraint";
+        public const string ExpireDurationInDays     = "ExpireDurationInDays";
     }
 }
