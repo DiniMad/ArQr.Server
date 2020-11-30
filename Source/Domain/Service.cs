@@ -9,6 +9,7 @@ namespace Domain
         public int         UnitPriceInThousandToman { get; set; }
         public ProductType ProductType              { get; set; }
         public int         Constraint               { get; set; }
+        public int         ExpireDurationInDays     { get; set; }
         public bool        Active                   { get; set; }
     }
 }
