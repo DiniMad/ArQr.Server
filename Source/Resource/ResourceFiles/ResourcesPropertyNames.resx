@@ -50,4 +50,7 @@
     <data name="TotalSizeInMb" xml:space="preserve">
         <value>Total size in MB</value>
     </data>
+    <data name="Admin" xml:space="preserve">
+        <value>Admin</value>
+    </data>
 </root>

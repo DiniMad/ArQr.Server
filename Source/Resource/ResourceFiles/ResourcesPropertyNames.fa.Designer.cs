@@ -61,6 +61,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ادمین.
+        /// </summary>
+        internal static string Admin {
+            get {
+                return ResourceManager.GetString("Admin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ایمیل.
         /// </summary>
         internal static string Email {

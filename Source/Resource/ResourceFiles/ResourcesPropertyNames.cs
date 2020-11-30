@@ -15,5 +15,6 @@ namespace Resource.ResourceFiles
         public const string MediaContentId = "MediaContentId";
         public const string Extension      = "Extension";
         public const string TotalSizeInMb  = "TotalSizeInMb";
+        public const string Admin          = "Admin";
     }
 }

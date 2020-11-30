@@ -57,4 +57,7 @@
     <data name="TotalSizeInMb" xml:space="preserve">
         <value>سایز کلی در مقیاس مگابایت</value>
     </data>
+    <data name="Admin" xml:space="preserve">
+        <value>ادمین</value>
+    </data>
 </root>
