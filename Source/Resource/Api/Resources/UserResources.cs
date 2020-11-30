@@ -11,4 +11,6 @@ namespace Resource.Api.Resources
 
 
     public sealed record UserUpdateResource(string? PhoneNumber, string? Password, string? Email);
+
+    public sealed record MakeUserAdminResource(long UserId, bool Admin = true);
 }
