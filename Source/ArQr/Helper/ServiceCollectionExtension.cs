@@ -34,7 +34,8 @@ namespace ArQr.Helper
                         ValidateAudience         = false,
                         ValidateLifetime         = true,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey         = tokenOptions.GetSecurityKey()
+                        IssuerSigningKey         = tokenOptions.GetSecurityKey(),
+                        RoleClaimType = "role"
                     });
 
             return services;
