@@ -14,8 +14,8 @@ namespace Resource.Api.Validations
                 .WithName(propertyNames[ResourcesPropertyNames.UserId]);
             
             RuleFor(resource => resource.Admin)
-                .NotNull();
-                // .WithName(propertyNames[ResourcesPropertyNames.Admin]);
+                .NotNull()
+                .WithName(propertyNames[ResourcesPropertyNames.Admin]);
         }
     }
 }
