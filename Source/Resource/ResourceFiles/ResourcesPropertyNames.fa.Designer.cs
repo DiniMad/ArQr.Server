@@ -70,6 +70,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to توضیحات.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ایمیل.
         /// </summary>
         internal static string Email {
@@ -160,11 +169,29 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عنوان.
+        /// </summary>
+        internal static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to سایز کلی در مقیاس مگابایت.
         /// </summary>
         internal static string TotalSizeInMb {
             get {
                 return ResourceManager.GetString("TotalSizeInMb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to قیمت واحد در واحد هزار تومان.
+        /// </summary>
+        internal static string UnitPriceInThousandToman {
+            get {
+                return ResourceManager.GetString("UnitPriceInThousandToman", resourceCulture);
             }
         }
         
