@@ -38,7 +38,9 @@ namespace ArQr.Infrastructure
             const int       chunkSize = 1024 * 1024; // read the file by chunks of 1MB
             var             buffer    = new byte[chunkSize];
             await using var file      = File.OpenRead(path);
-            while (await file.ReadAsync(buffer.AsMemory(0, buffer.Length)) > 0) yield return buffer;
+            int             readBytesCount;
+            while ((readBytesCount = await file.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
+                yield return buffer[..readBytesCount];
         }
 
         public long GetFileSize(string directory, string fileName)
