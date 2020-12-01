@@ -54,7 +54,6 @@ namespace ArQr.Core.FileHandlers
             if (totalSizeInMb > mediaContent.MaxSizeInMb)
                 return new(StatusCodes.Status400BadRequest, _responseMessages.ViolationOfMediaMaxSize());
 
-
             var extension = await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(extensionName);
             if (extension is null)
                 return new(StatusCodes.Status400BadRequest, _responseMessages.ExtensionNotSupported());
@@ -69,24 +68,22 @@ namespace ArQr.Core.FileHandlers
             var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
             var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
 
-            var session = Guid.NewGuid();
-
             var uploadSessionGhostKey =
-                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
+                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, mediaContentId);
             await _cacheService.SetAsync(uploadSessionGhostKey,
                                          string.Empty,
                                          TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
             var uploadSessionKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, session);
-            CacheUploadSession uploadSession       = new(userId, mediaContentId, mediaContent.MaxSizeInMb);
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, mediaContentId);
+            CacheUploadSession uploadSession       = new(userId, mediaContent.MaxSizeInMb);
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
 
             var directory = mediaContentId.ToString();
             _fileStorage.ReCreateDirectory(directory);
 
-            return new(StatusCodes.Status200OK, new UploadSessionResource(session));
+            return new(StatusCodes.Status200OK, new UploadSessionResource(mediaContentId));
         }
     }
 }

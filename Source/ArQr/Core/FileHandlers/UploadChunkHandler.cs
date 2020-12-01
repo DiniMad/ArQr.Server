@@ -42,15 +42,14 @@ namespace ArQr.Core.FileHandlers
             var chunkListPrefix                 = _cacheOptions.ChunkListPrefix;
             var uploadSessionExpireTimeInMinute = _cacheOptions.UploadSessionExpireTimeInMinute;
 
-            var session = request.ChunkResource.Session;
+            var mediaContentId = request.ChunkResource.MediaContentId;
             var uploadSessionGhostKey =
-                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
+                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, mediaContentId);
             var sessionExist = await _cacheService.KeyExistAsync(uploadSessionGhostKey);
             if (sessionExist is false) return new(StatusCodes.Status410Gone, _responseMessages.SessionExpired());
 
-
             var uploadSessionKey =
-                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, session);
+                _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, mediaContentId);
             var cacheSessionString = await _cacheService.GetAsync(uploadSessionKey);
             if (cacheSessionString is null)
                 return new(StatusCodes.Status500InternalServerError,
@@ -61,13 +60,12 @@ namespace ArQr.Core.FileHandlers
             if (cacheSession!.UserId != userId)
                 return new(StatusCodes.Status401Unauthorized, _responseMessages.Unauthorized());
 
-            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
+            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, mediaContentId);
             var chunkNumber           = request.ChunkResource.ChunkNumber.ToString();
             await _cacheService.AddToUniqueListAsync(uploadedChunksListKey, chunkNumber);
 
             var uploadedChunksCount = await _cacheService.GetCountOfListAsync(uploadedChunksListKey);
             var uploadedSizeInMb    = uploadedChunksCount;
-
 
             var uploadedSizeAllowed = uploadedSizeInMb <= cacheSession.MaxSizeInMb;
             if (uploadedSizeAllowed is false)
@@ -77,7 +75,7 @@ namespace ArQr.Core.FileHandlers
                                          string.Empty,
                                          TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
-            var directory = cacheSession.MediaContentId.ToString();
+            var directory = mediaContentId.ToString();
             var fileName  = chunkNumber;
             var content   = request.ChunkResource.Content;
             await _fileStorage.WriteFileAsync(directory, fileName, content);

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ArQr.Core.FileHandlers
 {
-    public sealed record UploadSessionExpiredRequest(string session) : IRequest<Unit>;
+    public sealed record UploadSessionExpiredRequest(string MediaContentId) : IRequest<Unit>;
 
     public class UploadSessionExpiredHandler : IRequestHandler<UploadSessionExpiredRequest, Unit>
     {
@@ -28,23 +28,23 @@ namespace ArQr.Core.FileHandlers
 
         public async Task<Unit> Handle(UploadSessionExpiredRequest request, CancellationToken cancellationToken)
         {
-            var session = request.session;
+            var mediaContentId = request.MediaContentId;
 
             var uploadSessionPrefix = _cacheOptions.UploadSessionPrefix;
             var chunkListPrefix     = _cacheOptions.ChunkListPrefix;
 
-            var uploadSessionKey   = _cacheOptions.SequenceKeyBuilder(uploadSessionPrefix, session);
+            var uploadSessionKey   = _cacheOptions.SequenceKeyBuilder(uploadSessionPrefix, mediaContentId);
             var cacheSessionString = await _cacheService.GetAsync(uploadSessionKey);
             if (cacheSessionString is null) return Unit.Value;
 
             var cacheSession = JsonSerializer.Deserialize<CacheUploadSession>(cacheSessionString);
             if (cacheSession is null) return Unit.Value;
 
-            var directory             = cacheSession.MediaContentId.ToString();
+            var directory             = mediaContentId;
             var sessionDirectoryExist = _fileStorage.DirectoryExist(directory);
             if (sessionDirectoryExist is true) _fileStorage.DeleteDirectory(directory);
 
-            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
+            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, mediaContentId);
 
             await _cacheService.DeleteKeyAsync(uploadSessionKey);
             await _cacheService.DeleteKeyAsync(uploadedChunksListKey);

@@ -43,11 +43,11 @@ namespace ArQr.Core
             var isUploadSession = _cacheOptions.KeyHasPrefix(rawKey, _cacheOptions.UploadSessionPrefix);
             if (isUploadSession is true)
             {
-                var session = rawKey.Split(_cacheOptions.KyeSeparatorCharacter)[^1];
+                var mediaContentId = rawKey.Split(_cacheOptions.KyeSeparatorCharacter)[^1];
 
                 using var serviceScope = _scopeFactory.CreateScope();
                 var       sender       = serviceScope.ServiceProvider.GetRequiredService<ISender>();
-                await sender.Send(new UploadSessionExpiredRequest(session), cancellationToken);
+                await sender.Send(new UploadSessionExpiredRequest(mediaContentId), cancellationToken);
             }
         }
     }
