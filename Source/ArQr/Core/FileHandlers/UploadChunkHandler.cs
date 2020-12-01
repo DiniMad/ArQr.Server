@@ -21,6 +21,7 @@ namespace ArQr.Core.FileHandlers
         private readonly IResponseMessages    _responseMessages;
         private readonly IFileStorage         _fileStorage;
         private readonly CacheOptions         _cacheOptions;
+        private readonly FileChunksOptions    _fileChunksOptions;
 
         public UploadChunkHandler(IHttpContextAccessor httpContextAccessor,
                                   ICacheService        cacheService,
@@ -33,10 +34,15 @@ namespace ArQr.Core.FileHandlers
             _responseMessages    = responseMessages;
             _fileStorage         = fileStorage;
             _cacheOptions        = configuration.GetCacheOptions();
+            _fileChunksOptions   = configuration.GetFileChunksOptions();
         }
 
         public async Task<ActionHandlerResult> Handle(UploadChunkRequest request, CancellationToken cancellationToken)
         {
+            var isViolationOfChunkSize = request.ChunkResource.Content.Length > _fileChunksOptions.UploadChunkSize;
+            if (isViolationOfChunkSize is true)
+                return new(StatusCodes.Status400BadRequest, _responseMessages.ViolationOfChunkSize());
+
             var ghostPrefix                     = _cacheOptions.GhostPrefix;
             var uploadSessionPrefix             = _cacheOptions.UploadSessionPrefix;
             var chunkListPrefix                 = _cacheOptions.ChunkListPrefix;
