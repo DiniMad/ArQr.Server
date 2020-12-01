@@ -1,5 +1,6 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using ArQr.Helper;
 using ArQr.Interface;
@@ -22,38 +23,29 @@ namespace ArQr.Infrastructure
         {
             var filePath = Path.Join(BasePath, directory, fileName);
 
-            await using var file = File.OpenWrite(filePath);
-            await file.WriteAsync(content);
+            await using var stream = new FileStream(filePath, FileMode.Append);
+            await stream.WriteAsync(content);
         }
 
-        public async Task WriteChunksFromDiskToStream(string directory, Stream stream)
+        public async Task WriteFromDiskToStream(string directory, string fileName, Stream stream)
         {
-            var fullDirectory = Path.Join(BasePath, directory);
-            var filesCount    = Directory.EnumerateFiles(fullDirectory).Count();
-
-            for (var i = 0; i < filesCount; i++)
-            {
-                var fileDirectory = Path.Join(fullDirectory, i.ToString());
-                var bytes         = await File.ReadAllBytesAsync(fileDirectory);
-                await stream.WriteAsync(bytes);
-            }
+            var fullFileName = Path.Join(BasePath, directory, fileName);
+            await foreach (var bytes in ReadAsyncEnumerable(fullFileName)) await stream.WriteAsync(bytes);
         }
 
-        public long CalculateChunksTotalSize(string directory)
+        private static async IAsyncEnumerable<byte[]> ReadAsyncEnumerable(string path)
         {
-            var fullDirectory = Path.Join(BasePath, directory);
-            var filesCount    = Directory.EnumerateFiles(fullDirectory).Count();
-            if (filesCount == 0) return 0;
-            
-            var      firstFilePath = Path.Join(fullDirectory, "1");
-            FileInfo firstFile     = new(firstFilePath);
+            const int       chunkSize = 1024 * 1024; // read the file by chunks of 1MB
+            var             buffer    = new byte[chunkSize];
+            await using var file      = File.OpenRead(path);
+            while (await file.ReadAsync(buffer.AsMemory(0, buffer.Length)) > 0) yield return buffer;
+        }
 
-            var      lastFilePath = Path.Join(fullDirectory, (filesCount - 1).ToString());
-            FileInfo lastFile     = new(lastFilePath);
-
-            var totalLength = firstFile.Length * (filesCount - 1) + lastFile.Length;
-
-            return totalLength;
+        public long GetFileSize(string directory, string fileName)
+        {
+            var      fullFileName = Path.Join(BasePath, directory, fileName);
+            FileInfo file         = new(fullFileName);
+            return file.Length;
         }
 
         public bool DirectoryExist(string directory)
