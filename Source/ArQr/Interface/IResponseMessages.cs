@@ -23,5 +23,6 @@ namespace ArQr.Interface
         public string MediaNotVerified();
         public string EmptyMedia();
         public string SessionExpired();
+        public string DuplicateExtension();
     }
 }
