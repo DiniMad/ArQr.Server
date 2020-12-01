@@ -27,17 +27,16 @@ namespace ArQr.Infrastructure
             await stream.WriteAsync(content);
         }
 
-        public async Task WriteFromDiskToStream(string directory, string fileName, Stream stream)
+        public async Task WriteFromDiskToStream(string directory, string fileName, Stream stream, int chunkSize)
         {
             var fullFileName = Path.Join(BasePath, directory, fileName);
-            await foreach (var bytes in ReadAsyncEnumerable(fullFileName)) await stream.WriteAsync(bytes);
+            await foreach (var bytes in ReadAsyncEnumerable(fullFileName, chunkSize)) await stream.WriteAsync(bytes);
         }
 
-        private static async IAsyncEnumerable<byte[]> ReadAsyncEnumerable(string path)
+        private async IAsyncEnumerable<byte[]> ReadAsyncEnumerable(string path, int chunkSize)
         {
-            const int       chunkSize = 1024 * 1024; // read the file by chunks of 1MB
-            var             buffer    = new byte[chunkSize];
-            await using var file      = File.OpenRead(path);
+            var             buffer = new byte[chunkSize];
+            await using var file   = File.OpenRead(path);
             int             readBytesCount;
             while ((readBytesCount = await file.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
                 yield return buffer[..readBytesCount];
