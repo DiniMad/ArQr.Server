@@ -24,6 +24,7 @@ namespace ArQr.Core.FileHandlers
         private readonly IResponseMessages    _responseMessages;
         private readonly IFileStorage         _fileStorage;
         private readonly CacheOptions         _cacheOptions;
+        private readonly FileChunksOptions    _fileChunksOptions;
 
         public CreateUploadSessionHandler(IHttpContextAccessor httpContextAccessor,
                                           IUnitOfWork          unitOfWork,
@@ -38,6 +39,7 @@ namespace ArQr.Core.FileHandlers
             _responseMessages    = responseMessages;
             _fileStorage         = fileStorage;
             _cacheOptions        = configuration.GetCacheOptions();
+            _fileChunksOptions   = configuration.GetFileChunksOptions();
         }
 
         public async Task<ActionHandlerResult> Handle(CreateUploadSessionRequest request,
@@ -83,7 +85,8 @@ namespace ArQr.Core.FileHandlers
             var directory = mediaContentId.ToString();
             _fileStorage.ReCreateDirectory(directory);
 
-            return new(StatusCodes.Status200OK, _responseMessages.Done());
+            return new(StatusCodes.Status200OK,
+                       new UploadSessionResource(_fileChunksOptions.UploadChunkSize));
         }
     }
 }
