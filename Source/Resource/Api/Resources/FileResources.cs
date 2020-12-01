@@ -6,5 +6,5 @@ namespace Resource.Api.Resources
 
     public sealed record UploadChunkResource(long MediaContentId, byte ChunkNumber, byte[] Content);
 
-    public sealed record UploadCompletedResource(Guid Session);
+    public sealed record UploadCompletedResource(long MediaContentId);
 }

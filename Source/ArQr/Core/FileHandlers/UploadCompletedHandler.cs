@@ -35,18 +35,18 @@ namespace ArQr.Core.FileHandlers
         public async Task<ActionHandlerResult> Handle(UploadCompletedRequest request,
                                                       CancellationToken      cancellationToken)
         {
-            var session = request.UploadCompletedResource.Session;
+            var mediaContentId = request.UploadCompletedResource.MediaContentId;
 
             var ghostPrefix         = _cacheOptions.GhostPrefix;
             var uploadSessionPrefix = _cacheOptions.UploadSessionPrefix;
             var chunkListPrefix     = _cacheOptions.ChunkListPrefix;
 
             var uploadSessionGhostKey =
-                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, session);
+                _cacheOptions.SequenceKeyBuilder(ghostPrefix, uploadSessionPrefix, mediaContentId);
             var sessionExist = await _cacheService.KeyExistAsync(uploadSessionGhostKey);
             if (sessionExist is false) return new(StatusCodes.Status410Gone, _responseMessages.SessionExpired());
 
-            var uploadSessionKey   = _cacheOptions.SequenceKeyBuilder(uploadSessionPrefix, session);
+            var uploadSessionKey   = _cacheOptions.SequenceKeyBuilder(uploadSessionPrefix, mediaContentId);
             var cacheSessionString = await _cacheService.GetAsync(uploadSessionKey);
             if (cacheSessionString is null)
                 return new(StatusCodes.Status500InternalServerError, _responseMessages.UnhandledException());
@@ -56,7 +56,7 @@ namespace ArQr.Core.FileHandlers
             if (cacheSession!.UserId != userId)
                 return new(StatusCodes.Status401Unauthorized, _responseMessages.Unauthorized());
 
-            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, session);
+            var uploadedChunksListKey = _cacheOptions.SequenceKeyBuilder(chunkListPrefix, mediaContentId);
 
             await _cacheService.DeleteKeyAsync(uploadSessionGhostKey);
             await _cacheService.DeleteKeyAsync(uploadSessionKey);
