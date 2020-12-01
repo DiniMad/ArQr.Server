@@ -61,6 +61,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{PropertyName}&apos; نباید دارای کارکتر &apos;.&apos; باشد..
+        /// </summary>
+        internal static string ExtensionWithoutPeriod {
+            get {
+                return ResourceManager.GetString("ExtensionWithoutPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{PropertyName}&apos; باید حداقل 6 کارکتر شامل حداقل 1 حرف و 1 عدد باشد..
         /// </summary>
         internal static string PasswordRegex {

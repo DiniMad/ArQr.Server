@@ -21,4 +21,7 @@
     <data name="PasswordRegex" xml:space="preserve">
         <value>'{PropertyName}' باید حداقل 6 کارکتر شامل حداقل 1 حرف و 1 عدد باشد.</value>
     </data>
+    <data name="ExtensionWithoutPeriod" xml:space="preserve">
+        <value>'{PropertyName}' نباید دارای کارکتر '.' باشد.</value>
+    </data>
 </root>

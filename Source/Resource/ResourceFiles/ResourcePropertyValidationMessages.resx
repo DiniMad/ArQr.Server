@@ -14,4 +14,7 @@
     <data name="PasswordRegex" xml:space="preserve">
         <value>'{PropertyName}' Should be atleast 6 characters containing atleast one letter and one number.</value>
     </data>
+    <data name="ExtensionWithoutPeriod" xml:space="preserve">
+        <value>'{PropertyName}' Should not have the '.' character in it.</value>
+    </data>
 </root>
