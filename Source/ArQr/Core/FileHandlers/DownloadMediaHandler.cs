@@ -48,15 +48,14 @@ namespace ArQr.Core.FileHandlers
 
             if (mediaContent.ExtensionId is null)
                 return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
-            
+
             var extension =
                 await _unitOfWork.SupportedMediaExtensionRepository.GetAsync(mediaContent.ExtensionId.Value);
             if (extension is null) return new(StatusCodes.Status404NotFound, _responseMessages.ExtensionNotSupported());
 
             var directory = mediaContentId.ToString();
-
-            var fileName = $"{mediaContent.Id}.{extension.Extension}";
-            var fileSize = _fileStorage.CalculateChunksTotalSize(directory);
+            var fileName  = $"{mediaContentId}.{extension.Extension}";
+            var fileSize  = _fileStorage.GetFileSize(directory, fileName);
 
             if (fileSize == 0) return new(StatusCodes.Status404NotFound, _responseMessages.EmptyMedia());
 
@@ -65,7 +64,7 @@ namespace ArQr.Core.FileHandlers
             response.ContentLength                  = fileSize;
             response.Headers["Content-Disposition"] = $"attachment; fileName={fileName}";
 
-            await _fileStorage.WriteChunksFromDiskToStream(directory, response.Body);
+            await _fileStorage.WriteFromDiskToStream(directory, fileName, response.Body);
 
             return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
