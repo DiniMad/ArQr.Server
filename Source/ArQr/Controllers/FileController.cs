@@ -37,7 +37,7 @@ namespace ArQr.Controllers
 
         [Authorize]
         [HttpPost("uploadCompleted")]
-        public async Task<ActionResult> UploadChunk(UploadCompletedResource completedResource)
+        public async Task<ActionResult> UploadCompleted(UploadCompletedResource completedResource)
         {
             var (statusCode, value) = await _mediator.Send(new UploadCompletedRequest(completedResource));
             return StatusCode(statusCode, value);
