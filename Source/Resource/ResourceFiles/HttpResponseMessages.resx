@@ -74,4 +74,7 @@
     <data name="EmptyMedia" xml:space="preserve">
         <value>The media content is empty.</value>
     </data>
+    <data name="DuplicateExtension" xml:space="preserve">
+        <value>The extension already exists.</value>
+    </data>
 </root>

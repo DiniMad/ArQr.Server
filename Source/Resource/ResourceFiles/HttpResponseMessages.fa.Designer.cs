@@ -70,6 +70,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to این فرمت فایل موجود می باشد..
+        /// </summary>
+        internal static string DuplicateExtension {
+            get {
+                return ResourceManager.GetString("DuplicateExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to شماره تماس موجود می باشد..
         /// </summary>
         internal static string DuplicatePhoneNumber {

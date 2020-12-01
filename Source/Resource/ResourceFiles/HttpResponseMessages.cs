@@ -23,5 +23,6 @@ namespace Resource.ResourceFiles
         public const string MediaExpired                = "MediaExpired";
         public const string MediaNotVerified            = "MediaNotVerified";
         public const string EmptyMedia                  = "EmptyMedia";
+        public const string DuplicateExtension          = "DuplicateExtension";
     }
 }
