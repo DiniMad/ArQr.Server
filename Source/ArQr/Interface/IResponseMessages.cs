@@ -24,5 +24,6 @@ namespace ArQr.Interface
         public string EmptyMedia();
         public string SessionExpired();
         public string DuplicateExtension();
+        public string ViolationOfChunkSize();
     }
 }

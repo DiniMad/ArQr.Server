@@ -35,6 +35,7 @@ namespace ArQr.Helper
         public string EmptyMedia()                  => GetMessage(HttpResponseMessages.EmptyMedia);
         public string SessionExpired()              => GetMessage(HttpResponseMessages.SessionExpired);
         public string DuplicateExtension()          => GetMessage(HttpResponseMessages.DuplicateExtension);
+        public string ViolationOfChunkSize          => GetMessage(HttpResponseMessages.ViolationOfChunkSize);
 
         private string GetMessage(string key) => _responseMessages[key].Value;
     }
