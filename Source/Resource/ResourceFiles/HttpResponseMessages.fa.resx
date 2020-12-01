@@ -84,4 +84,7 @@
     <data name="DuplicateExtension" xml:space="preserve">
         <value>این فرمت فایل موجود می باشد.</value>
     </data>
+    <data name="ViolationOfChunkSize" xml:space="preserve">
+        <value>سایز تکه فایل از مقدار مجاز بیشتر است.</value>
+    </data>
 </root>

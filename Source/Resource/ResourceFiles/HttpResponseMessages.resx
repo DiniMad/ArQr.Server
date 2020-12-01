@@ -77,4 +77,7 @@
     <data name="DuplicateExtension" xml:space="preserve">
         <value>The extension already exists.</value>
     </data>
+    <data name="ViolationOfChunkSize" xml:space="preserve">
+        <value>Chunk size is bigger than the allowed value.</value>
+    </data>
 </root>

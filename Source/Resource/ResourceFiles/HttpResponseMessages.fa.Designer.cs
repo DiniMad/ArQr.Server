@@ -241,6 +241,15 @@ namespace Resource.ResourceFiles {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to سایز تکه فایل از مقدار مجاز بیشتر است..
+        /// </summary>
+        internal static string ViolationOfChunkSize {
+            get {
+                return ResourceManager.GetString("ViolationOfChunkSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to سایز فایل از سایز محتوا بیشتر است..
         /// </summary>
         internal static string ViolationOfMediaMaxSize {
