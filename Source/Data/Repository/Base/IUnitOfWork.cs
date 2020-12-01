@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Base;
 
@@ -14,7 +15,7 @@ namespace Data.Repository.Base
         public IMediaContentRepository            MediaContentRepository            { get; }
         public ISupportedMediaExtensionRepository SupportedMediaExtensionRepository { get; }
 
-        public Task InsertAsync<TKey>(BaseDomain<TKey> domain) where TKey : struct;
+        public Task InsertCollectionAsync<TKey>(IEnumerable<BaseDomain<TKey>> domains) where TKey : struct;
         public Task CompleteAsync();
     }
 }

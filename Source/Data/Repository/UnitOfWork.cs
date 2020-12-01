@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Data.Repository.Base;
 using Domain.Base;
@@ -30,9 +31,9 @@ namespace Data.Repository
             SupportedMediaExtensionRepository = new SupportedMediaExtensionRepository(DbContext);
         }
 
-        public async Task InsertAsync<TKey>(BaseDomain<TKey> domain) where TKey : struct
+        public async Task InsertCollectionAsync<TKey>(IEnumerable<BaseDomain<TKey>> domains) where TKey : struct
         {
-            await DbContext.AddAsync(domain);
+            await DbContext.AddRangeAsync(domains);
         }
 
         public async Task CompleteAsync()
