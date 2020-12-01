@@ -7,5 +7,5 @@ namespace ArQr.Models
                                               long   UserId,
                                               byte   ServiceId);
 
-    public sealed record CacheUploadSession(long UserId, byte MaxSizeInMb);
+    public sealed record CacheUploadSession(long UserId, byte MaxSizeInMb, string Extension);
 }

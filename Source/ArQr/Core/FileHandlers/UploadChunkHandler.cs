@@ -76,7 +76,7 @@ namespace ArQr.Core.FileHandlers
                                          TimeSpan.FromMinutes(uploadSessionExpireTimeInMinute));
 
             var directory = mediaContentId.ToString();
-            var fileName  = chunkNumber;
+            var fileName  = $"{mediaContentId}.{cacheSession.Extension}";
             var content   = request.ChunkResource.Content;
             await _fileStorage.WriteFileAsync(directory, fileName, content);
 

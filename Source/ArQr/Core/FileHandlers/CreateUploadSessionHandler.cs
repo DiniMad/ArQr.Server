@@ -76,7 +76,7 @@ namespace ArQr.Core.FileHandlers
 
             var uploadSessionKey =
                 _cacheOptions.SequenceKeyBuilder(_cacheOptions.UploadSessionPrefix, mediaContentId);
-            CacheUploadSession uploadSession       = new(userId, mediaContent.MaxSizeInMb);
+            CacheUploadSession uploadSession       = new(userId, mediaContent.MaxSizeInMb, extensionName);
             var                uploadSessionString = JsonSerializer.Serialize(uploadSession);
             await _cacheService.SetAsync(uploadSessionKey, uploadSessionString);
 
