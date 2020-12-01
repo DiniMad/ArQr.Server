@@ -83,7 +83,7 @@ namespace ArQr.Core.FileHandlers
             var directory = mediaContentId.ToString();
             _fileStorage.ReCreateDirectory(directory);
 
-            return new(StatusCodes.Status200OK, new UploadSessionResource(mediaContentId));
+            return new(StatusCodes.Status200OK, _responseMessages.Done());
         }
     }
 }
