@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Domain.Base;
 
@@ -17,6 +16,8 @@ namespace Domain
         public User                      Owner                  { get; set; }
         public long                      OwnerId                { get; set; }
         public IEnumerable<QrCodeViewer> Viewers                { get; set; }
+        public long?                     MediaContentId         { get; set; }
+        public MediaContent?             MediaContent           { get; set; }
 
         public QrCode()
         {
