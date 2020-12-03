@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using ArQr.Infrastructure;
 using ArQr.Interface;
 using ArQr.Models;
+using Data;
 using Data.Repository;
 using Data.Repository.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -19,7 +20,8 @@ namespace ArQr.Helper
     {
         public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
         {
-            return services.AddScoped<IUnitOfWork, UnitOfWork>();
+            return services.AddScoped<IUnitOfWork, UnitOfWork>()
+                           .AddTransient<DatabaseMigrator>();
         }
 
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services,
