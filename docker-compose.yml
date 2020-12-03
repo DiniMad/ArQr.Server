@@ -1,0 +1,32 @@
+# 1- Publish project.
+# 2- Set the connection string.
+
+version: "3"
+
+services:
+    arqr:
+        build: ./Source/ArQr
+        image: arqr
+        ports:
+            - 80:80
+        volumes:
+            - C:/Website/Storage:/app/Storage
+        depends_on:
+            - sql
+            - redis
+        restart: on-failure
+    sql:
+        image: mcr.microsoft.com/mssql/server
+        environment:
+            ACCEPT_EULA: Y
+            SA_PASSWORD: MƴSq|P@$$w0rd
+            MSSQL_PID: Express
+            TZ: Asia/Tehran
+        ports:
+            - 11433:1433
+        volumes:
+            - C:/Website/SqlDb:/VAR/OPT/MSSQL
+    redis:
+        image: redis:alpine
+        ports:
+            - 16379:6379
