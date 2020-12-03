@@ -12,6 +12,7 @@ namespace Data
             var configuration = new ConfigurationBuilder()
                                 .SetBasePath(Directory.GetCurrentDirectory())
                                 .AddJsonFile("appsettings.json")
+                                .AddJsonFile("appsettings.Development.json", true)
                                 .Build();
             var connectionString = configuration.GetConnectionString("Default");
             var optionBuilder    = new DbContextOptionsBuilder<ApplicationDbContext>().UseSqlServer(connectionString);
