@@ -17,7 +17,7 @@ namespace ArQr.Helper
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddUnitOfWork(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddUnitOfWork(this IServiceCollection services)
         {
             return services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
@@ -35,7 +35,7 @@ namespace ArQr.Helper
                         ValidateLifetime         = true,
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey         = tokenOptions.GetSecurityKey(),
-                        RoleClaimType = "role"
+                        RoleClaimType            = "role"
                     });
 
             return services;

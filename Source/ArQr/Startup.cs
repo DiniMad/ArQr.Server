@@ -29,7 +29,7 @@ namespace ArQr
                     .AddTheFluentValidation();
 
             services.AddHttpContextAccessor();
-            services.AddUnitOfWork(Configuration.GetConnectionString("Default"));
+            services.AddUnitOfWork();
             services.AddCacheService(Configuration.GetConnectionString("Redis"));
             services.AddJwtAuthentication(Configuration.GetTokenOption());
             services.AddAutoMapper(typeof(Startup));
