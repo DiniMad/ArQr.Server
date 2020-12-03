@@ -66,6 +66,8 @@ namespace ArQr
             });
             // TODO: Remove after developing the Parbad payment functionality. 
             app.UseParbadVirtualGatewayWhenDeveloping();
+
+            app.ApplyDatabasesMigrations();
         }
     }
 }
