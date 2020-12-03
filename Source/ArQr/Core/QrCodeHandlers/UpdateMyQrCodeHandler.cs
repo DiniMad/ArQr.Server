@@ -42,7 +42,16 @@ namespace ArQr.Core.QrCodeHandlers
             var userId = _httpContextAccessor.HttpContext!.GetUserId();
             if (qrCode.OwnerId != userId) return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
-            var newQrCode = _mapper.Map(request.QrCodeResource,qrCode);
+            var mediaContentId = request.QrCodeResource.MediaContentId;
+            if (mediaContentId is not null and not 0)
+            {
+                var mediaContent = await _unitOfWork.MediaContentRepository.GetAsync(mediaContentId.Value);
+                if (mediaContent is null || mediaContent.UserId != userId)
+                    return new(StatusCodes.Status404NotFound, _responseMessages.MediaContentNotFound());
+            }
+
+            var newQrCode                                     = _mapper.Map(request.QrCodeResource, qrCode);
+            if (mediaContentId == 0) newQrCode.MediaContentId = null;
             _unitOfWork.QrCodeRepository.Update(newQrCode);
             await _unitOfWork.CompleteAsync();
 
