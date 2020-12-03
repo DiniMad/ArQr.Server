@@ -65,7 +65,7 @@ namespace ArQr
                 endpoints.MapDefaultControllerRoute();
             });
             // TODO: Remove after developing the Parbad payment functionality. 
-            app.UseParbadVirtualGatewayWhenDeveloping();
+            app.UseParbadVirtualGateway();
 
             app.ApplyDatabasesMigrations();
         }
