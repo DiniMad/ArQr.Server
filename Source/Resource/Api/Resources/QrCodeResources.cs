@@ -24,8 +24,9 @@ namespace Resource.Api.Resources
 
     public sealed record QrCodeViewersCountResource(int Count);
 
-    public sealed record UpdateQrCodeResource(string  Title,
-                                              string  Description,
+    public sealed record UpdateQrCodeResource(string? Title,
+                                              string? Description,
                                               string? AssociatedPhoneNumber,
-                                              string? AssociatedWebsite);
+                                              string? AssociatedWebsite,
+                                              long?   MediaContentId);
 }
