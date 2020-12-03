@@ -7,6 +7,7 @@ namespace Resource.Api.Resources
         public string  Description           { get; init; }
         public string? AssociatedPhoneNumber { get; init; }
         public string? AssociatedWebsite     { get; init; }
+        public long?   MediaContentId        { get; init; }
     }
 
     public sealed record AuthorizeQrCodeResource : QrCodeResource
