@@ -4,3 +4,4 @@
 **/obj/
 **/*.db
 **/*.user
+/Source/ArQr/appsettings.json
