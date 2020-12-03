@@ -24,6 +24,10 @@ namespace Resource.Api.Validations
             RuleFor(resource => resource.AssociatedPhoneNumber)
                 .Length(10)
                 .WithName(_ => propertyNames[ResourcesPropertyNames.AssociatedPhoneNumber]);
+
+            RuleFor(resource => resource.MediaContentId)
+                .GreaterThanOrEqualTo(0)
+                .WithName(_ => propertyNames[ResourcesPropertyNames.MediaContentId]);
         }
     }
 }
