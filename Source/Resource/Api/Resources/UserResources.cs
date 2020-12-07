@@ -4,13 +4,11 @@ namespace Resource.Api.Resources
     {
         public string Id                   { get; init; }
         public string PhoneNumber          { get; init; }
-        public string Email                { get; init; }
-        public bool   EmailConfirmed       { get; init; }
         public bool   PhoneNumberConfirmed { get; init; }
     }
 
 
-    public sealed record UserUpdateResource(string? PhoneNumber, string? Password, string? Email);
+    public sealed record UserUpdateResource(string? PhoneNumber, string? Password);
 
     public sealed record MakeUserAdminResource(long UserId, bool Admin = true);
 }
