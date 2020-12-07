@@ -19,7 +19,6 @@ namespace ArQr.Helper
         public string IncorrectRefreshToken()       => GetMessage(HttpResponseMessages.IncorrectRefreshToken);
         public string DuplicatePhoneNumber()        => GetMessage(HttpResponseMessages.DuplicatePhoneNumber);
         public string UnhandledException()          => GetMessage(HttpResponseMessages.UnhandledException);
-        public string DuplicatePhoneNumberOrEmail() => GetMessage(HttpResponseMessages.DuplicatePhoneNumberOrEmail);
         public string QrCodeNotFound()              => GetMessage(HttpResponseMessages.QrCodeNotFound);
         public string Done()                        => GetMessage(HttpResponseMessages.Done);
         public string ServiceNotFound()             => GetMessage(HttpResponseMessages.ServiceNotFound);
