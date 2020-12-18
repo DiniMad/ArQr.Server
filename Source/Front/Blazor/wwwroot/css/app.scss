@@ -1,0 +1,44 @@
+@import "blazor";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+html, body {
+	font-size: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+.api-response-notification {
+	direction: rtl;
+	width: auto;
+	max-width: 70rem;
+
+	.ant-notification-notice-close {
+		right: auto;
+		left: 2rem;
+	}
+
+	.ant-notification-notice-message {
+		margin-right: 1rem;
+		margin-left: 1rem;
+	}
+}
+
+@import "homePage";
