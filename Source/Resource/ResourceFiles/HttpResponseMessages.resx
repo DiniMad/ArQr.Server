@@ -29,9 +29,6 @@
     <data name="UnhandledException" xml:space="preserve">
         <value>An unhandled exception has occurred.</value>
     </data>
-    <data name="DuplicatePhoneNumberOrEmail" xml:space="preserve">
-        <value>Either email or phone number has already existed.</value>
-    </data>
     <data name="QrCodeNotFound" xml:space="preserve">
         <value>QR code not found.</value>
     </data>

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +8,6 @@ using ArQr.Models;
 using AutoMapper;
 using Data.Repository.Base;
 using Domain;
-using Domain.Base;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -81,8 +80,8 @@ namespace ArQr.Core.PaymentHandlers
             purchase.TransactionCode = verifyResult.TransactionCode;
             await _unitOfWork.PurchaseRepository.InsertAsync(purchase);
 
-            var domainList = new List<BaseDomain<long>>();
-            for (var i = 0; i < cachePayment.Quantity; i++) domainList.Add(service.CreateDomain(purchase.UserId));
+            var domainList =
+                Enumerable.Range(0, cachePayment.Quantity).Select(_ => service.CreateDomain(purchase.UserId));
 
             await _unitOfWork.InsertCollectionAsync(domainList);
             await _unitOfWork.CompleteAsync();
