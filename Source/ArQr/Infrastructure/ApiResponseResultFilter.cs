@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
+using ArQr.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Resource.Api.Resources;
 
 namespace ArQr.Infrastructure
 {
@@ -10,7 +10,7 @@ namespace ArQr.Infrastructure
         public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
             var objectResult = (context.Result as ObjectResult)!;
-            objectResult.Value = ApiResponse<object>.Parse(objectResult);
+            objectResult.Value = objectResult.ToApiResponse<object>();
             await next();
         }
     }
