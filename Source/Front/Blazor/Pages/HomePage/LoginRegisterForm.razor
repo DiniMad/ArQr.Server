@@ -1,0 +1,33 @@
+<EditForm Model="_loginRegisterModel" OnSubmit="Callback">
+    <Row Justify="center">
+        <Col Span="24">
+            <Input Placeholder="شماره تلفن" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.PhoneNumber">
+                <Prefix>
+                    <Icon Type="phone"/>
+                </Prefix>
+            </Input>
+        </Col>
+    </Row>
+    <Row Justify="center">
+        <Col Span="24">
+            <InputPassword Placeholder="رمز عبور" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.Password">
+                <Prefix>
+                    <Icon Type="lock"/>
+                </Prefix>
+            </InputPassword>
+        </Col>
+    </Row>
+    <Row Justify="center">
+        <Col>
+            <RadioGroup @bind-Value="_loginRegisterType" ButtonStyle="solid">
+                <Radio RadioButton Value="@(LoginRegisterType.Login)">ورود به حساب کاربری</Radio>
+                <Radio RadioButton Value="@(LoginRegisterType.Register)">ساخت حساب کاربری</Radio>
+            </RadioGroup>
+        </Col>
+    </Row>
+    <Row Justify="center">
+        <Col>
+            <Button Type="primary" HtmlType="submit">@SubmitText</Button>
+        </Col>
+    </Row>
+</EditForm>
