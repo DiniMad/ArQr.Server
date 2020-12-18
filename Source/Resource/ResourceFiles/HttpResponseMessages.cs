@@ -8,7 +8,6 @@ namespace Resource.ResourceFiles
         public const string IncorrectRefreshToken       = "IncorrectRefreshToken";
         public const string DuplicatePhoneNumber        = "DuplicatePhoneNumber";
         public const string UnhandledException          = "UnhandledException";
-        public const string DuplicatePhoneNumberOrEmail = "DuplicatePhoneNumberOrEmail";
         public const string QrCodeNotFound              = "QrCodeNotFound";
         public const string Done                        = "Done";
         public const string ServiceNotFound             = "ServiceNotFound";

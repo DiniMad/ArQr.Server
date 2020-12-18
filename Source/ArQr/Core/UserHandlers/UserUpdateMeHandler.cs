@@ -57,7 +57,7 @@ namespace ArQr.Core.UserHandlers
             {
                 return (e.InnerException as SqlException)?.Number == 2601
                            ? new(StatusCodes.Status409Conflict,
-                                 _responseMessages.DuplicatePhoneNumberOrEmail())
+                                 _responseMessages.DuplicatePhoneNumber())
                            : new(StatusCodes.Status500InternalServerError,
                                  _responseMessages.UnhandledException());
             }

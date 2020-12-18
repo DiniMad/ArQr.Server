@@ -36,6 +36,7 @@ namespace ArQr
             services.AddMediatR(typeof(Startup));
             services.AddTheLocalization();
             services.AddTheParbad(Configuration.GetConnectionString("Parbad"));
+            services.AddTheCors();
 
             services.AddTransient<IResponseMessages, ResponseMessages>();
             services.AddScoped<ITokenService, TokenService>();
@@ -54,6 +55,8 @@ namespace ArQr
             app.UseRequestLocalization();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();

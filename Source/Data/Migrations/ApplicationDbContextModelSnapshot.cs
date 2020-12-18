@@ -234,12 +234,6 @@ namespace Data.Migrations
                     b.Property<bool>("Admin")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -255,10 +249,6 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasFilter("[Email] IS NOT NULL");
-
                     b.HasIndex("PhoneNumber")
                         .IsUnique();
 
@@ -269,8 +259,6 @@ namespace Data.Migrations
                         {
                             Id = 1L,
                             Admin = true,
-                            Email = "admin@arqr.com",
-                            EmailConfirmed = true,
                             PasswordHash = "AQAAAAEAACcQAAAAELOXD5Z4lKhjCEQExaoM+Z0q7BR/vISBHA1XNP6nxJI2MrCD/x6vVCqEHCQ+mOHITg==",
                             PhoneNumber = "0000000000",
                             PhoneNumberConfirmed = true

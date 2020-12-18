@@ -1,5 +1,4 @@
 using FluentValidation;
-using FluentValidation.Validators;
 using Microsoft.Extensions.Localization;
 using Resource.Api.Resources;
 using Resource.ResourceFiles;
@@ -18,9 +17,6 @@ namespace Resource.Api.Validations
                 .Matches(@"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$")
                 .WithMessage(_ => validationMessages[ResourcePropertyValidationMessages.PasswordRegex])
                 .WithName(_ => propertyNames[ResourcesPropertyNames.Password]);
-            RuleFor(resource => resource.Email)
-                .EmailAddress()
-                .WithName(_ => propertyNames[ResourcesPropertyNames.Email]);
         }
     }
 }
