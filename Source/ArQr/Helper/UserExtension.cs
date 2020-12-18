@@ -16,7 +16,6 @@ namespace ArQr.Helper
             var claims = new Dictionary<string, object>
             {
                 {JwtRegisteredClaimNames.Sub, user.Id},
-                {JwtRegisteredClaimNames.Email, user.Email},
                 {ClaimNamePhoneNumber, user.PhoneNumber},
                 {ClaimNameRefreshToken, user.RefreshToken.Token}
             };

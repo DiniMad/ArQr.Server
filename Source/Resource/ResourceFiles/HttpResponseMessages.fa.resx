@@ -36,9 +36,6 @@
     <data name="UnhandledException" xml:space="preserve">
         <value>خطایی غیر منتظره رخ داده است.</value>
     </data>
-    <data name="DuplicatePhoneNumberOrEmail" xml:space="preserve">
-        <value>ایمیل یا شماره تماس موجود می باشد.</value>
-    </data>
     <data name="QrCodeNotFound" xml:space="preserve">
         <value>بارکد پیدا نشد.</value>
     </data>

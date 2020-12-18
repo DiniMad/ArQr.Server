@@ -8,7 +8,6 @@ namespace ArQr.Interface
         public string IncorrectRefreshToken();
         public string DuplicatePhoneNumber();
         public string UnhandledException();
-        public string DuplicatePhoneNumberOrEmail();
         public string QrCodeNotFound();
         public string Done();
         public string ServiceNotFound();
