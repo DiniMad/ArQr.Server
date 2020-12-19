@@ -2,6 +2,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using AutoMapper;
 using Blazor.ApiResources;
 using Blazor.Helpers;
 using Blazor.Models;
@@ -11,11 +12,9 @@ namespace Blazor.Pages.HomePage
 {
     public partial class LoginRegisterForm
     {
-        [Inject]
-        private HttpClient HttpClient { get; set; }
-
-        [Inject]
-        private ServerEndpoints Endpoints { get; set; }
+        [Inject] private HttpClient      HttpClient { get; set; }
+        [Inject] private ServerEndpoints Endpoints  { get; set; }
+        [Inject] private IMapper         Mapper     { get; set; }
 
         private LoginRegisterType  _loginRegisterType;
         private LoginRegisterModel _loginRegisterModel;
@@ -41,16 +40,15 @@ namespace Blazor.Pages.HomePage
 
         private async Task Login()
         {
-            var loginResource = new UserLoginResource(_loginRegisterModel.PhoneNumber, _loginRegisterModel.Password);
+            var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
             var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
             Console.WriteLine(response);
         }
 
         private async Task Register()
         {
-            var registerResource =
-                new UserRegisterResource(_loginRegisterModel.PhoneNumber, _loginRegisterModel.Password);
-            var response = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
+            var registerResource = Mapper.Map<UserRegisterResource>(_loginRegisterModel);
+            var response         = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
             Console.WriteLine(response);
         }
     }
