@@ -6,6 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="AntDesign" Version="0.5.0-nightly-2012180814" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.0" PrivateAssets="all" />
         <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
@@ -16,6 +17,12 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\FONT-LICENSE" />
       <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\ICON-LICENSE" />
       <_ContentIncludedByDefault Remove="wwwroot\css\open-iconic\README.md" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>
