@@ -1,10 +1,22 @@
 using System;
-using Microsoft.AspNetCore.Components.Forms;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Blazor.ApiResources;
+using Blazor.Helpers;
+using Blazor.Models;
+using Microsoft.AspNetCore.Components;
 
 namespace Blazor.Pages.HomePage
 {
     public partial class LoginRegisterForm
     {
+        [Inject]
+        private HttpClient HttpClient { get; set; }
+
+        [Inject]
+        private ServerEndpoints Endpoints { get; set; }
+
         private LoginRegisterType  _loginRegisterType;
         private LoginRegisterModel _loginRegisterModel;
 
@@ -21,10 +33,25 @@ namespace Blazor.Pages.HomePage
             _loginRegisterModel = new LoginRegisterModel();
         }
 
-        private void Callback(EditContext obj)
+        private async Task Callback()
         {
-            Console.WriteLine(_loginRegisterType);
-            Console.WriteLine(_loginRegisterModel);
+            if (_loginRegisterType == LoginRegisterType.Login) await Login();
+            if (_loginRegisterType == LoginRegisterType.Register) await Register();
+        }
+
+        private async Task Login()
+        {
+            var loginResource = new UserLoginResource(_loginRegisterModel.PhoneNumber, _loginRegisterModel.Password);
+            var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
+            Console.WriteLine(response);
+        }
+
+        private async Task Register()
+        {
+            var registerResource =
+                new UserRegisterResource(_loginRegisterModel.PhoneNumber, _loginRegisterModel.Password);
+            var response = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
+            Console.WriteLine(response);
         }
     }
 }
