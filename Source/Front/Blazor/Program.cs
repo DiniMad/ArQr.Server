@@ -1,5 +1,3 @@
-using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blazor.Helpers;
@@ -26,8 +24,8 @@ namespace Blazor
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped(_ => new HttpClient {BaseAddress = new Uri(Configuration.Endpoints().Root)});
-            services.AddTransient(s => s.GetRequiredService<IConfiguration>().Endpoints());
+            services.AddHttpClient(Configuration.Endpoints().Root);
+            services.AddServerEndpoints();
             services.AddAutoMapper(typeof(Program));
             services.AddAntDesign();
         }
