@@ -12,12 +12,7 @@ namespace Blazor.Pages.HomePage
 {
     public partial class LoginRegisterForm
     {
-        [Inject] private HttpClient      HttpClient { get; set; }
-        [Inject] private ServerEndpoints Endpoints  { get; set; }
-        [Inject] private IMapper         Mapper     { get; set; }
-
-        private LoginRegisterType  _loginRegisterType;
-        private LoginRegisterModel _loginRegisterModel;
+        #region UI
 
         private string SubmitText =>
             _loginRegisterType switch
@@ -26,6 +21,15 @@ namespace Blazor.Pages.HomePage
                 LoginRegisterType.Register => "ساخت",
                 _                          => throw new ArgumentOutOfRangeException(nameof(_loginRegisterType))
             };
+
+        #endregion
+
+        [Inject] private HttpClient      HttpClient { get; set; }
+        [Inject] private ServerEndpoints Endpoints  { get; set; }
+        [Inject] private IMapper         Mapper     { get; set; }
+
+        private LoginRegisterType  _loginRegisterType;
+        private LoginRegisterModel _loginRegisterModel;
 
         protected override void OnInitialized()
         {
