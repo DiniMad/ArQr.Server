@@ -1,6 +1,7 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AutoMapper;
 using Blazor.Helpers;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,7 @@ namespace Blazor
         {
             services.AddScoped(_ => new HttpClient {BaseAddress = new Uri(Configuration.Endpoints().Root)});
             services.AddTransient(s => s.GetRequiredService<IConfiguration>().Endpoints());
+            services.AddAutoMapper(typeof(Program));
             services.AddAntDesign();
         }
     }
