@@ -20,14 +20,14 @@
     <Row Justify="center">
         <Col>
             <RadioGroup @bind-Value="_loginRegisterType" ButtonStyle="solid">
-                <Radio RadioButton Value="@(LoginRegisterType.Login)">ورود به حساب کاربری</Radio>
                 <Radio RadioButton Value="@(LoginRegisterType.Register)">ساخت حساب کاربری</Radio>
+                <Radio RadioButton Value="@(LoginRegisterType.Login)">ورود به حساب کاربری</Radio>
             </RadioGroup>
         </Col>
     </Row>
     <Row Justify="center">
         <Col>
-            <Button Type="primary" HtmlType="submit">@SubmitText</Button>
+            <Button Type="primary" HtmlType="submit" Id="submit-button">@SubmitText</Button>
         </Col>
     </Row>
 </EditForm>
