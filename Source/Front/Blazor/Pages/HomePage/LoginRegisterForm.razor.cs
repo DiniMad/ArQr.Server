@@ -9,6 +9,9 @@ using Blazor.ApiResources;
 using Blazor.Helpers;
 using Blazor.Models;
 using Microsoft.AspNetCore.Components;
+using Blazor.States.ApiToken;
+using MediatR;
+using BlazorState;
 
 namespace Blazor.Pages.HomePage
 {
@@ -30,6 +33,7 @@ namespace Blazor.Pages.HomePage
         [Inject] private ServerEndpoints     Endpoints    { get; set; }
         [Inject] private IMapper             Mapper       { get; set; }
         [Inject] private NotificationService Notification { get; set; }
+        [Inject] private ISender             Sender       { get; set; }
 
         private LoginRegisterType  _loginRegisterType;
         private LoginRegisterModel _loginRegisterModel;
@@ -50,6 +54,8 @@ namespace Blazor.Pages.HomePage
             var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
             var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
             Notification.NotifyApiResponse(response, 8);
+            if (response.Success is true)
+                await Sender.Send(new ApiTokenState.SetTokenAction {Value = response.Data!.Token});
         }
 
         private async Task Register()
