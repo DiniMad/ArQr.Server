@@ -49,14 +49,14 @@ namespace Blazor.Pages.HomePage
         {
             var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
             var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
-            await Notification.NotifyApiResponseAsync(response, 8);
+            Notification.NotifyApiResponse(response, 8);
         }
 
         private async Task Register()
         {
             var registerResource = Mapper.Map<UserRegisterResource>(_loginRegisterModel);
             var response         = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
-            await Notification.NotifyApiResponseAsync(response, 8);
+            Notification.NotifyApiResponse(response, 8);
         }
     }
 }
