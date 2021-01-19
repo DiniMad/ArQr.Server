@@ -3,6 +3,11 @@
 		width: 50rem;
 		form > div {
 			margin: 1rem .5rem;
+			
+			.text-input input{
+				direction: rtl;
+				text-align: center;
+			}
 		}
 
 		#submit-button {

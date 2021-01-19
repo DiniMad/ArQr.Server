@@ -1,7 +1,7 @@
 <EditForm Model="_loginRegisterModel" OnSubmit="Callback">
     <Row Justify="center">
         <Col Span="24">
-            <Input Placeholder="شماره تلفن" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.PhoneNumber">
+            <Input Class="text-input" Type="number" Placeholder="شماره تلفن (بدون صفر)" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.PhoneNumber">
                 <Prefix>
                     <Icon Type="phone"/>
                 </Prefix>
@@ -10,7 +10,7 @@
     </Row>
     <Row Justify="center">
         <Col Span="24">
-            <InputPassword Placeholder="رمز عبور" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.Password">
+            <InputPassword Class="text-input" Placeholder="رمز عبور" Size="@InputSize.Large" @bind-Value="@_loginRegisterModel.Password">
                 <Prefix>
                     <Icon Type="lock"/>
                 </Prefix>
