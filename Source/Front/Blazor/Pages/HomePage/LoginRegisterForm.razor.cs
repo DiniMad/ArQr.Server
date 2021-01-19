@@ -1,7 +1,9 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
+using AntDesign;
 using AutoMapper;
 using Blazor.ApiResources;
 using Blazor.Helpers;
@@ -24,9 +26,10 @@ namespace Blazor.Pages.HomePage
 
         #endregion
 
-        [Inject] private HttpClient      HttpClient { get; set; }
-        [Inject] private ServerEndpoints Endpoints  { get; set; }
-        [Inject] private IMapper         Mapper     { get; set; }
+        [Inject] private HttpClient          HttpClient   { get; set; }
+        [Inject] private ServerEndpoints     Endpoints    { get; set; }
+        [Inject] private IMapper             Mapper       { get; set; }
+        [Inject] private NotificationService Notification { get; set; }
 
         private LoginRegisterType  _loginRegisterType;
         private LoginRegisterModel _loginRegisterModel;
@@ -46,14 +49,14 @@ namespace Blazor.Pages.HomePage
         {
             var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
             var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
-            Console.WriteLine(response);
+            await Notification.NotifyApiResponseAsync(response, 8);
         }
 
         private async Task Register()
         {
             var registerResource = Mapper.Map<UserRegisterResource>(_loginRegisterModel);
             var response         = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
-            Console.WriteLine(response);
+            await Notification.NotifyApiResponseAsync(response, 8);
         }
     }
 }
