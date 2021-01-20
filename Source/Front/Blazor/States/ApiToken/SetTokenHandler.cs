@@ -5,11 +5,11 @@ using MediatR;
 
 namespace Blazor.States.ApiToken
 {
-    public partial class ApiTokenState
+    public partial class AuthenticationState
     {
         public class SetTokenHandler : ActionHandler<SetTokenAction>
         {
-            private ApiTokenState ApiTokenState => Store.GetState<ApiTokenState>();
+            private AuthenticationState AuthenticationState => Store.GetState<AuthenticationState>();
 
             public SetTokenHandler(IStore store) : base(store)
             {
@@ -17,7 +17,8 @@ namespace Blazor.States.ApiToken
 
             public override async Task<Unit> Handle(SetTokenAction action, CancellationToken cancellationToken)
             {
-                ApiTokenState.Token = action.Value;
+                AuthenticationState.Token      = action.Value;
+                AuthenticationState.ExpireDate = action.ExpireDate;
                 return Unit.Value;
             }
         }

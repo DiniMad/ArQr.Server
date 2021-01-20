@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blazor.Helpers;
+using Blazored.LocalStorage;
 using BlazorState;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,11 +27,12 @@ namespace Blazor
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddHttpClient(Configuration.Endpoints().Root);
+            services.AddHttpClient(Configuration.Endpoints().Server.Root);
             services.AddServerEndpoints();
             services.AddAutoMapper(typeof(Program));
             services.AddAntDesign();
             services.AddBlazorState(options => options.Assemblies = new[] {typeof(Program).GetTypeInfo().Assembly});
+            services.AddBlazoredLocalStorage();
         }
     }
 }

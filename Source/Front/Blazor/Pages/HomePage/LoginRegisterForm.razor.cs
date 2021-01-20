@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AntDesign;
 using AutoMapper;
 using Blazor.ApiResources;
+using Blazor.Handlers;
 using Blazor.Helpers;
 using Blazor.Models;
 using Microsoft.AspNetCore.Components;
@@ -29,11 +30,13 @@ namespace Blazor.Pages.HomePage
 
         #endregion
 
-        [Inject] private HttpClient          HttpClient   { get; set; }
-        [Inject] private ServerEndpoints     Endpoints    { get; set; }
-        [Inject] private IMapper             Mapper       { get; set; }
-        [Inject] private NotificationService Notification { get; set; }
-        [Inject] private ISender             Sender       { get; set; }
+        [Inject] private HttpClient          HttpClient        { get; set; }
+        [Inject] private Endpoints           Endpoints         { get; set; }
+        [Inject] private IMapper             Mapper            { get; set; }
+        [Inject] private NotificationService Notification      { get; set; }
+        [Inject] private ISender             Sender            { get; set; }
+        [Inject] private NavigationManager   NavigationManager { get; set; }
+
 
         private LoginRegisterType  _loginRegisterType;
         private LoginRegisterModel _loginRegisterModel;
@@ -52,17 +55,22 @@ namespace Blazor.Pages.HomePage
         private async Task Login()
         {
             var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
-            var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Login, loginResource);
+            var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Server.Login, loginResource);
             Notification.NotifyApiResponse(response, 8);
             if (response.Success is true)
-                await Sender.Send(new ApiTokenState.SetTokenAction {Value = response.Data!.Token});
+            {
+                await Sender.Send(new StoreJwtTokenRequest(response.Data!.Token));
+                NavigationManager.NavigateTo(Endpoints.Client.Dashboard);
+            }
+            
         }
 
         private async Task Register()
         {
             var registerResource = Mapper.Map<UserRegisterResource>(_loginRegisterModel);
-            var response         = await HttpClient.PostAsync<UserResource>(Endpoints.Register, registerResource);
+            var response = await HttpClient.PostAsync<UserResource>(Endpoints.Server.Register, registerResource);
             Notification.NotifyApiResponse(response, 8);
         }
+        
     }
 }
