@@ -4,7 +4,6 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
 using AntDesign;
-using AutoMapper;
 using Blazor.ApiResources;
 using Blazor.Handlers;
 using Blazor.Helpers;
@@ -13,6 +12,7 @@ using Microsoft.AspNetCore.Components;
 using Blazor.States.ApiToken;
 using MediatR;
 using BlazorState;
+using Mapster;
 
 namespace Blazor.Pages.HomePage
 {
@@ -32,7 +32,6 @@ namespace Blazor.Pages.HomePage
 
         [Inject] private HttpClient          HttpClient        { get; set; }
         [Inject] private Endpoints           Endpoints         { get; set; }
-        [Inject] private IMapper             Mapper            { get; set; }
         [Inject] private NotificationService Notification      { get; set; }
         [Inject] private ISender             Sender            { get; set; }
         [Inject] private NavigationManager   NavigationManager { get; set; }
@@ -54,7 +53,7 @@ namespace Blazor.Pages.HomePage
 
         private async Task Login()
         {
-            var loginResource = Mapper.Map<UserLoginResource>(_loginRegisterModel);
+            var loginResource = _loginRegisterModel.Adapt<UserLoginResource>();
             var response      = await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Server.Login, loginResource);
             Notification.NotifyApiResponse(response, 8);
             if (response.Success is true)
@@ -62,15 +61,13 @@ namespace Blazor.Pages.HomePage
                 await Sender.Send(new StoreJwtTokenRequest(response.Data!.Token));
                 NavigationManager.NavigateTo(Endpoints.Client.Dashboard);
             }
-            
         }
 
         private async Task Register()
         {
-            var registerResource = Mapper.Map<UserRegisterResource>(_loginRegisterModel);
+            var registerResource = _loginRegisterModel.Adapt<UserRegisterResource>();
             var response = await HttpClient.PostAsync<UserResource>(Endpoints.Server.Register, registerResource);
             Notification.NotifyApiResponse(response, 8);
         }
-        
     }
 }

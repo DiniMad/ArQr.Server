@@ -1,6 +1,5 @@
 using System.Reflection;
 using System.Threading.Tasks;
-using AutoMapper;
 using Blazor.Helpers;
 using Blazored.LocalStorage;
 using BlazorState;
@@ -29,7 +28,6 @@ namespace Blazor
         {
             services.AddHttpClient(Configuration.Endpoints().Server.Root);
             services.AddServerEndpoints();
-            services.AddAutoMapper(typeof(Program));
             services.AddAntDesign();
             services.AddBlazorState(options => options.Assemblies = new[] {typeof(Program).GetTypeInfo().Assembly});
             services.AddBlazoredLocalStorage();
