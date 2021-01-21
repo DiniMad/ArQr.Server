@@ -33,6 +33,7 @@ namespace Blazor
             services.AddAntDesign();
             services.AddBlazorState(options => options.Assemblies = new[] {typeof(Program).GetTypeInfo().Assembly});
             services.AddBlazoredLocalStorage();
+            services.AddScoped<JsFunctions>();
         }
     }
 }
