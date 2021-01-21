@@ -31,18 +31,15 @@ namespace Blazor.Components
             if (authState.Authenticated is true)
                 AuthorizeView();
             else if (authState.Expired is true)
-                await SilentLogin();
+                await TrySilentSignin();
             else
                 NavigateToLoginPage();
         }
 
-        private async Task SilentLogin()
+        private async Task TrySilentSignin()
         {
-            var refreshToken         = LocalStorage.GetItem<string>(LocalStorageKeys.RefreshToken);
-            var userId               = LocalStorage.GetItem<long>(LocalStorageKeys.UserId);
-            var refreshTokenResource = new RefreshTokenResource(userId, refreshToken);
-            var response =
-                await HttpClient.PostAsync<JwtTokenResource>(Endpoints.Server.RefreshToken, refreshTokenResource);
+            var response = await Sender.Send(new SilentSigninRequest());
+
             if (response.Success is false)
             {
                 NavigateToLoginPage();
