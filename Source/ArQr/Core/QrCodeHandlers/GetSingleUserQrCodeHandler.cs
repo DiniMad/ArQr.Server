@@ -10,12 +10,9 @@ using Resource.Api.Resources;
 
 namespace ArQr.Core.QrCodeHandlers
 {
-    public sealed record GetSingleUserQrCodeRequest(long QrCodeId) : IRequest<ActionHandlerResult>;
+    public sealed record GetSingleQrCodeRequest(long QrCodeId) : IRequest<ActionHandlerResult>;
 
-    public sealed record GetSingleMyQrCodeRequest(long QrCodeId) : IRequest<ActionHandlerResult>;
-
-    public class GetSingleUserQrCodeHandler : IRequestHandler<GetSingleUserQrCodeRequest, ActionHandlerResult>,
-                                              IRequestHandler<GetSingleMyQrCodeRequest, ActionHandlerResult>
+    public class GetSingleUserQrCodeHandler : IRequestHandler<GetSingleQrCodeRequest, ActionHandlerResult>
     {
         private readonly IUnitOfWork          _unitOfWork;
         private readonly IResponseMessages    _responseMessages;
@@ -33,32 +30,28 @@ namespace ArQr.Core.QrCodeHandlers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<ActionHandlerResult> Handle(GetSingleUserQrCodeRequest request,
-                                                      CancellationToken          cancellationToken)
+        public async Task<ActionHandlerResult> Handle(GetSingleQrCodeRequest request,
+                                                      CancellationToken      cancellationToken)
         {
-            var qrCodeId = request.QrCodeId;
-            return await Handle<QrCodeResource>(qrCodeId);
+            var authenticated = _httpContextAccessor.HttpContext!.Authenticated();
+            var qrCodeId      = request.QrCodeId;
+
+            if (authenticated is false) return await Handle(qrCodeId);
+
+            var userId = _httpContextAccessor.HttpContext!.GetUserId();
+            return await Handle(qrCodeId, userId);
         }
 
-        public async Task<ActionHandlerResult> Handle(GetSingleMyQrCodeRequest request,
-                                                      CancellationToken        cancellationToken)
-        {
-            var qrCodeId = request.QrCodeId;
-            var userId   = _httpContextAccessor.HttpContext!.GetUserId();
-            return await Handle<AuthorizeQrCodeResource>(qrCodeId, userId);
-        }
-
-        private async Task<ActionHandlerResult> Handle<TResult>(long qrCodeId, long? userId = null)
-            where TResult : QrCodeResource
+        private async Task<ActionHandlerResult> Handle(long qrCodeId, long? userId = null)
         {
             var qrCode = await _unitOfWork.QrCodeRepository.GetAsync(qrCodeId);
 
             if (qrCode is null) return new(StatusCodes.Status404NotFound, _responseMessages.QrCodeNotFound());
 
-            if (userId is not null && qrCode.OwnerId != userId)
-                return new(StatusCodes.Status401Unauthorized, _responseMessages.Unauthorized());
+            if (userId is null || qrCode.OwnerId != userId)
+                return new(StatusCodes.Status200OK, _mapper.Map<QrCodeResource>(qrCode));
 
-            return new(StatusCodes.Status200OK, _mapper.Map<TResult>(qrCode));
+            return new(StatusCodes.Status200OK, _mapper.Map<AuthorizeQrCodeResource>(qrCode));
         }
     }
 }
