@@ -6,6 +6,12 @@ namespace ArQr.Helper
 {
     public static class HttpContextExtension
     {
+        public static bool Authenticated(this HttpContext httpContext)
+        {
+            var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+            return userId is not null;
+        }
+
         public static long GetUserId(this HttpContext httpContext)
         {
             var userId = httpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub);
