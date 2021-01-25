@@ -1,7 +1,8 @@
-using System;
-using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using Blazor.Helpers;
+using Blazored.LocalStorage;
+using BlazorState;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,9 +26,12 @@ namespace Blazor
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped(_ => new HttpClient {BaseAddress = new Uri(Configuration.Endpoints().Root)});
-            services.AddTransient(s => s.GetRequiredService<IConfiguration>().Endpoints());
+            services.AddHttpClient(Configuration.Endpoints().Server.Root);
+            services.AddServerEndpoints();
             services.AddAntDesign();
+            services.AddBlazorState(options => options.Assemblies = new[] {typeof(Program).GetTypeInfo().Assembly});
+            services.AddBlazoredLocalStorage();
+            services.AddScoped<JsFunctions>();
         }
     }
 }

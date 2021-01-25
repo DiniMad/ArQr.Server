@@ -11,4 +11,10 @@ namespace Blazor.ApiResources
                                                           int                TotalCount,
                                                           string?            Next,
                                                           string?            Previous);
+
+    public sealed record DetailedError(string                        Type,
+                                       string                        Title,
+                                       int                           Status,
+                                       string                        TraceId,
+                                       IDictionary<string, string[]> Errors);
 }

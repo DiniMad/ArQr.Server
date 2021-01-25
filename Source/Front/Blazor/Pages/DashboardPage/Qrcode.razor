@@ -1,0 +1,12 @@
+<div>
+    <a href="/qrcode/@Id">
+        <Card Cover="@_qrcodeTemplate" Class="qrcode_item">
+            <CardMeta Title="@Title"/>
+        </Card>
+    </a>
+</div>
+
+@code
+{
+    private RenderFragment _qrcodeTemplate = @<Template>@_qrcodeMarkup</Template>;
+}

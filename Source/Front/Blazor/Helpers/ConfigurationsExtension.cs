@@ -5,9 +5,9 @@ namespace Blazor.Helpers
 {
     public static class ConfigurationsExtension
     {
-        public static ServerEndpoints Endpoints(this IConfiguration configuration)
+        public static Endpoints Endpoints(this IConfiguration configuration)
         {
-            return configuration.GetSection("ServerEndpoints").Get<ServerEndpoints>();
+            return configuration.GetSection("Endpoints").Get<Endpoints>();
         }
     }
 }
