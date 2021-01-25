@@ -41,15 +41,7 @@ namespace ArQr.Controllers
         [HttpGet("{qrCodeId}")]
         public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetSingleUserQrCode(long qrCodeId)
         {
-            var (statusCode, value) = await _mediator.Send(new GetSingleUserQrCodeRequest(qrCodeId));
-            return StatusCode(statusCode, value);
-        }
-
-        [Authorize]
-        [HttpGet("/user/me/qrCode/{qrCodeId}")]
-        public async Task<ActionResult<IEnumerable<QrCodeResource>>> GetSingleMyQrCode(long qrCodeId)
-        {
-            var (statusCode, value) = await _mediator.Send(new GetSingleMyQrCodeRequest(qrCodeId));
+            var (statusCode, value) = await _mediator.Send(new GetSingleQrCodeRequest(qrCodeId));
             return StatusCode(statusCode, value);
         }
 
